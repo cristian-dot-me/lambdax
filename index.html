@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>LambdaX — NASA NISAR Citizen HUD | NASA Space Apps Challenge 2026</title>
+  <meta name="description" content="An accessible interface that transforms NASA NISAR satellite imagery into clear surface moisture and flood maps for everyday citizens.">
+
+  <!-- Leaflet CSS for Interactive Geospatial Mapping -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+
+  <!-- Core Application Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Favicon Symbol -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2304D9C4%22></text></svg>">
+</head>
+<body>
+
+  <!-- =========================================================================
+       FIXED TOP NAVIGATION HEADER
+  ========================================================================== -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="#hero" class="brand-link" aria-label="LambdaX Home">
+        <span class="brand-text">LambdaX</span>
+        <span class="brand-badge">NISAR HUD</span>
+      </a>
+
+      <!-- Primary Navigation Links -->
+      <nav id="primary-nav" class="primary-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a href="#hero" class="nav-link active" data-i18n="nav.hero">Overview</a></li>
+          <li><a href="#demo" class="nav-link" data-i18n="nav.demo">Demo</a></li>
+          <li><a href="#problem-solution" class="nav-link" data-i18n="nav.problem">Challenge &amp; Solution</a></li>
+          <li><a href="#features" class="nav-link" data-i18n="nav.features">Citizen HUD</a></li>
+          <li><a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks">How It Works</a></li>
+          <li><a href="#tech-stack" class="nav-link" data-i18n="nav.techStack">Tech Stack</a></li>
+          <li><a href="#team" class="nav-link" data-i18n="nav.team">Team</a></li>
+        </ul>
+      </nav>
+
+      <!-- Language Selector & Mobile Toggle -->
+      <div class="header-actions">
+        <div class="lang-switcher" role="group" aria-label="Language selection">
+          <button type="button" class="lang-btn active" data-lang="en" aria-pressed="true" aria-label="Switch language to English">EN</button>
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar idioma a Español">ES</button>
+        </div>
+
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =======================================================================
+         SECTION 1: HERO & TELEMETRY VISUAL
+    ======================================================================== -->
+    <section id="hero" class="section hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge-challenge" data-i18n="hero.badge">NASA NISAR Citizen HUD</div>
+          <h1 class="hero-title" data-i18n="hero.title">LambdaX</h1>
+          <p class="hero-subtitle" data-i18n="hero.subtitle">Making Earth's hidden surface changes visible.</p>
+          <p class="hero-tagline" data-i18n="hero.tagline">Seeing the Unseen.</p>
+          <p class="hero-description" data-i18n="hero.description">
+            We translate NASA NISAR satellite observations into clear Red-to-Blue surface moisture and flood maps anyone can read in seconds—no scientific background required.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#features" class="btn btn-primary" data-i18n="hero.ctaPrimary">Explore Interactive HUD</a>
+            <a href="#how-it-works" class="btn btn-secondary" data-i18n="hero.ctaSecondary">How It Works</a>
+          </div>
+
+          <div class="hero-telemetry-strip">
+            <div class="hero-telemetry-item">
+              <strong data-i18n="hero.radarTelemetry">LIVE SATELLITE VIEW</strong>
+            </div>
+            <div class="hero-telemetry-item" data-i18n="hero.radarFrequency">
+              NASA NISAR (All-Weather, Day &amp; Night)
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual-wrapper">
+          <div class="hero-canvas-frame">
+            <canvas id="hero-radar-canvas" width="520" height="520" aria-label="NASA NISAR satellite orbital radar visualization"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 2: DEMO PREVIEW
+    ======================================================================== -->
+    <section id="demo" class="section demo-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="demo.title">See LambdaX in Action</h2>
+          <p class="section-subtitle" data-i18n="demo.description">
+            Watch how communities, farmers, and responders inspect real 2026 NASA NISAR moisture shifts and flood expansion with zero technical barriers.
+          </p>
+        </div>
+
+        <div id="demo-video-container" class="demo-aspect-ratio-box"></div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 3: CHALLENGE & SOLUTION
+    ======================================================================== -->
+    <section id="problem-solution" class="section problem-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="problem.title">Seeing Beyond the Clouds</h2>
+          <p class="section-subtitle" data-i18n="problem.subtitle">
+            Why everyday flood and soil monitoring needs an all-weather lens.
+          </p>
+        </div>
+
+        <div class="problem-solution-grid">
+          <article class="problem-card reveal">
+            <div class="block-header">
+              <span class="block-badge" data-i18n="problem.challengeTitle">THE CHALLENGE</span>
+              <h3 class="block-title" data-i18n="problem.challengeSubtitle">Blinded by Clouds &amp; Technical Jargon</h3>
+            </div>
+            <p class="block-description" data-i18n="problem.challengeDesc">
+              During severe cyclones and monsoon storms, thick cloud cover blinds standard camera satellites precisely when floodwaters rise—and raw scientific portals remain too complex for local communities.
+            </p>
+            <ul class="block-points">
+              <li class="block-point-item">
+                <span class="point-icon">!</span>
+                <span data-i18n="problem.challengePoint1">Dense clouds and nighttime darkness hide sudden river surges from ordinary cameras.</span>
+              </li>
+              <li class="block-point-item">
+                <span class="point-icon">!</span>
+                <span data-i18n="problem.challengePoint2">Complex scientific charts and coordinate files lock local citizens out of timely insights.</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="solution-card reveal">
+            <div class="block-header">
+              <span class="block-badge" data-i18n="problem.solutionTitle">OUR SOLUTION</span>
+              <h3 class="block-title" data-i18n="problem.solutionSubtitle">Translating NASA Radar Into Citizen Intelligence</h3>
+            </div>
+            <p class="block-description" data-i18n="problem.solutionDesc">
+              NASA NISAR sees cleanly through storms day or night. LambdaX turns those measurements into a single Red-to-Blue Citizen HUD with plain-language explanations at every click.
+            </p>
+            <ul class="block-points">
+              <li class="block-point-item">
+                <span class="point-icon">✓</span>
+                <span data-i18n="problem.solutionPoint1">Dry soil appears red and wet or flooded ground turns deep blue—easy to read at a glance.</span>
+              </li>
+              <li class="block-point-item">
+                <span class="point-icon">✓</span>
+                <span data-i18n="problem.solutionPoint2">Side-by-side Before/After views show real 2026 flood expansion in hectares and percentages.</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 4: INTERACTIVE CITIZEN HUD & REAL NASA GALLERY (#features)
+    ======================================================================== -->
+    <section id="features" class="section features-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="features.title">Explore the Planet Through Radar</h2>
+          <p class="section-subtitle" data-i18n="features.subtitle">
+            Interactive Citizen HUD powered by real 2026 NASA NISAR imagery across Santiago del Estero, Mozambique, and the Nepal–China border.
+          </p>
+        </div>
+
+        <!-- Unified Citizen HUD Card (Coherent with root index.html) -->
+        <div class="citizen-hud-frame">
+          <!-- Region Switcher Tabs -->
+          <div class="hud-tabs-bar" role="tablist" aria-label="Monitored regions">
+            <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-zone-index="0" data-i18n="hud.tab1">Santiago del Estero</button>
+            <button type="button" class="tab-btn" role="tab" aria-selected="false" data-zone-index="1" data-i18n="hud.tab2">Mozambique (Chokwe / Macia)</button>
+            <button type="button" class="tab-btn" role="tab" aria-selected="false" data-zone-index="2" data-i18n="hud.tab3">Nepal–China Border (Gyirong Port)</button>
+          </div>
+
+          <div class="hud-workspace">
+            <!-- REDUCED LEFT SIDEBAR (Plain-language controls & essential metrics only) -->
+            <aside class="hud-sidebar" aria-label="Citizen map controls">
+              <div class="hud-sb-card">
+                <h3 id="hud-zone-title" class="hud-sb-zone-title">Santiago del Estero</h3>
+                <div id="hud-zone-subtitle" class="hud-sb-zone-sub">Capital Area &amp; Dulce River Basin</div>
+                <p id="hud-zone-desc" class="hud-sb-zone-desc">
+                  Explore real 2026 NASA NISAR surface moisture across our home province—click any point to inspect moisture.
+                </p>
+              </div>
+
+              <!-- Tab 1 Controls (Santiago single-map) -->
+              <div id="hud-sidebar-single" class="hud-sb-card">
+                <h4 class="hud-sb-heading" data-i18n="hud.controls.captureDateHeading">NISAR Satellite Capture</h4>
+                <label class="hud-control-label" for="hud-scene-select" data-i18n="hud.controls.captureDateLabel">2026 NISAR Image:</label>
+                <select id="hud-scene-select" class="hud-select"></select>
+                <div id="hud-scene-note" class="hud-status-note"></div>
+
+                <label class="hud-control-label" for="hud-basemap-select" data-i18n="hud.controls.baseMapLabel" style="margin-top:0.75rem;">Base Map:</label>
+                <select id="hud-basemap-select" class="hud-select">
+                  <option value="hybrid" data-i18n="hud.controls.baseMapSatStreets">Satellite + Streets View</option>
+                </select>
+
+                <div class="hud-slider-row">
+                  <label class="hud-control-label" for="hud-opacity-slider" data-i18n="hud.controls.transparencyLabel">Overlay Transparency</label>
+                  <span id="hud-opacity-val" class="hud-mono-val">78%</span>
+                </div>
+                <input id="hud-opacity-slider" type="range" min="0" max="100" value="78" class="hud-range" />
+              </div>
+
+              <!-- Tabs 2 & 3 Controls (Before vs. After comparison) -->
+              <div id="hud-sidebar-compare" style="display:none;">
+                <div id="hud-views-card" class="hud-sb-card" style="display:none;">
+                  <h4 class="hud-sb-heading" data-i18n="hud.controls.compareViewsHeading">Comparison Views</h4>
+                  <p class="hud-sb-hint" data-i18n="hud.controls.chooseViewPrompt">Choose which Before/After view to inspect over the affected area:</p>
+                  <div id="hud-views-buttons" class="hud-views-buttons"></div>
+                </div>
+
+                <div class="hud-sb-card">
+                  <h4 class="hud-sb-heading" data-i18n="hud.controls.floodDatesHeading">Flood Comparison (2026)</h4>
+                  <div class="hud-date-pair">
+                    <div><span class="hud-date-tag" data-i18n="hud.controls.beforeColon">BEFORE:</span> <strong id="hud-compare-before-date">--</strong></div>
+                    <div><span class="hud-date-tag" data-i18n="hud.controls.afterColon">AFTER:</span> <strong id="hud-compare-after-date">--</strong></div>
+                  </div>
+                  <div class="hud-slider-row">
+                    <label class="hud-control-label" for="hud-compare-opacity-slider" data-i18n="hud.controls.transparencyLabel">Overlay Transparency</label>
+                    <span id="hud-compare-opacity-val" class="hud-mono-val">78%</span>
+                  </div>
+                  <input id="hud-compare-opacity-slider" type="range" min="0" max="100" value="78" class="hud-range" />
+                </div>
+
+                <div id="hud-flood-summary" class="hud-sb-card">
+                  <div class="hud-sb-row">
+                    <h4 class="hud-sb-heading" data-i18n="hud.controls.summaryHeading" style="margin-bottom:0;">Flood Change Summary</h4>
+                    <span id="hud-dmg-badge" class="hud-pill" data-i18n="hud.controls.analyzing">Verified</span>
+                  </div>
+                  <p id="hud-dmg-intro" class="hud-sb-hint" style="margin-top:0.5rem;">Loading real 2026 NISAR comparison...</p>
+                  <div class="hud-metrics-mini">
+                    <div class="hud-metric-tile">
+                      <span class="hud-metric-lbl" data-i18n="hud.controls.floodIncreaseLbl">Flooded area increase</span>
+                      <strong id="hud-dmg-flood-ha" class="hud-metric-val">--</strong>
+                      <small id="hud-dmg-flood-sub" class="hud-metric-sub">--</small>
+                    </div>
+                    <div class="hud-metric-tile">
+                      <span class="hud-metric-lbl" data-i18n="hud.controls.wetSurfaceLbl">Very wet surface</span>
+                      <strong id="hud-dmg-wet-km2" class="hud-metric-val">--</strong>
+                      <small id="hud-dmg-wet-sub" class="hud-metric-sub">--</small>
+                    </div>
+                    <div class="hud-metric-tile">
+                      <span class="hud-metric-lbl" data-i18n="hud.controls.lowMoistureLbl">Low moisture sectors</span>
+                      <strong id="hud-dmg-dry-pct" class="hud-metric-val">--</strong>
+                      <small id="hud-dmg-dry-sub" class="hud-metric-sub">--</small>
+                    </div>
+                    <div class="hud-metric-tile">
+                      <span class="hud-metric-lbl" data-i18n="hud.controls.avgChangeLbl">Average change</span>
+                      <strong id="hud-dmg-mean-delta" class="hud-metric-val">--</strong>
+                      <small class="hud-metric-sub" data-i18n="hud.controls.moistureDiffSub">Moisture difference</small>
+                    </div>
+                  </div>
+                  <p id="hud-dmg-narrative" class="hud-sb-narrative"></p>
+                </div>
+              </div>
+
+              <!-- Simplified Red-to-Blue Color Guide -->
+              <div id="hud-legend-card" class="hud-sb-card">
+                <h4 class="hud-sb-heading" data-i18n="hud.controls.legendHeading">Color Guide (Dry Red to Wet Blue)</h4>
+                <p class="hud-sb-hint" data-i18n="hud.controls.legendIntro">Red marks dry soil; moisture shifts smoothly toward deeper blue:</p>
+                <div class="hud-ramp-bar" aria-hidden="true"></div>
+                <ul class="hud-legend-list">
+                  <li><span class="hud-swatch" style="background:#0c4a6e;"></span><span data-i18n="hud.legend.water">Deep Navy Blue — Open water (rivers &amp; lagoons)</span></li>
+                  <li><span class="hud-swatch" style="background:#1d4ed8;"></span><span data-i18n="hud.legend.floodLand">Intense Blue — Flooded ground or riverbanks</span></li>
+                  <li><span class="hud-swatch" style="background:#2563eb;"></span><span data-i18n="hud.legend.floodVeg">Bright Blue — Vegetation standing in water</span></li>
+                  <li><span class="hud-swatch" style="background:#3b82f6;"></span><span data-i18n="hud.legend.saturated">Medium Blue — Very wet saturated soil</span></li>
+                  <li><span class="hud-swatch" style="background:#93c5fd;"></span><span data-i18n="hud.legend.humid">Light Sky Blue — Normal moisture for crops</span></li>
+                  <li><span class="hud-swatch" style="background:#f87171;"></span><span data-i18n="hud.legend.dry">Light Red — Low surface moisture</span></li>
+                  <li><span class="hud-swatch" style="background:#dc2626;"></span><span data-i18n="hud.legend.drySoil">Intense Red — Dry soil, roads, or urban ground</span></li>
+                </ul>
+              </div>
+            </aside>
+
+            <!-- MAP STAGE + CLICK-TO-INSPECT PIXEL HUD -->
+            <div class="hud-stage-col">
+              <!-- Single Map Viewport (Tab 1: Santiago del Estero) -->
+              <div id="hud-stage-single" class="hud-map-stage">
+                <div id="hud-map-single" class="hud-leaflet-box" aria-label="Interactive Santiago del Estero NASA NISAR moisture map"></div>
+              </div>
+
+              <!-- Before/After Synchronized Viewport (Tabs 2 & 3: Mozambique & Nepal) -->
+              <div id="hud-stage-compare" class="hud-compare-stage" style="display:none;">
+                <p class="hud-compare-hint" data-i18n="hud.compare.clickHint">Click any sector on either map to inspect Before vs. After moisture change</p>
+                <div class="hud-compare-grid">
+                  <div class="hud-compare-panel">
+                    <div class="hud-compare-head">
+                      <strong data-i18n="hud.compare.beforeHeader">BEFORE</strong>
+                      <span id="hud-before-date-badge" class="hud-date-badge">--</span>
+                    </div>
+                    <div id="hud-map-before" class="hud-leaflet-box-sm" aria-label="Before flood satellite map"></div>
+                    <div class="hud-compare-meta">
+                      <div><span data-i18n="hud.compare.metaSatellite">Satellite</span><strong>NASA NISAR</strong></div>
+                      <div><span data-i18n="hud.compare.metaView">View</span><strong data-i18n="hud.compare.viewTypeLabel">Moisture Map</strong></div>
+                      <div><span data-i18n="hud.compare.metaAvgMoisture">Average moisture</span><strong id="hud-before-vsm">--</strong></div>
+                    </div>
+                  </div>
+                  <div class="hud-compare-panel">
+                    <div class="hud-compare-head">
+                      <strong data-i18n="hud.compare.afterHeader">AFTER</strong>
+                      <span id="hud-after-date-badge" class="hud-date-badge">--</span>
+                    </div>
+                    <div id="hud-map-after" class="hud-leaflet-box-sm" aria-label="After flood satellite map"></div>
+                    <div class="hud-compare-meta">
+                      <div><span data-i18n="hud.compare.metaSatellite">Satellite</span><strong>NASA NISAR</strong></div>
+                      <div><span data-i18n="hud.compare.metaView">View</span><strong data-i18n="hud.compare.viewTypeLabel">Moisture Map</strong></div>
+                      <div><span data-i18n="hud.compare.metaAvgMoisture">Average moisture</span><strong id="hud-after-vsm">--</strong></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="hud-delta-footer">
+                  <div id="hud-delta-footer-summary" data-i18n="hud.compare.deltaLoading">Loading real 2026 NISAR comparison...</div>
+                  <div id="hud-delta-footer-highlight" class="hud-delta-highlight">--</div>
+                </div>
+              </div>
+
+              <!-- Understand Every Pixel (Plain-Language Moisture Inspector) -->
+              <div id="pixel-inspector" class="pixel-inspector-hud">
+                <div class="hud-header">
+                  <div>
+                    <h3 class="hud-title" data-i18n="features.inspector.title">Understand Every Pixel</h3>
+                    <p class="hud-subtitle-prompt" data-i18n="features.inspector.prompt">Click anywhere inside the monitored area on the map to read plain-language surface moisture.</p>
+                  </div>
+                  <span id="insp-badge" class="hud-status-badge">--</span>
+                </div>
+
+                <div class="hud-inspector-metrics">
+                  <div class="hud-field">
+                    <span class="hud-label" data-i18n="features.inspector.surfaceLabel">Surface Condition</span>
+                    <span id="insp-surface-tag" class="hud-value">--</span>
+                  </div>
+                  <div class="hud-field">
+                    <span class="hud-label" data-i18n="features.inspector.latLngLabel">Coordinates (Lat, Lon)</span>
+                    <span id="insp-latlng" class="hud-value">--</span>
+                  </div>
+                  <div class="hud-field">
+                    <span class="hud-label" data-i18n="features.inspector.zoneLabel">Monitored Region</span>
+                    <span id="insp-zone-name" class="hud-value">--</span>
+                  </div>
+                  <div class="hud-field">
+                    <span class="hud-label" data-i18n="features.inspector.distWaterLabel">Distance to Water</span>
+                    <span id="insp-dist-water" class="hud-value">--</span>
+                  </div>
+                </div>
+
+                <div class="hud-meter-wrap">
+                  <div class="hud-slider-row">
+                    <span class="hud-label" data-i18n="features.inspector.moistureLabel">Estimated Moisture</span>
+                    <strong id="insp-moisture-val" class="hud-mono-val">--%</strong>
+                  </div>
+                  <div class="hud-meter">
+                    <div id="insp-moisture-bar" class="hud-meter-fill" style="width:0%;"></div>
+                  </div>
+                </div>
+
+                <div id="insp-desc" class="hud-explanation-box" data-i18n="features.inspector.defaultDesc">
+                  Click any point on the map to find out in plain language whether the ground is dry (red) or wet (blue).
+                </div>
+
+                <div id="insp-compare-box" class="insp-compare-box" style="display:none;">
+                  <div class="insp-compare-title" data-i18n="features.inspector.compareHeader">Before vs. After change at this location:</div>
+                  <div id="insp-compare-details" class="insp-compare-details"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discover NISAR Applications (Real NASA PICTURES Gallery) -->
+        <div class="feature-card reveal" style="margin-top:2rem;">
+          <div class="feature-card-header">
+            <div class="feature-card-title-group">
+              <h3 class="feature-card-title" data-i18n="features.galleryHeading">Discover NISAR Applications</h3>
+              <p class="feature-card-desc" data-i18n="features.gallerySubheading">
+                Real NASA NISAR images demonstrating how day-and-night satellite views help protect coasts, forests, and food production worldwide.
+              </p>
+            </div>
+          </div>
+
+          <div class="gallery-intro-cards">
+            <div class="gallery-note-card">
+              <h4 data-i18n="features.manifestoHeading">Why NISAR matters for the entire planet</h4>
+              <p data-i18n="features.manifestoText">
+                The importance of the NISAR mission in our daily lives is greater than most people realize. By turning natural physical observations into clear day-and-night views through clouds and thick canopy, communities and specialists can assess flood and drought risks in minutes. LambdaX shows how complex space science can become clear, shared knowledge at the service of our planet. — LambdaX
+              </p>
+            </div>
+            <div class="gallery-note-card">
+              <h4 data-i18n="features.accuracyHeading">Note on image accuracy</h4>
+              <p data-i18n="features.accuracyNote">
+                Images officially processed by NASA (like the gallery examples below) offer the highest scientific detail. In our interactive map explorer, we recolor preview NASA NISAR scenes with a simplified Red-to-Blue model so anyone can interpret moisture at a glance.
+              </p>
+            </div>
+          </div>
+
+          <div id="applications-gallery-grid" class="applications-gallery-grid"></div>
+        </div>
+
+        <!-- Mandatory Red-to-Blue Simplified Preview Disclaimer -->
+        <div class="scientific-disclaimer-box reveal">
+          <div class="disclaimer-icon" aria-hidden="true">ℹ</div>
+          <div>
+            <h4 class="disclaimer-title" data-i18n="disclaimer.title">Simplified Preview Visualization</h4>
+            <p class="disclaimer-text" data-i18n="disclaimer.text">
+              Interactive Red-to-Blue maps use simplified preview visualization of NASA NISAR products for fast citizen exploration. Official NASA science archives provide full terrain-calibrated products for formal engineering use.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 5: HOW IT WORKS PIPELINE
+    ======================================================================== -->
+    <section id="how-it-works" class="section workflow-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="how.title">From NASA Data to Clear Insights</h2>
+          <p class="section-subtitle" data-i18n="how.subtitle">
+            Four streamlined stages take satellite measurements from space straight to your browser.
+          </p>
+        </div>
+
+        <div class="how-it-works-pipeline">
+          <article class="pipeline-card reveal">
+            <div class="pipeline-card-step-badge" data-i18n="how.step1.num">01</div>
+            <h3 class="pipeline-card-title" data-i18n="how.step1.title">NASA NISAR</h3>
+            <span class="pipeline-card-sub" data-i18n="how.step1.sub">Cloud-Piercing Satellite Capture</span>
+            <p class="pipeline-card-desc" data-i18n="how.step1.desc">
+              Captures surface moisture and floodwater dynamics day or night, unaffected by thick storm or monsoon clouds.
+            </p>
+          </article>
+
+          <article class="pipeline-card reveal">
+            <div class="pipeline-card-step-badge" data-i18n="how.step2.num">02</div>
+            <h3 class="pipeline-card-title" data-i18n="how.step2.title">Python Data Pipeline</h3>
+            <span class="pipeline-card-sub" data-i18n="how.step2.sub">Moisture Color Translation</span>
+            <p class="pipeline-card-desc" data-i18n="how.step2.desc">
+              Converts raw NASA observations into lightweight Red-to-Blue image layers and verified area change summaries.
+            </p>
+          </article>
+
+          <article class="pipeline-card reveal">
+            <div class="pipeline-card-step-badge" data-i18n="how.step3.num">03</div>
+            <h3 class="pipeline-card-title" data-i18n="how.step3.title">Local Scene Catalog</h3>
+            <span class="pipeline-card-sub" data-i18n="how.step3.sub">Instant Browser Assets</span>
+            <p class="pipeline-card-desc" data-i18n="how.step3.desc">
+              Organizes regional dates, map bounds, and pre-rendered PNG overlays inside a zero-backend static catalog.
+            </p>
+          </article>
+
+          <article class="pipeline-card reveal">
+            <div class="pipeline-card-step-badge" data-i18n="how.step4.num">04</div>
+            <h3 class="pipeline-card-title" data-i18n="how.step4.title">Citizen HUD</h3>
+            <span class="pipeline-card-sub" data-i18n="how.step4.sub">Explore &amp; Understand</span>
+            <p class="pipeline-card-desc" data-i18n="how.step4.desc">
+              Combines interactive Leaflet maps, Before/After comparisons, and plain-language pixel inspection for everyone.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 6: OPEN TECHNOLOGIES
+    ======================================================================== -->
+    <section id="tech-stack" class="section tech-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="tech.title">Built with Open Technologies</h2>
+          <p class="section-subtitle" data-i18n="tech.subtitle">
+            Lean static-first architecture focused on speed, transparency, and accessibility.
+          </p>
+        </div>
+
+        <div class="tech-stack-grid">
+          <div class="tech-card reveal">
+            <div class="tech-category-name" data-i18n="tech.cat1.name">Satellite Data</div>
+            <div class="tech-items-list" data-i18n="tech.cat1.items">NASA NISAR Mission • Earthdata Search • GeoTIFF Moisture Previews</div>
+          </div>
+          <div class="tech-card reveal">
+            <div class="tech-category-name" data-i18n="tech.cat2.name">Data Processing</div>
+            <div class="tech-items-list" data-i18n="tech.cat2.items">Python 3 • NumPy &amp; Raster Pipeline • Automated Scene Catalog (JSON)</div>
+          </div>
+          <div class="tech-card reveal">
+            <div class="tech-category-name" data-i18n="tech.cat3.name">Interactive Mapping</div>
+            <div class="tech-items-list" data-i18n="tech.cat3.items">Leaflet 1.9.4 • Esri / CARTO / OSM Layers • Synchronized Flood Comparators</div>
+          </div>
+          <div class="tech-card reveal">
+            <div class="tech-category-name" data-i18n="tech.cat4.name">Citizen Interface</div>
+            <div class="tech-items-list" data-i18n="tech.cat4.items">HTML5 Canvas Sampling • Vanilla ES6+ • Real-Time EN/ES Bilingual Engine</div>
+          </div>
+          <div class="tech-card reveal">
+            <div class="tech-category-name" data-i18n="tech.cat5.name">Open Distribution</div>
+            <div class="tech-items-list" data-i18n="tech.cat5.items">Zero-Backend Static Hosting • Bundled PNG Overlays • Responsive Mobile Layout</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 7: TEAM
+    ======================================================================== -->
+    <section id="team" class="section team-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="team.title">The People Behind LambdaX</h2>
+          <p class="section-subtitle" data-i18n="team.subtitle">
+            Built from northern Argentina for NASA Space Apps Challenge 2026.
+          </p>
+        </div>
+
+        <div class="team-cards-grid">
+          <!-- Member 1 Card -->
+          <div class="team-card" data-team-card="1">
+            <div class="team-avatar-placeholder">
+              <img src="img/juan.jpeg" alt="Juan Pablo Diaz Dell'Aringa" loading="lazy" style="object-position: 50% 52%;">
+            </div>
+            <h3 class="team-member-name">Juan Pablo Diaz Dell'Aringa</h3>
+            <div class="team-member-role" data-i18n="team.member1.role">Data &amp; Research</div>
+            <p class="team-member-desc" data-i18n="team.member1.desc">
+              NASA NISAR data research and satellite scene exploration.
+            </p>
+          </div>
+
+          <!-- Member 2 Card -->
+          <div class="team-card" data-team-card="2">
+            <div class="team-avatar-placeholder">
+              <img src="img/cristian.jpeg" alt="Cristian Vladimir Campelo" loading="lazy" style="object-position: 50% 58%;">
+            </div>
+            <h3 class="team-member-name">Cristian Vladimir Campelo</h3>
+            <div class="team-member-role" data-i18n="team.member2.role">Backend &amp; Data Processing</div>
+            <p class="team-member-desc" data-i18n="team.member2.desc">
+              Python pipeline and satellite image processing.
+            </p>
+          </div>
+
+          <!-- Member 3 Card -->
+          <div class="team-card" data-team-card="3">
+            <div class="team-avatar-placeholder">
+              <img src="img/giuliana.jpeg" alt="Giuliana Antonella Rojas" loading="lazy" style="object-position: 50% 28%;">
+            </div>
+            <h3 class="team-member-name">Giuliana Antonella Rojas</h3>
+            <div class="team-member-role" data-i18n="team.member3.role">Frontend &amp; Data Visualization</div>
+            <p class="team-member-desc" data-i18n="team.member3.desc">
+              Web interface, interactive maps and SAR data visualization.
+            </p>
+          </div>
+        </div>
+
+        <div class="team-collaboration-note">
+          <p class="team-collab-statement" data-i18n="team.collabStatement">
+            One collaborative team. Shared decisions, shared development, one mission.
+          </p>
+          <p class="team-collab-desc" data-i18n="team.collabDesc">
+            All three team members collaborated throughout the research, development and integration of LambdaX.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       SECTION 8: FOOTER
+  ========================================================================== -->
+  <footer id="footer" class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand-column">
+          <div class="brand-link">
+            <span class="footer-brand-title" data-i18n="footer.brand">LambdaX</span>
+          </div>
+          <p class="footer-tagline" data-i18n="footer.tagline">Seeing the Unseen.</p>
+          <p class="footer-description" data-i18n="footer.description">
+            Exploring Earth, one radar scene at a time.
+          </p>
+        </div>
+
+        <div class="footer-meta-column">
+          <h4 class="footer-column-heading" data-i18n="footer.trackHeading">Challenge Information</h4>
+          <div class="footer-meta-pill" data-i18n="footer.track">Dancing With the SARs</div>
+          <div style="margin-top:0.5rem;">
+            <span style="font-size:0.85rem; color:var(--color-text-dim);" data-i18n="footer.editionLabel">Edition:</span>
+            <div style="color:var(--color-text-primary); font-family:var(--font-mono); font-size:0.9rem;" data-i18n="footer.challenge">
+              NASA Space Apps Challenge 2026
+            </div>
+          </div>
+          <div style="margin-top:0.75rem;">
+            <span style="font-size:0.85rem; color:var(--color-text-dim);" data-i18n="footer.locationLabel">Location:</span>
+            <div style="color:var(--color-accent-primary); font-family:var(--font-mono); font-size:0.9rem;" data-i18n="footer.location">
+              Santiago del Estero / Tucumán, Argentina
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-links-column">
+          <h4 class="footer-column-heading" data-i18n="footer.openSourceHeading">Open Source</h4>
+          <ul class="footer-links-list">
+            <li>
+              <a href="https://github.com/placeholder/lambdax" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span data-i18n="footer.github">GitHub Repository (Placeholder)</span>
+              </a>
+            </li>
+            <li>
+              <a href="app.html" data-i18n="footer.pipelineLink">Full Interactive App</a>
+            </li>
+            <li>
+              <a href="#features" data-i18n="footer.docsLink">Citizen HUD Section</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div data-i18n="footer.copyright">
+          © 2026 LambdaX Project — NASA Space Apps Challenge.
+        </div>
+        <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--color-accent-primary);" data-i18n="footer.dataSource">
+          Built with official NASA NISAR imagery and open web mapping libraries.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet JavaScript Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+
+  <!-- Application Modules loaded in deterministic sequence -->
+  <script src="js/scenes.js"></script>
+  <script src="js/raster_grids.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/radar.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

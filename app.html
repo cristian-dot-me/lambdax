@@ -1,0 +1,3769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>NISAR Moisture &amp; Flood Monitoring</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  :root {
+    --bg: #0b0e13;
+    --panel: #12161c;
+    --card: #1a1f27;
+    --muted: #9aa4b2;
+    --text: #f1f3f5;
+    --accent: #4a5d78;
+    --accent-bright: #7b8da6;
+    --border: #2c333d;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    overflow: hidden;
+  }
+  /* Superior Browser-Like 4-Tab Bar */
+  .app-shell {
+    display: grid;
+    grid-template-rows: 44px 1fr;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  .browser-tab-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding: 6px 12px 0 12px;
+    background: #07090c;
+    border-bottom: 1px solid var(--border);
+    height: 44px;
+    overflow-x: auto;
+    z-index: 40;
+  }
+  .browser-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    height: 36px;
+    padding: 0 14px;
+    background: #12161c;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  .browser-tab:hover:not(:disabled) {
+    background: #1a1f27;
+    color: #ffffff;
+  }
+  .browser-tab.active {
+    background: var(--panel);
+    color: #ffffff;
+    border-color: #4a5d78;
+    box-shadow: inset 0 2px 0 #7b8da6;
+    position: relative;
+    top: 1px;
+    height: 37px;
+  }
+  .browser-tab:disabled, .browser-tab.disabled {
+    opacity: 0.52;
+    cursor: not-allowed;
+    background: #0d1014;
+  }
+  .tab-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4a5d78;
+    flex-shrink: 0;
+  }
+  .browser-tab.disabled .tab-dot {
+    background: #475569;
+  }
+  .tab-soon-pill {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 1px 6px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: #94a3b8;
+    border-radius: 10px;
+  }
+
+  .app {
+    display: grid;
+    grid-template-columns: 390px 1fr;
+    height: calc(100vh - 44px);
+    width: 100vw;
+    overflow: hidden;
+  }
+  .sidebar {
+    /* ~70% opaque dark panel layered over the NISAR satellite line drawing */
+    background-color: var(--panel);
+    background-image:
+      linear-gradient(rgba(18, 22, 28, 0.70), rgba(18, 22, 28, 0.70)),
+      url('BACKGROUND.png');
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center 40%;
+    background-size: cover, 118% auto;
+    border-right: 1px solid var(--border);
+    padding: 16px;
+    overflow-y: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 20;
+  }
+
+  /* Single Presentation Header Block in the Left Side Panel */
+  .presentation-panel {
+    background: linear-gradient(135deg, rgba(27, 34, 44, 0.62) 0%, rgba(42, 52, 66, 0.62) 100%);
+    border: 1px solid #3a4a60;
+    padding: 16px 14px;
+    flex-shrink: 0;
+  }
+  .presentation-panel h1 {
+    font-size: 18px;
+    line-height: 1.25;
+    margin: 0 0 6px 0;
+    font-weight: 800;
+    color: #ffffff;
+  }
+  .presentation-panel .subtitle-line {
+    font-size: 13px;
+    font-weight: 600;
+    color: #cfd6df;
+    margin: 0 0 8px 0;
+    line-height: 1.35;
+  }
+  .presentation-panel .intro-text {
+    font-size: 12.5px;
+    color: #e2e6eb;
+    margin: 0;
+    padding-top: 8px;
+    border-top: 1px solid rgba(180, 191, 204, 0.28);
+    font-weight: 500;
+  }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    background: #0b0e13;
+    padding: 3px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid transparent;
+    padding: 8px 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tab-btn:hover {
+    color: #ffffff;
+  }
+  .tab-btn.active {
+    background: #3a4a60;
+    color: #ffffff;
+    border-color: #7b8da6;
+  }
+
+  .card {
+    background: rgba(26, 31, 39, 0.42);
+    border: 1px solid var(--border);
+    padding: 12px;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+  }
+  .card h2 {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: #cfd6df;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+  }
+  .card p, .card li {
+    font-size: 12px;
+    line-height: 1.45;
+    color: #e2e6eb;
+    margin: 4px 0;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 7px 0;
+    font-size: 12px;
+  }
+  .swatch {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
+  .control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 6px 0;
+    font-size: 12px;
+    color: #e5e8ec;
+  }
+  input[type="checkbox"] {
+    accent-color: #4a5d78;
+  }
+  select, input[type="range"], button.btn {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    background: #0b0e13;
+    color: var(--text);
+    font-size: 12px;
+    margin-top: 4px;
+    accent-color: #4a5d78;
+  }
+  select:focus, input:focus {
+    outline: none;
+    border-color: var(--accent-bright);
+  }
+  button.btn {
+    background: #3a4a60;
+    color: #ffffff;
+    border: 1px solid #7b8da6;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  button.btn:hover {
+    background: #2f3d50;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .stat-box {
+    background: #0b0e13;
+    border: 1px solid var(--border);
+    padding: 8px;
+  }
+  .stat-box .lbl {
+    font-size: 10.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .stat-box .val {
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-top: 3px;
+  }
+
+  .info-pill {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    background: #2f3d50;
+    color: #f1f3f5;
+    border: 1px solid #7b8da6;
+  }
+
+  /* Right Stage */
+  .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    background: #0b0e13;
+  }
+  #mapView {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #map {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    background: #0b0e13 !important;
+  }
+
+  /* Tab 2: Before & After View */
+  #compareView {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    grid-template-rows: auto 1fr auto;
+    gap: 10px;
+    padding: 12px;
+    background: #0b0e13;
+  }
+  .compare-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+  }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    min-height: 0;
+    height: 100%;
+  }
+  .scene-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .scene-head {
+    padding: 8px 12px;
+    background: #1a1f27;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .scene-head .badge {
+    background: #3a4a60;
+    color: #ffffff;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .scene-body {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    background: #0b0e13;
+    overflow: hidden;
+  }
+  #mapA, #mapB {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    background: #0b0e13 !important;
+  }
+  .scene-meta {
+    padding: 8px 12px;
+    border-top: 1px solid var(--border);
+    font-size: 11.5px;
+    color: #e2e6eb;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background: #0f1318;
+  }
+  .scene-meta div span {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .delta-footer {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  .leaflet-container {
+    background: #0b0e13 !important;
+    font-family: inherit;
+  }
+  .leaflet-bar a {
+    background-color: #12161c !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+  }
+  .leaflet-bar a:hover {
+    background-color: #2f3d50 !important;
+  }
+  .leaflet-bar {
+    border: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .leaflet-image-layer.pixelated-grid {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+  }
+  .leaflet-control-layers {
+    background: rgba(18, 22, 28, 0.96) !important;
+    color: #ffffff !important;
+    border: 1px solid #4a5d78 !important;
+    border-radius: 0 !important;
+    padding: 6px 10px !important;
+    box-shadow: none !important;
+  }
+
+  /* Simplified Citizen Humidity Inspector (Top Right) */
+  .cell-inspector {
+    position: fixed;
+    top: 58px;
+    right: 16px;
+    width: 330px;
+    max-height: calc(100vh - 76px);
+    overflow-y: auto;
+    background: #12161c;
+    border: 1px solid #7b8da6;
+    padding: 14px;
+    z-index: 2500;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85);
+    color: var(--text);
+  }
+  .cell-inspector-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .cell-inspector-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+  }
+  .cell-inspector-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .cell-inspector-close {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cell-inspector-close:hover {
+    color: #ffffff;
+    border-color: #7b8da6;
+    background: #3a4a60;
+  }
+  .inspector-badge {
+    display: inline-block;
+    padding: 6px 9px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+  .inspector-surface-tag {
+    background: #0b0e13;
+    border: 1px solid var(--border);
+    padding: 6px 9px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #e2e6eb;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .inspector-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .inspector-metric {
+    background: #0b0e13;
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+  }
+  .inspector-metric .m-lbl {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--muted);
+    display: block;
+  }
+  .inspector-metric .m-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-top: 3px;
+    display: block;
+  }
+  .inspector-metric .m-unit {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .moisture-bar-wrap {
+    margin-top: 6px;
+    height: 6px;
+    background: #232a33;
+    overflow: hidden;
+  }
+  .moisture-bar-fill {
+    height: 100%;
+    background: #4a5d78;
+    transition: width 0.25s ease;
+  }
+  .inspector-desc {
+    margin-top: 10px;
+    padding: 9px 10px;
+    background: #0b0e13;
+    border: 1px solid var(--border);
+    border-left: 3px solid #4a5d78;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #e2e6eb;
+  }
+  .track-switcher-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .track-switch-btn {
+    width: 100%;
+    text-align: left;
+    padding: 8px 10px;
+    background: #0b0e13;
+    color: #e2e6eb;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 11.5px;
+    line-height: 1.35;
+    transition: all 0.15s;
+  }
+  .track-switch-btn:hover {
+    border-color: #7b8da6;
+    background: #1f252e;
+  }
+  .track-switch-btn.active {
+    background: #2f3d50;
+    color: #ffffff;
+    border-color: #b4bfcc;
+    box-shadow: inset 3px 0 0 #b4bfcc;
+  }
+  .track-switch-btn .track-meta {
+    display: block;
+    font-size: 10.5px;
+    color: #cfd6df;
+    margin-top: 2px;
+  }
+  /* LambdaX brand title (visible on every tab) */
+  .brand-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: center;
+    margin-right: 14px;
+    padding: 0 14px 6px 2px;
+    border-right: 1px solid var(--border);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    color: #f1f3f5;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .brand-title .brand-lambda {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #7b8da6;
+    background: #1a1f27;
+    color: #cfd6df;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* Tab 4: "Mas usos interesantes!" gallery */
+  .lambdax-manifesto {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #e2e6eb;
+    white-space: pre-line;
+    margin: 0;
+  }
+  .accuracy-note {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #e2e6eb;
+    border-left: 3px solid #7b8da6;
+    padding: 8px 10px;
+    background: rgba(11, 14, 19, 0.55);
+  }
+  #galleryView {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    grid-template-rows: auto 1fr;
+    gap: 12px;
+    padding: 14px;
+    background: #0b0e13;
+    overflow: hidden;
+  }
+  .gallery-title {
+    margin: 0;
+    padding: 12px 16px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 4px solid #7b8da6;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #f1f3f5;
+    text-align: center;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    min-height: 0;
+    height: 100%;
+  }
+  .gallery-figure {
+    margin: 0;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .gallery-figure a {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #07090c;
+  }
+  .gallery-figure img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .gallery-figure figcaption {
+    padding: 10px 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    line-height: 1.5;
+    color: #e2e6eb;
+    background: #0f1318;
+  }
+  .gallery-figure figcaption strong {
+    display: block;
+    font-size: 13px;
+    color: #ffffff;
+    margin-bottom: 3px;
+  }
+  @media (max-width: 1100px) {
+    .gallery-grid { grid-template-columns: 1fr; overflow-y: auto; }
+  }
+
+  /* Language Switcher (English USA Flag / Spanish Spain Flag) */
+  .lang-switcher {
+    margin-left: auto;
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    background: #12161c;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px;
+    gap: 2px;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 26px;
+    padding: 0 9px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .lang-btn:hover {
+    color: #ffffff;
+    background: #1a1f27;
+  }
+  .lang-btn.active {
+    background: #2f3d50;
+    color: #ffffff;
+    border-color: #7b8da6;
+  }
+  .flag-svg {
+    width: 18px;
+    height: 12px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22);
+    flex-shrink: 0;
+    display: block;
+  }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="browser-tab-bar" role="tablist" aria-label="NISAR satellite monitor views" data-i18n-aria-label="headerAriaLabel">
+    <div class="brand-title" aria-label="LambdaX">
+      <span class="brand-lambda" aria-hidden="true">λ</span>
+      <span>LambdaX</span>
+    </div>
+    <button class="browser-tab active" id="browserTab1" role="tab" aria-selected="true" onclick="selectSuperiorBrowserTab(1)">
+      <span class="tab-dot"></span>
+      <span data-i18n="tab1Title">1. Santiago del Estero, Capital Area</span>
+    </button>
+    <button class="browser-tab" id="browserTab2" role="tab" aria-selected="false" onclick="selectSuperiorBrowserTab(2)">
+      <span class="tab-dot"></span>
+      <span data-i18n="tab2Title">2. Floods in Mozambique (2026)</span>
+    </button>
+    <button class="browser-tab" id="browserTab3" role="tab" aria-selected="false" onclick="selectSuperiorBrowserTab(3)">
+      <span class="tab-dot"></span>
+      <span data-i18n="tab3Title">3. Nepal–China Border (Gyirong Port)</span>
+    </button>
+    <button class="browser-tab" id="browserTab4" role="tab" aria-selected="false" onclick="selectSuperiorBrowserTab(4)">
+      <span class="tab-dot"></span>
+      <span data-i18n="tab4Title">4. More interesting uses!</span>
+    </button>
+
+    <div class="lang-switcher" role="group" aria-label="Language selector" data-i18n-aria-label="langSelectorAria">
+      <button type="button" class="lang-btn active" id="langBtnEn" onclick="setApplicationLanguage('en')" aria-pressed="true" title="Switch to English (USA)" data-i18n-title="langBtnEnTitle">
+        <svg class="flag-svg" viewBox="0 0 60 40" aria-hidden="true">
+          <rect width="60" height="40" fill="#b22234"/>
+          <path d="M0,4.6h60 M0,10.8h60 M0,16.9h60 M0,23.1h60 M0,29.2h60 M0,35.4h60" stroke="#ffffff" stroke-width="3.08"/>
+          <rect width="26" height="21.5" fill="#3c3b6e"/>
+          <g fill="#ffffff">
+            <circle cx="4.3" cy="3.6" r="1.1"/><circle cx="10.1" cy="3.6" r="1.1"/><circle cx="15.9" cy="3.6" r="1.1"/><circle cx="21.7" cy="3.6" r="1.1"/>
+            <circle cx="7.2" cy="7.2" r="1.1"/><circle cx="13.0" cy="7.2" r="1.1"/><circle cx="18.8" cy="7.2" r="1.1"/>
+            <circle cx="4.3" cy="10.8" r="1.1"/><circle cx="10.1" cy="10.8" r="1.1"/><circle cx="15.9" cy="10.8" r="1.1"/><circle cx="21.7" cy="10.8" r="1.1"/>
+            <circle cx="7.2" cy="14.4" r="1.1"/><circle cx="13.0" cy="14.4" r="1.1"/><circle cx="18.8" cy="14.4" r="1.1"/>
+            <circle cx="4.3" cy="18.0" r="1.1"/><circle cx="10.1" cy="18.0" r="1.1"/><circle cx="15.9" cy="18.0" r="1.1"/><circle cx="21.7" cy="18.0" r="1.1"/>
+          </g>
+        </svg>
+        <span>EN</span>
+      </button>
+      <button type="button" class="lang-btn" id="langBtnEs" onclick="setApplicationLanguage('es')" aria-pressed="false" title="Cambiar a Español" data-i18n-title="langBtnEsTitle">
+        <svg class="flag-svg" viewBox="0 0 60 40" aria-hidden="true">
+          <rect width="60" height="40" fill="#aa151b"/>
+          <rect y="10" width="60" height="20" fill="#f1bf00"/>
+          <rect x="14" y="14" width="6" height="12" rx="1.5" fill="#aa151b" stroke="#8a5a00" stroke-width="0.8"/>
+          <circle cx="17" cy="19" r="1.6" fill="#f1bf00"/>
+        </svg>
+        <span>ES</span>
+      </button>
+    </div>
+  </header>
+
+<div class="app">
+  <aside class="sidebar">
+    <!-- Single Left Side Panel Presentation Section -->
+    <section class="presentation-panel">
+      <h1 id="zoneMainTitle">Santiago del Estero, Capital Area</h1>
+      <p class="subtitle-line" id="zoneSubtitle">NISAR satellite images showing moisture</p>
+      <p class="intro-text" id="zoneDescriptionText">Our province from above!</p>
+    </section>
+
+    <!-- Tab 1 Controls (Single Map View Only) -->
+    <div id="sidebarMapControls">
+      <div class="card">
+        <h2 style="margin:0 0 6px 0;" data-i18n="nisarSatImageHeading">NISAR Satellite Image</h2>
+
+        <label for="nisarSceneSelector" style="font-size:11px;color:var(--muted);display:block;margin-top:4px;" data-i18n="nisarSceneSelectorLabel">2026 NISAR Image:</label>
+        <select id="nisarSceneSelector" onchange="handleSelectedNisarSceneChange()"></select>
+
+        <div id="sceneStatusNote" style="margin-top:8px; padding:7px 9px; background:#0b0e13; border:1px solid var(--border); font-size:11.5px; color:#cfd6df; line-height:1.4;">
+          Loading the first 2026 NISAR image...
+        </div>
+
+        <div class="control-row" style="margin-top:10px;">
+          <span data-i18n="transparencyOverMap">Transparency over the map</span>
+          <strong id="opacityVal">68%</strong>
+        </div>
+        <input type="range" id="blueOverlayOpacitySlider" min="10" max="95" value="68" oninput="updateBlueOverlayTransparency(this.value)" />
+
+        <div class="stat-grid">
+          <div class="stat-box">
+            <div class="lbl" data-i18n="statAvgMoisture">Average moisture</div>
+            <div class="val" id="statMeanHumidity">--</div>
+          </div>
+          <div class="stat-box">
+            <div class="lbl" data-i18n="statWetAreas">Very wet / water areas</div>
+            <div class="val" id="statWetAreaKm2">--</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2 & Tab 3 Controls: Before / After Disaster Comparison -->
+    <div id="sidebarCompareControls" style="display:none;">
+      <div class="card" id="compareTrackSelectorCard" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+          <h2 style="margin:0;" data-i18n="comparisonViewsHeading">Comparison Views</h2>
+          <span class="info-pill" id="compareTrackCountBadge">2 Views</span>
+        </div>
+        <p style="font-size:11px; color:var(--muted); margin:2px 0 6px 0;" data-i18n="chooseTrackComparisonPrompt">
+          Choose which Before/After comparison to view over the affected area:
+        </p>
+        <div id="compareTrackButtons" class="track-switcher-group"></div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 6px 0;" data-i18n="floodComparisonHeading">Flood Comparison (2026)</h2>
+        <p id="compareIntroDesc" style="font-size:11.5px; color:#cfd6df; line-height:1.45; margin-bottom:8px;">
+          NASA NISAR satellite images over the <b>Chokwe–Macia Agricultural Corridor (Limpopo River)</b> with dry soil in red and water or flooding in blue tones:
+        </p>
+        <div style="display:flex; flex-direction:column; gap:6px; font-size:11.5px; background:#0b0e13; border:1px solid var(--border); padding:8px 10px;">
+          <div><span style="color:var(--muted);" data-i18n="beforeColon">BEFORE:</span> <strong id="lockedDateBeforeText" style="color:#e2e6eb;">2026-01-05 (03:42 UTC)</strong></div>
+          <div><span style="color:var(--muted);" data-i18n="afterColon">AFTER:</span> <strong id="lockedDateAfterText" style="color:#b4bfcc;">2026-01-17 (03:42 UTC)</strong></div>
+        </div>
+
+        <div class="control-row" style="margin-top:10px;">
+          <span data-i18n="transparencyOverMap">Transparency over the map</span>
+          <strong id="compareOpacityVal">68%</strong>
+        </div>
+        <input type="range" id="compareOpacitySlider" min="10" max="95" value="68" oninput="updateBlueOverlayTransparency(this.value)" />
+      </div>
+
+      <div class="card" id="damageReportPanel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0;" data-i18n="damageReportHeading">Flood Change Summary</h2>
+          <span id="dmgSeverityBadge" class="info-pill" data-i18n="analyzingBadge">Analyzing</span>
+        </div>
+        <p id="dmgSummaryText" style="font-size:11.5px; color:#e2e6eb; margin-bottom:8px;" data-i18n="dmgSummaryLoading">
+          Comparing water expansion between the fixed 2026 dates...
+        </p>
+        <div class="stat-grid">
+          <div class="stat-box">
+            <div class="lbl" data-i18n="dmgLblFloodIncrease">Flooded area increase</div>
+            <div class="val" id="dmgNewFloodHa">-- ha</div>
+            <div style="font-size:10px; color:var(--muted);" id="dmgNewFloodCells">--</div>
+          </div>
+          <div class="stat-box">
+            <div class="lbl" data-i18n="dmgLblWetSurface">Very wet surface</div>
+            <div class="val" id="dmgNewSatHa">-- km²</div>
+            <div style="font-size:10px; color:var(--muted);" id="dmgNewSatCells">--</div>
+          </div>
+          <div class="stat-box">
+            <div class="lbl" data-i18n="dmgLblLowMoisture">Low moisture sectors</div>
+            <div class="val" id="dmgDryingHa">--</div>
+            <div style="font-size:10px; color:var(--muted);" id="dmgDryingCells">--</div>
+          </div>
+          <div class="stat-box">
+            <div class="lbl" data-i18n="dmgLblAvgChange">Average change</div>
+            <div class="val" id="dmgMeanDelta">0.0%</div>
+            <div style="font-size:10px; color:var(--muted);" data-i18n="dmgSubMoistureDiff">Moisture difference</div>
+          </div>
+        </div>
+        <div id="dmgImpactNarrative" style="margin-top:8px; padding:8px; background:#0b0e13; border:1px solid var(--border); border-left:3px solid #4a5d78; font-size:11.5px; color:#e2e6eb; line-height:1.4;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4 Controls: "More interesting uses!" -->
+    <div id="sidebarGalleryControls" style="display:none;">
+      <div class="card">
+        <h2 data-i18n="galleryManifestoHeading">Why NISAR matters for the entire planet</h2>
+<p class="lambdax-manifesto" data-i18n="galleryManifestoText">The importance of the NISAR project and SAR technology in our lives is greater than we think.
+Thanks to physical and electrical phenomena discovered hundreds of years ago and mathematical equations that many of us can understand without university degrees, we can see through clouds and dense foliage without losing quality. Using the "eyes" provided by the electric field, we have the ability to perform risk analyses of vast areas in just minutes with a group of experts. The purpose of this project is to show how a technology that may seem 'complex' to an everyday citizen is actually a set of physical applications that are easy to understand on their own, and together help us better understand our planet and help one another. 
+-&gt; LambdaX</p>
+      </div>
+      <div class="card">
+        <h2 data-i18n="galleryAccuracyHeading">Note on image accuracy</h2>
+        <div class="accuracy-note" data-i18n-html="galleryAccuracyNote">
+          Images officially processed by <b>NASA</b> (such as those shown in this tab) are <b>much more accurate</b> than those shown in our Before/After comparisons.
+          We use preview images from NASA NISAR and recolor them with a simplified moisture model (dry red to wet blue), designed so anyone can understand it.
+          In contrast, NASA teams work with the full satellite data, calibrated and terrain-corrected.
+        </div>
+      </div>
+    </div>
+
+    <!-- Shared Red-to-Blue Color Legend (visible in Tabs 1, 2 and 3) -->
+    <div class="card" id="sharedColorLegendCard">
+      <h2 data-i18n="legendHeading">What each color means (from dry Red to wet Blue)</h2>
+      <p style="font-size:11.5px;color:#b4bfcc;margin-bottom:8px;" data-i18n="legendIntro">
+        Red indicates dry soil; as moisture increases, the color progressively shifts to increasingly blue tones:
+      </p>
+      <div class="legend-item">
+        <span class="swatch" style="background:#0c4a6e"></span>
+        <div data-i18n-html="legendItemWater"><strong>Deep Navy Blue — Open water (100%)</strong><br/><span style="color:var(--muted)">Rivers, lagoons, reservoirs, or standing water</span></div>
+      </div>
+      <div class="legend-item">
+        <span class="swatch" style="background:#1d4ed8"></span>
+        <div data-i18n-html="legendItemFloodLand"><strong>Intense Blue — Flooded area (81–99%)</strong><br/><span style="color:var(--muted)">Riverbanks or land covered by water</span></div>
+      </div>
+      <div class="legend-item">
+        <span class="swatch" style="background:#2563eb"></span>
+        <div data-i18n-html="legendItemFloodVeg"><strong>Bright Blue — Flooded vegetation (72–92%)</strong><br/><span style="color:var(--muted)">Trees or vegetation with water underneath</span></div>
+      </div>
+      <div class="legend-item">
+        <span class="swatch" style="background:#3b82f6"></span>
+        <div data-i18n-html="legendItemSat"><strong>Medium Blue — Very wet soil (48–76%)</strong><br/><span style="color:var(--muted)">Saturated soil holding high water content</span></div>
+      </div>
+      <div class="legend-item">
+        <span class="swatch" style="background:#93c5fd"></span>
+        <div data-i18n-html="legendItemHumid"><strong>Light Sky Blue — Normal moisture (26–48%)</strong><br/><span style="color:var(--muted)">Moist earth favorable for crops and woodland</span></div>
+      </div>
+      <div class="legend-item">
+        <span class="swatch" style="background:#f87171"></span>
+        <div data-i18n-html="legendItemDry"><strong>Light Red — Low moisture (12–26%)</strong><br/><span style="color:var(--muted)">Soil with low surface moisture</span></div>
+      </div>
+      <div class="legend-item">
+        <span class="swatch" style="background:#dc2626"></span>
+        <div data-i18n-html="legendItemRock"><strong>Intense Red — Dry soil (&lt;12%)</strong><br/><span style="color:var(--muted)">Arid land, roads, or urban area</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="stage">
+    <!-- Simplified Citizen Humidity Inspector (Top Right) -->
+    <div id="cellInspector" class="cell-inspector" style="display:none;">
+      <div class="cell-inspector-head">
+        <div>
+          <h3 class="cell-inspector-title" data-i18n="inspectorTitle">Moisture Detail at This Point</h3>
+          <div class="cell-inspector-sub" id="inspCoords">Lat: -- • Lon: --</div>
+        </div>
+        <button class="cell-inspector-close" onclick="closeCitizenHumidityInspector()" title="Close" data-i18n-title="closeBtnTitle">✕</button>
+      </div>
+      <div id="inspBadge" class="inspector-badge" style="background:#4a5d78; color:#ffffff;">
+        NORMAL MOISTURE
+      </div>
+      <div id="inspSurfaceTag" class="inspector-surface-tag">
+        Ground with good moisture
+      </div>
+      <div class="inspector-grid">
+        <div class="inspector-metric">
+          <span class="m-lbl" data-i18n="inspEstimatedMoisture">Estimated moisture</span>
+          <span class="m-val"><span id="inspMoisture">--</span> <span class="m-unit">%</span></span>
+          <div class="moisture-bar-wrap">
+            <div id="inspMoistureBar" class="moisture-bar-fill" style="width:0%;"></div>
+          </div>
+        </div>
+        <div class="inspector-metric">
+          <span class="m-lbl" data-i18n="inspDistWater">Distance to water</span>
+          <span class="m-val"><span id="inspDistRiver">--</span> <span class="m-unit">km</span></span>
+        </div>
+      </div>
+      <div class="inspector-desc" id="inspPhysDesc" data-i18n="inspDefaultDesc">
+        Click any point on the map to find out in plain language whether the soil is dry (red) or wet (blue).
+      </div>
+      <div id="inspCompareBox" style="display:none; margin-top:8px; padding:8px 10px; background:#0b0e13; border:1px solid #4a5d78; font-size:11.5px; color:#e2e6eb;">
+        <div style="font-weight:700; color:#b4bfcc; margin-bottom:4px;" data-i18n="inspCompareBoxHeader">Before vs. After change at this location:</div>
+        <div id="inspCompareDetails"></div>
+      </div>
+    </div>
+
+    <!-- View 1: Interactive Humidity Map -->
+    <div id="mapView">
+      <div id="map"></div>
+    </div>
+
+    <!-- View 2: Before and After Synchronized Comparator -->
+    <div id="compareView">
+      <div class="compare-header">
+        <div>
+          <strong id="compareMainHeader" style="font-size:14px;color:var(--text)">Floods in Mozambique (2026): Before vs. After</strong>
+          <div style="font-size:11.5px;color:var(--muted)" id="compareSubHeader" data-i18n="compareSubHeaderText">Click any sector on the maps to see how moisture changed</div>
+        </div>
+        <div style="font-size:12px;color:#b4bfcc;font-weight:700" id="sceneCountBadge">Before / After Comparison (NISAR 2026)</div>
+      </div>
+
+      <div class="compare-grid">
+        <div class="scene-panel">
+          <div class="scene-head">
+            <strong id="titleA" data-i18n="beforeHeader">BEFORE</strong>
+            <span class="badge" id="dateBadgeA">--</span>
+          </div>
+          <div class="scene-body">
+            <div id="mapA"></div>
+          </div>
+          <div class="scene-meta">
+            <div><span data-i18n="metaSatellite">Satellite</span><strong id="satA">NISAR</strong></div>
+            <div><span data-i18n="metaImageType">View</span><strong id="polA">Moisture Map</strong></div>
+            <div><span data-i18n="metaAvgMoisture">Average moisture</span><strong id="vsmA">--</strong></div>
+          </div>
+        </div>
+
+        <div class="scene-panel">
+          <div class="scene-head">
+            <strong id="titleB" data-i18n="afterHeader">AFTER</strong>
+            <span class="badge" id="dateBadgeB">--</span>
+          </div>
+          <div class="scene-body">
+            <div id="mapB"></div>
+          </div>
+          <div class="scene-meta">
+            <div><span data-i18n="metaSatellite">Satellite</span><strong id="satB">NISAR</strong></div>
+            <div><span data-i18n="metaImageType">View</span><strong id="polB">Moisture Map</strong></div>
+            <div><span data-i18n="metaAvgMoisture">Average moisture</span><strong id="vsmB">--</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="delta-footer">
+        <div id="deltaSummary" data-i18n-html="deltaSummaryLoading">
+          <strong>Comparison:</strong> Analyzing real January 2026 NISAR satellite images...
+        </div>
+        <div style="color:#b4bfcc;font-weight:700" id="deltaHighlight">Change: --</div>
+      </div>
+    </div>
+
+    <!-- View 3: "More interesting uses!" picture gallery (Tab 4) -->
+    <div id="galleryView">
+      <h2 class="gallery-title" data-i18n="galleryMainTitle">CURRENT AND FUTURE USES</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-figure">
+          <a href="PICTURES/hh+hv-imagery-main-USA.png" target="_blank" rel="noopener" title="Open full-size image" data-i18n-title="openFullSizeTitle">
+            <img src="PICTURES/hh+hv-imagery-main-USA.png" alt="NISAR satellite view of the coast of Maine, United States" data-i18n-alt="galleryImg1Alt" loading="lazy" />
+          </a>
+          <figcaption data-i18n-html="galleryFig1Caption">
+            <strong>Coastal Landscape View — Maine, United States</strong>
+            NISAR satellite view over the coast of Maine (Mount Desert Island and Bar Harbor). It distinguishes forests, urban areas, terrain relief, and water in great detail, day or night and even through clouds.
+          </figcaption>
+        </figure>
+        <figure class="gallery-figure">
+          <a href="PICTURES/north-dakota-crops-USA.png" target="_blank" rel="noopener" title="Open full-size image" data-i18n-title="openFullSizeTitle">
+            <img src="PICTURES/north-dakota-crops-USA.png" alt="NISAR radar image of crops in North Dakota, United States" data-i18n-alt="galleryImg2Alt" loading="lazy" />
+          </a>
+          <figcaption data-i18n-html="galleryFig2Caption">
+            <strong>Crops — North Dakota, United States</strong>
+            Agricultural fields along the Forest River. The radar differentiates crop types (corn, soybeans, or pasture), center-pivot irrigation circles, fallow fields, forests, and wetlands: a key tool for monitoring food production.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </main>
+</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // ============================================================================
+  // 1. DEFAULT MODULAR POLYGON CONFIGURATION & BILINGUAL (EN/ES) DICTIONARY
+  // ============================================================================
+  let currentLanguage = 'en';
+  let currentSelectedTabNumber = 1;
+
+  const I18N_DICTIONARY = {
+    en: {
+      pageTitle: "NISAR Moisture & Flood Monitoring",
+      headerAriaLabel: "NISAR satellite monitor views",
+      langSelectorAria: "Language selector",
+      langBtnEnTitle: "Switch to English (USA)",
+      langBtnEsTitle: "Switch to Spanish (Español)",
+      tab1Title: "1. Santiago del Estero, Capital Area",
+      tab2Title: "2. Floods in Mozambique (2026)",
+      tab3Title: "3. Nepal–China Border (Gyirong Port)",
+      tab4Title: "4. More interesting uses!",
+      nisarSatImageHeading: "NISAR Satellite Image",
+      nisarSceneSelectorLabel: "2026 NISAR Image:",
+      transparencyOverMap: "Transparency over the map",
+      statAvgMoisture: "Average moisture",
+      statWetAreas: "Very wet / water areas",
+      orbitsAndPolygonsHeading: "Comparison Views",
+      chooseTrackComparisonPrompt: "Choose which Before/After view to inspect over the affected area:",
+      floodComparisonHeading: "Flood Comparison (2026)",
+      beforeColon: "BEFORE:",
+      afterColon: "AFTER:",
+      damageReportHeading: "Flood Change Summary",
+      analyzingBadge: "Analyzing",
+      dmgSummaryLoading: "Comparing water expansion between the fixed 2026 dates...",
+      dmgLblFloodIncrease: "Flooded area increase",
+      dmgLblWetSurface: "Very wet surface",
+      dmgLblLowMoisture: "Low moisture sectors",
+      dmgLblAvgChange: "Average change",
+      dmgSubMoistureDiff: "Moisture difference",
+      galleryManifestoHeading: "Why NISAR matters for the entire planet",
+      galleryManifestoText:
+        "The importance of the NISAR project and satellite radar in our lives is greater than we think.\n" +
+        "Thanks to natural physical phenomena we can see through clouds and dense foliage without losing clarity, turning complex science into clear maps for everyone. With this shared lens, communities and specialists can assess large-scale flood and drought risks in just minutes. The purpose of this project is to show how space technology that may seem complex at first is actually a set of everyday ideas working together to help us understand our planet and support each other. \n" +
+        "-> LambdaX",
+      galleryAccuracyHeading: "Note on image accuracy",
+      galleryAccuracyNote:
+        "Images officially processed by <b>NASA</b> (such as those shown in this tab) are <b>much more accurate</b> than those shown in our Before/After comparisons. " +
+        "We use preview NISAR satellite images and recolor them with a simplified moisture model (dry red to wet blue), designed so anyone can understand it. " +
+        "In contrast, NASA teams work with the full calibrated satellite data corrected for local terrain.",
+      legendHeading: "What each color means (from dry Red to wet Blue)",
+      legendIntro: "Red indicates dry soil; as moisture increases, the color progressively shifts to increasingly blue tones:",
+      legendItemWater: "<strong>Deep Navy Blue — Open water (100%)</strong><br/><span style=\"color:var(--muted)\">Rivers, lagoons, reservoirs, or standing water</span>",
+      legendItemFloodLand: "<strong>Intense Blue — Flooded area (81–99%)</strong><br/><span style=\"color:var(--muted)\">Riverbanks or land covered by water</span>",
+      legendItemFloodVeg: "<strong>Bright Blue — Flooded vegetation (72–92%)</strong><br/><span style=\"color:var(--muted)\">Trees or vegetation with water underneath</span>",
+      legendItemSat: "<strong>Medium Blue — Very wet soil (48–76%)</strong><br/><span style=\"color:var(--muted)\">Saturated soil holding high water content</span>",
+      legendItemHumid: "<strong>Light Sky Blue — Normal moisture (26–48%)</strong><br/><span style=\"color:var(--muted)\">Moist earth favorable for crops and woodland</span>",
+      legendItemDry: "<strong>Light Red — Low moisture (12–26%)</strong><br/><span style=\"color:var(--muted)\">Soil with low surface moisture</span>",
+      legendItemRock: "<strong>Intense Red — Dry soil (&lt;12%)</strong><br/><span style=\"color:var(--muted)\">Arid land, roads, or urban area</span>",
+      inspectorTitle: "Moisture Detail at This Point",
+      closeBtnTitle: "Close",
+      inspEstimatedMoisture: "Estimated moisture",
+      inspDistWater: "Distance to water",
+      inspDefaultDesc: "Click any point on the map to find out in plain language whether the soil is dry (red) or wet (blue).",
+      inspCompareBoxHeader: "Before vs. After change at this location:",
+      compareSubHeaderText: "Click any sector on the maps to see how moisture changed",
+      beforeHeader: "BEFORE",
+      afterHeader: "AFTER",
+      metaSatellite: "Satellite",
+      metaImageType: "View",
+      metaAvgMoisture: "Average moisture",
+      deltaSummaryLoading: "<strong>Comparison:</strong> Analyzing real January 2026 NISAR satellite images...",
+      galleryMainTitle: "CURRENT AND FUTURE USES",
+      openFullSizeTitle: "Open full-size image",
+      galleryImg1Alt: "NISAR satellite view of the coast of Maine, United States",
+      galleryFig1Caption:
+        "<strong>Coastal Landscape View — Maine, United States</strong>" +
+        "NISAR satellite view over the coast of Maine (Mount Desert Island and Bar Harbor). It distinguishes forests, urban areas, terrain relief, and water in great detail, day or night and even through clouds.",
+      galleryImg2Alt: "NISAR satellite view of crops in North Dakota, United States",
+      galleryFig2Caption:
+        "<strong>Crops — North Dakota, United States</strong>" +
+        "Agricultural fields along the Forest River. The satellite differentiates crop types (corn, soybeans, or pasture), circular irrigation fields, fallow land, forests, and wetlands: a key tool for monitoring food production.",
+      baseMapSatStreets: "Satellite + Streets View",
+      baseMapStreetsRivers: "Streets & Rivers Map",
+      baseMapOsm: "Standard Map (OSM)",
+      zones: {
+        santiago_del_estero_capital: {
+          main_title: "Santiago del Estero, Capital Area",
+          subtitle: "NISAR satellite images showing moisture",
+          description_text: "Our province from above!"
+        },
+        mozambique_chokwe_macia_floods_2026: {
+          main_title: "Floods in Mozambique (2026)",
+          subtitle: "Chokwe–Macia Agricultural Corridor (Limpopo River)",
+          description_text: "Before (Jan 5, 2026) and After (Jan 17, 2026) comparison captured by the NISAR satellite"
+        },
+        nepal_china_gyirong_port_floods_2026: {
+          main_title: "Floods on the Nepal–China Border (Gyirong Port)",
+          subtitle: "Gyirong–Rasuwagadhi Cross-Border Corridor (Trishuli / Bhote Koshi River)",
+          description_text: "Before and After comparison captured through dense monsoon cloud cover (August 2026)"
+        },
+        mas_usos_interesantes_gallery: {
+          main_title: "More interesting uses!",
+          subtitle: "The global impact of the NASA NISAR mission",
+          description_text: "Satellite science and everyday understanding at the service of the entire planet"
+        }
+      },
+      tracks: {
+        track_a_ascending: "Port Area View (Aug 16 vs. Aug 28, 2026)",
+        track_b_descending: "Wider Valley View (Aug 16 vs. Aug 31, 2026)"
+      }
+    },
+    es: {
+      pageTitle: "Monitoreo de Humedad e Inundaciones NISAR",
+      headerAriaLabel: "Vistas del monitor satelital NISAR",
+      langSelectorAria: "Selector de idioma",
+      langBtnEnTitle: "Cambiar a Inglés (EE. UU.)",
+      langBtnEsTitle: "Cambiar a Español",
+      tab1Title: "1. Santiago del Estero, zona capital",
+      tab2Title: "2. Inundaciones en Mozambique (2026)",
+      tab3Title: "3. Frontera Nepal–China (Puerto Gyirong)",
+      tab4Title: "4. Mas usos interesantes!",
+      nisarSatImageHeading: "Imagen Satelital NISAR",
+      nisarSceneSelectorLabel: "Imagen NISAR del año 2026:",
+      transparencyOverMap: "Transparencia sobre el mapa",
+      statAvgMoisture: "Humedad promedio",
+      statWetAreas: "Zonas muy húmedas / agua",
+      orbitsAndPolygonsHeading: "Vistas de Comparación",
+      chooseTrackComparisonPrompt: "Elegí qué vista Antes/Después explorar sobre la zona afectada:",
+      floodComparisonHeading: "Comparación de Inundación (2026)",
+      beforeColon: "ANTES:",
+      afterColon: "DESPUÉS:",
+      damageReportHeading: "Resumen de Cambios en Inundación",
+      analyzingBadge: "Analizando",
+      dmgSummaryLoading: "Comparando la expansión del agua entre las fechas fijas de 2026...",
+      dmgLblFloodIncrease: "Aumento del área inundada",
+      dmgLblWetSurface: "Superficie muy húmeda",
+      dmgLblLowMoisture: "Sectores con poca humedad",
+      dmgLblAvgChange: "Cambio promedio",
+      dmgSubMoistureDiff: "Diferencia de humedad",
+      galleryManifestoHeading: "Por qué NISAR importa para todo el planeta",
+      galleryManifestoText:
+        "La importancia del proyecto NISAR en nuestras vidas es más grande de lo que pensamos.\n" +
+        "Gracias a fenómenos naturales de observación podemos ver a través de las nubes y del follaje denso sin perder claridad, transformando ciencia compleja en mapas claros para cualquier persona. Con esta mirada compartida, comunidades y especialistas pueden evaluar riesgos de inundaciones o sequías en pocos minutos. El propósito de este proyecto es mostrar cómo una tecnología espacial que parece compleja es en realidad una herramienta cercana para comprender mejor nuestro planeta y cuidarnos entre todos. \n" +
+        "-> LambdaX",
+      galleryAccuracyHeading: "Nota sobre la precisión de las imágenes",
+      galleryAccuracyNote:
+        "Las imágenes procesadas oficialmente por la <b>NASA</b> (como las que ves en esta pestaña) son <b>mucho más precisas</b> que las que mostramos en nuestras comparaciones Antes/Después. " +
+        "Nosotros usamos imágenes de vista previa del satélite NISAR y las recoloreamos con un modelo simplificado de humedad (rojo seco a azul húmedo), pensado para que cualquier persona pueda entenderlo. " +
+        "En cambio, los equipos de la NASA trabajan con datos satelitales completos, calibrados y corregidos según el relieve del terreno.",
+      legendHeading: "Qué significa cada color (de Rojo seco a Azul húmedo)",
+      legendIntro: "El rojo señala suelo seco; a medida que aumenta la humedad, el color cambia progresivamente a tonos cada vez más azules:",
+      legendItemWater: "<strong>Azul Marino Profundo — Agua libre (100%)</strong><br/><span style=\"color:var(--muted)\">Ríos, lagunas, embalses o agua estancada</span>",
+      legendItemFloodLand: "<strong>Azul Intenso — Zona anegada (81–99%)</strong><br/><span style=\"color:var(--muted)\">Orillas o terrenos cubiertos de agua</span>",
+      legendItemFloodVeg: "<strong>Azul Brillante — Monte con agua (72–92%)</strong><br/><span style=\"color:var(--muted)\">Árboles o vegetación con agua debajo</span>",
+      legendItemSat: "<strong>Azul Medio — Tierra muy mojada (48–76%)</strong><br/><span style=\"color:var(--muted)\">Suelo saturado con mucha agua retenida</span>",
+      legendItemHumid: "<strong>Celeste Claro — Humedad normal (26–48%)</strong><br/><span style=\"color:var(--muted)\">Tierra húmeda favorable para cultivos y monte</span>",
+      legendItemDry: "<strong>Rojo Claro — Poca humedad (12–26%)</strong><br/><span style=\"color:var(--muted)\">Suelo con baja humedad superficial</span>",
+      legendItemRock: "<strong>Rojo Intenso — Suelo seco (&lt;12%)</strong><br/><span style=\"color:var(--muted)\">Tierra árida, caminos o zona urbana</span>",
+      inspectorTitle: "Detalle de Humedad en este Punto",
+      closeBtnTitle: "Cerrar",
+      inspEstimatedMoisture: "Humedad estimada",
+      inspDistWater: "Distancia al agua",
+      inspDefaultDesc: "Hacé clic en cualquier punto del mapa para conocer si el suelo está seco (rojo) o húmedo (azul) en lenguaje simple.",
+      inspCompareBoxHeader: "Cambio Antes vs. Después en este lugar:",
+      compareSubHeaderText: "Hacé clic en cualquier sector de los mapas para ver cómo cambió la humedad",
+      beforeHeader: "ANTES",
+      afterHeader: "DESPUÉS",
+      metaSatellite: "Satélite",
+      metaImageType: "Vista",
+      metaAvgMoisture: "Humedad promedio",
+      deltaSummaryLoading: "<strong>Comparación:</strong> Analizando imágenes satelitales NISAR reales de enero de 2026...",
+      galleryMainTitle: "USOS ACTUALES Y FUTUROS",
+      openFullSizeTitle: "Abrir imagen en tamaño completo",
+      galleryImg1Alt: "Vista satelital NISAR de la costa de Maine, Estados Unidos",
+      galleryFig1Caption:
+        "<strong>Vista Costera — Maine, Estados Unidos</strong>" +
+        "Vista satelital NISAR sobre la costa de Maine (isla Mount Desert y Bar Harbor). Permite distinguir bosques, zonas urbanas, relieve y agua con gran detalle, de día o de noche y aunque haya nubes.",
+      galleryImg2Alt: "Vista satelital NISAR de cultivos en Dakota del Norte, Estados Unidos",
+      galleryFig2Caption:
+        "<strong>Cultivos — Dakota del Norte, Estados Unidos</strong>" +
+        "Campos agrícolas junto al río Forest. El satélite diferencia tipos de cultivo (maíz, soja o pasturas), círculos de riego, campos en descanso, bosques y humedales: una herramienta clave para monitorear la producción de alimentos.",
+      baseMapSatStreets: "Vista Satelital + Calles",
+      baseMapStreetsRivers: "Mapa de Calles y Ríos",
+      baseMapOsm: "Mapa Estándar (OSM)",
+      zones: {
+        santiago_del_estero_capital: {
+          main_title: "Santiago del Estero, zona capital",
+          subtitle: "Imagenes del satelite NISAR que muestran humedad",
+          description_text: "Nuestra provincia desde arriba!"
+        },
+        mozambique_chokwe_macia_floods_2026: {
+          main_title: "Inundaciones en Mozambique (2026)",
+          subtitle: "Corredor Agrícola Chokwe–Macia (Río Limpopo)",
+          description_text: "Comparación Antes (5 ene 2026) y Después (17 ene 2026) capturada por el satélite NISAR"
+        },
+        nepal_china_gyirong_port_floods_2026: {
+          main_title: "Inundaciones en Frontera Nepal–China (Puerto Gyirong)",
+          subtitle: "Corredor Transfronterizo Gyirong–Rasuwagadhi (Río Trishuli / Bhote Koshi)",
+          description_text: "Comparación Antes y Después capturada bajo densa nubosidad monzónica (agosto de 2026)"
+        },
+        mas_usos_interesantes_gallery: {
+          main_title: "Mas usos interesantes!",
+          subtitle: "El impacto global de la misión NASA NISAR",
+          description_text: "Ciencia satelital y conocimiento cotidiano al servicio de todo el planeta"
+        }
+      },
+      tracks: {
+        track_a_ascending: "Vista Zona del Puerto (16 ago vs. 28 ago 2026)",
+        track_b_descending: "Vista Valle Amplio (16 ago vs. 31 ago 2026)"
+      }
+    }
+  };
+
+  function getLocalizedZoneText(zone) {
+    const dict = I18N_DICTIONARY[currentLanguage] || I18N_DICTIONARY.en;
+    const zoneId = zone && zone.zone_id ? zone.zone_id : "santiago_del_estero_capital";
+    const localized = (dict.zones && dict.zones[zoneId]) ? dict.zones[zoneId] : null;
+    return {
+      main_title: (localized && localized.main_title) || (zone && zone.main_title) || dict.zones.santiago_del_estero_capital.main_title,
+      subtitle: (localized && localized.subtitle) || (zone && zone.subtitle) || dict.zones.santiago_del_estero_capital.subtitle,
+      description_text: (localized && localized.description_text) || (zone && zone.description_text) || dict.zones.santiago_del_estero_capital.description_text
+    };
+  }
+
+  function getLocalizedTrackLabel(track, idx) {
+    const dict = I18N_DICTIONARY[currentLanguage] || I18N_DICTIONARY.en;
+    if (track && track.track_id && dict.tracks && dict.tracks[track.track_id]) {
+      return dict.tracks[track.track_id];
+    }
+    return (track && track.track_label) || `Track ${idx + 1}`;
+  }
+
+  const DEFAULT_SANTIAGO_ZONE = {
+    zone_id: "santiago_del_estero_capital",
+    view_mode: "single_map",
+    main_title: "Santiago del Estero, Capital Area",
+    subtitle: "NISAR satellite images showing moisture",
+    description_text: "Our province from above!",
+    wkt_polygon: "POLYGON((-64.4987 -27.9933,-63.8676 -27.9933,-63.8676 -27.5779,-64.4987 -27.5779,-64.4987 -27.9933))",
+    bounds: {
+      west: -64.4987,
+      south: -27.9933,
+      east: -63.8676,
+      north: -27.5779,
+      vertices: [
+        [-64.4987, -27.9933],
+        [-63.8676, -27.9933],
+        [-63.8676, -27.5779],
+        [-64.4987, -27.5779],
+        [-64.4987, -27.9933]
+      ]
+    },
+    rows: 42,
+    cols: 56,
+    blue_image_path: "nisar_data/santiago_del_estero_capital_gcov_blue.png",
+    first_2026_scene: null,
+    scenes: []
+  };
+
+  const DEFAULT_MOZAMBIQUE_ZONE = {
+    zone_id: "mozambique_chokwe_macia_floods_2026",
+    view_mode: "before_after_disaster",
+    main_title: "Floods in Mozambique (2026)",
+    subtitle: "Chokwe–Macia Agricultural Corridor (Limpopo River)",
+    description_text: "Before (Jan 5, 2026) and After (Jan 17, 2026) comparison captured by the NISAR satellite",
+    wkt_polygon: "POLYGON((32.80 -25.15,33.35 -25.15,33.35 -24.40,32.80 -24.40,32.80 -25.15))",
+    bounds: {
+      west: 32.80,
+      south: -25.15,
+      east: 33.35,
+      north: -24.40,
+      vertices: [
+        [32.80, -25.15],
+        [33.35, -25.15],
+        [33.35, -24.40],
+        [32.80, -24.40],
+        [32.80, -25.15]
+      ]
+    },
+    rows: 68,
+    cols: 50,
+    before_scene: {
+      date: "2026-01-05",
+      timeUtc: "03:42",
+      startTime: "2026-01-05T03:42:00Z",
+      polarization: "HH+HV",
+      productLevel: "GCOV",
+      platform: "NISAR L-Band",
+      blueImagePath: "nisar_data/mozambique_chokwe_macia_floods_2026_before_blue.png",
+      overlayBounds: { west: 32.8, south: -25.15, east: 33.35, north: -24.4 },
+      stats: {
+        flooded_area_ha: 71526,
+        high_humidity_pct: 15.5,
+        moderate_humidity_pct: 35.0,
+        low_humidity_pct: 49.5,
+        mean_wetness_pct: 36.7,
+        wet_area_km2: 1218.4,
+        total_polygon_km2: 4614.6
+      }
+    },
+    after_scene: {
+      date: "2026-01-17",
+      timeUtc: "03:42",
+      startTime: "2026-01-17T03:42:00Z",
+      polarization: "HH+HV",
+      productLevel: "GCOV",
+      platform: "NISAR L-Band",
+      blueImagePath: "nisar_data/mozambique_chokwe_macia_floods_2026_after_blue.png",
+      overlayBounds: { west: 32.8, south: -25.15, east: 33.35, north: -24.4 },
+      stats: {
+        flooded_area_ha: 93215,
+        high_humidity_pct: 20.2,
+        moderate_humidity_pct: 27.8,
+        low_humidity_pct: 52.0,
+        mean_wetness_pct: 38.1,
+        wet_area_km2: 1319.8,
+        total_polygon_km2: 4614.6
+      }
+    },
+    scenes: []
+  };
+
+  const DEFAULT_NEPAL_GYIRONG_ZONE = {
+    zone_id: "nepal_china_gyirong_port_floods_2026",
+    view_mode: "before_after_disaster",
+    main_title: "Floods on the Nepal–China Border (Gyirong Port)",
+    subtitle: "Gyirong–Rasuwagadhi Cross-Border Corridor (Trishuli / Bhote Koshi River)",
+    description_text: "Multi-orbit comparison captured by NISAR L-Band under dense monsoon cloud cover (August 2026)",
+    wkt_polygon: "POLYGON((85.3 28.14,85.56 28.14,85.56 28.34,85.3 28.34,85.3 28.14))",
+    bounds: {
+      west: 85.3,
+      south: 28.14,
+      east: 85.56,
+      north: 28.34,
+      vertices: [
+        [85.3, 28.14],
+        [85.56, 28.14],
+        [85.56, 28.34],
+        [85.3, 28.34],
+        [85.3, 28.14]
+      ]
+    },
+    rows: 42,
+    cols: 54,
+    tracks: [
+      {
+        track_id: "track_a_ascending",
+        track_label: "Track A (Ascending Orbit • Aug 16 vs. Aug 28, 2026)",
+        orientation: "ASCENDING",
+        wkt_polygon: "POLYGON((85.3 28.14,85.56 28.14,85.56 28.34,85.3 28.34,85.3 28.14))",
+        bounds: {
+          west: 85.3,
+          south: 28.14,
+          east: 85.56,
+          north: 28.34,
+          vertices: [
+            [85.3, 28.14],
+            [85.56, 28.14],
+            [85.56, 28.34],
+            [85.3, 28.34],
+            [85.3, 28.14]
+          ]
+        },
+        rows: 42,
+        cols: 54,
+        before_scene: {
+          date: "2026-08-16",
+          timeUtc: "12:58",
+          startTime: "2026-08-16T12:58:12Z",
+          polarization: "HH+HV",
+          productLevel: "GCOV",
+          platform: "NISAR L-Band",
+          blueImagePath: "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_before_blue.png",
+          overlayBounds: { west: 85.3, south: 28.14, east: 85.56, north: 28.34 },
+          stats: {
+            flooded_area_ha: 56,
+            high_humidity_pct: 0.1,
+            moderate_humidity_pct: 4.4,
+            low_humidity_pct: 95.5,
+            mean_wetness_pct: 13.8,
+            wet_area_km2: 1.9,
+            total_polygon_km2: 564.4
+          }
+        },
+        after_scene: {
+          date: "2026-08-28",
+          timeUtc: "12:58",
+          startTime: "2026-08-28T12:58:12Z",
+          polarization: "HH+HV+VV+VH",
+          productLevel: "GCOV",
+          platform: "NISAR L-Band",
+          blueImagePath: "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_after_blue.png",
+          overlayBounds: { west: 85.3, south: 28.14, east: 85.56, north: 28.34 },
+          stats: {
+            flooded_area_ha: 6547,
+            high_humidity_pct: 11.6,
+            moderate_humidity_pct: 14.0,
+            low_humidity_pct: 74.4,
+            mean_wetness_pct: 27.4,
+            wet_area_km2: 82.3,
+            total_polygon_km2: 564.4
+          }
+        },
+        scenes: []
+      },
+      {
+        track_id: "track_b_descending",
+        track_label: "Track B (Descending Orbit • Aug 16 vs. Aug 31, 2026)",
+        orientation: "DESCENDING",
+        wkt_polygon: "POLYGON((85.10 27.85, 85.60 27.85, 85.60 28.38, 85.10 28.38, 85.10 27.85))",
+        bounds: {
+          west: 85.10,
+          south: 27.85,
+          east: 85.60,
+          north: 28.38,
+          vertices: [
+            [85.10, 27.85],
+            [85.60, 27.85],
+            [85.60, 28.38],
+            [85.10, 28.38],
+            [85.10, 27.85]
+          ]
+        },
+        rows: 52,
+        cols: 48,
+        before_scene: {
+          date: "2026-08-16",
+          timeUtc: "12:58",
+          startTime: "2026-08-16T12:58:12Z",
+          polarization: "HH+HV",
+          productLevel: "GCOV",
+          platform: "NISAR L-Band",
+          blueImagePath: "nisar_data/nepal_china_gyirong_port_floods_2026_track_b_descending_before_blue.png",
+          overlayBounds: { west: 85.1, south: 27.85, east: 85.6, north: 28.38 },
+          stats: {
+            flooded_area_ha: 864,
+            high_humidity_pct: 0.3,
+            moderate_humidity_pct: 5.8,
+            low_humidity_pct: 93.9,
+            mean_wetness_pct: 16.4,
+            wet_area_km2: 23.1,
+            total_polygon_km2: 2879.8
+          }
+        },
+        after_scene: {
+          date: "2026-08-31",
+          timeUtc: "23:39",
+          startTime: "2026-08-31T23:39:18Z",
+          polarization: "HH+HV",
+          productLevel: "GCOV",
+          platform: "NISAR L-Band",
+          blueImagePath: "nisar_data/nepal_china_gyirong_port_floods_2026_track_b_descending_after_blue.png",
+          overlayBounds: { west: 85.1, south: 27.85, east: 85.6, north: 28.38 },
+          stats: {
+            flooded_area_ha: 4320,
+            high_humidity_pct: 1.5,
+            moderate_humidity_pct: 12.6,
+            low_humidity_pct: 86.0,
+            mean_wetness_pct: 19.4,
+            wet_area_km2: 127.5,
+            total_polygon_km2: 2879.8
+          }
+        },
+        scenes: []
+      }
+    ],
+    before_scene: {
+      date: "2026-08-16",
+      timeUtc: "12:58",
+      startTime: "2026-08-16T12:58:12Z",
+      polarization: "HH+HV",
+      productLevel: "GCOV",
+      platform: "NISAR L-Band",
+      blueImagePath: "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_before_blue.png",
+      overlayBounds: { west: 85.3, south: 28.14, east: 85.56, north: 28.34 },
+      stats: {
+        flooded_area_ha: 56,
+        high_humidity_pct: 0.1,
+        moderate_humidity_pct: 4.4,
+        low_humidity_pct: 95.5,
+        mean_wetness_pct: 13.8,
+        wet_area_km2: 1.9,
+        total_polygon_km2: 564.4
+      }
+    },
+    after_scene: {
+      date: "2026-08-28",
+      timeUtc: "12:58",
+      startTime: "2026-08-28T12:58:12Z",
+      polarization: "HH+HV+VV+VH",
+      productLevel: "GCOV",
+      platform: "NISAR L-Band",
+      blueImagePath: "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_after_blue.png",
+      overlayBounds: { west: 85.3, south: 28.14, east: 85.56, north: 28.34 },
+      stats: {
+        flooded_area_ha: 6547,
+        high_humidity_pct: 11.6,
+        moderate_humidity_pct: 14.0,
+        low_humidity_pct: 74.4,
+        mean_wetness_pct: 27.4,
+        wet_area_km2: 82.3,
+        total_polygon_km2: 564.4
+      }
+    },
+    scenes: []
+  };
+
+  const NISAR_GCOV_CMR_COLLECTIONS = [
+    "NISAR_L2_GCOV_V1",
+    "NISAR_L2_GCOV_PROVISIONAL_V1",
+    "NISAR_L2_GCOV_BETA_V1"
+  ];
+
+  // Application runtime state
+  let modularPolygonZones = [DEFAULT_SANTIAGO_ZONE, DEFAULT_MOZAMBIQUE_ZONE, DEFAULT_NEPAL_GYIRONG_ZONE];
+  let activePolygonZone = { ...DEFAULT_SANTIAGO_ZONE };
+  let activeZoneNisarScenes = [];
+  let currentSelectedSceneIndex = 0;
+  let currentSelectedCompareTrackIndex = 0;
+  let blueOverlayOpacity = 0.68;
+
+  // Map overlay & selection handles
+  let mainRasterOverlay = null;
+  let compareOverlayA = null;
+  let compareOverlayB = null;
+  let zonePolygonOutlineMain = null;
+  let zonePolygonOutlineA = null;
+  let zonePolygonOutlineB = null;
+  let selectedCellHighlightMain = null;
+  let selectedCellHighlightA = null;
+  let selectedCellHighlightB = null;
+  let selectedGridRowCol = null;
+
+  // Cached real-surface mask derived from satellite + cartographic tiles
+  let cachedSurfaceMask = {
+    cacheKey: "",
+    cells: null
+  };
+
+  // ============================================================================
+  // 2. LEAFLET MAP INITIALIZATION & SYNCHRONIZATION
+  // ============================================================================
+
+  /**
+   * Builds the Leaflet tile base layers (satellite hybrid, streets, and terrain)
+   * so each map viewport has crisp geographic context underneath the blue NISAR layer.
+   * Why this is necessary: Leaflet requires separate tile layer instances per map.
+   */
+  function createLeafletBaseMapLayers() {
+    const esriSatellite = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 19, attribution: '© Esri, Maxar' }
+    );
+    const esriLabels = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 19 }
+    );
+    const esriRoads = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}',
+      { maxZoom: 19, opacity: 0.8 }
+    );
+    const hybridGroup = L.layerGroup([esriSatellite, esriRoads, esriLabels]);
+
+    const cartoStreets = L.tileLayer(
+      'https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+      { maxZoom: 19, attribution: '© OpenStreetMap, © CARTO' }
+    );
+    const openStreetMap = L.tileLayer(
+      'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      { maxZoom: 19, attribution: '© OpenStreetMap' }
+    );
+
+    const dict = I18N_DICTIONARY[currentLanguage] || I18N_DICTIONARY.en;
+    return {
+      defaultLayer: hybridGroup,
+      rawLayers: { hybridGroup, cartoStreets, openStreetMap },
+      baseMaps: {
+        [dict.baseMapSatStreets]: hybridGroup,
+        [dict.baseMapStreetsRivers]: cartoStreets,
+        [dict.baseMapOsm]: openStreetMap
+      }
+    };
+  }
+
+  const baseLayersMain = createLeafletBaseMapLayers();
+  const map = L.map('map', {
+    center: [-27.7856, -64.1832],
+    zoom: 11,
+    minZoom: 4,
+    preferCanvas: true,
+    layers: [baseLayersMain.defaultLayer]
+  });
+  let mainLayersControl = L.control.layers(baseLayersMain.baseMaps, null, { position: 'topleft', collapsed: true }).addTo(map);
+
+  function refreshLeafletBaseLayersControlLanguage() {
+    if (!map || !baseLayersMain || !baseLayersMain.rawLayers) return;
+    if (mainLayersControl) {
+      map.removeControl(mainLayersControl);
+    }
+    const dict = I18N_DICTIONARY[currentLanguage] || I18N_DICTIONARY.en;
+    const localizedBaseMaps = {
+      [dict.baseMapSatStreets]: baseLayersMain.rawLayers.hybridGroup,
+      [dict.baseMapStreetsRivers]: baseLayersMain.rawLayers.cartoStreets,
+      [dict.baseMapOsm]: baseLayersMain.rawLayers.openStreetMap
+    };
+    mainLayersControl = L.control.layers(localizedBaseMaps, null, { position: 'topleft', collapsed: true }).addTo(map);
+  }
+
+  const baseLayersCompareA = createLeafletBaseMapLayers();
+  const mapA = L.map('mapA', {
+    center: [-27.7856, -64.1832],
+    zoom: 11,
+    minZoom: 4,
+    preferCanvas: true,
+    layers: [baseLayersCompareA.defaultLayer],
+    zoomControl: false
+  });
+
+  const baseLayersCompareB = createLeafletBaseMapLayers();
+  const mapB = L.map('mapB', {
+    center: [-27.7856, -64.1832],
+    zoom: 11,
+    minZoom: 4,
+    preferCanvas: true,
+    layers: [baseLayersCompareB.defaultLayer],
+    zoomControl: false
+  });
+
+  let isSyncingComparisonMaps = false;
+
+  /**
+   * Keeps the pan and zoom position of the Before and After maps synchronized.
+   * Why this is necessary: Side-by-side comparison only makes sense when both
+   * maps frame the exact same neighborhoods and river sections simultaneously.
+   */
+  function synchronizeComparisonMapViewports(sourceMap, targetMap) {
+    sourceMap.on('move', () => {
+      if (isSyncingComparisonMaps) return;
+      isSyncingComparisonMaps = true;
+      targetMap.setView(sourceMap.getCenter(), sourceMap.getZoom(), { animate: false });
+      isSyncingComparisonMaps = false;
+    });
+  }
+  synchronizeComparisonMapViewports(mapA, mapB);
+  synchronizeComparisonMapViewports(mapB, mapA);
+
+  const stageResizeObserver = new ResizeObserver(() => {
+    map.invalidateSize();
+    mapA.invalidateSize();
+    mapB.invalidateSize();
+  });
+  stageResizeObserver.observe(document.querySelector('.stage'));
+  stageResizeObserver.observe(document.getElementById('mapView'));
+  stageResizeObserver.observe(document.getElementById('compareView'));
+
+  // Reference polyline for the Rio Dulce corridor through Santiago del Estero Capital
+  const referenceRiversLayerGroup = L.layerGroup().addTo(map);
+  const rioDulceReferenceCoordinates = [
+    [-27.578, -64.485],
+    [-27.675, -64.382],
+    [-27.752, -64.285],
+    [-27.788, -64.250],
+    [-27.848, -64.178],
+    [-27.915, -64.095],
+    [-27.992, -64.015]
+  ];
+  L.polyline(rioDulceReferenceCoordinates, {
+    color: '#38bdf8',
+    weight: 2.8,
+    opacity: 0.85,
+    interactive: false
+  }).addTo(referenceRiversLayerGroup);
+
+  /**
+   * Shows or hides the Rio Dulce reference polyline on the main map.
+   * Why this is necessary: Lets users compare NISAR blue moisture patterns
+   * against the main river course.
+   */
+  function toggleReferenceRiversLayer() {
+    if (!map.hasLayer(referenceRiversLayerGroup)) {
+      map.addLayer(referenceRiversLayerGroup);
+    }
+  }
+
+  /**
+   * Draws the exact polygon outline on the main map and the Before/After maps,
+   * then frames all three maps tightly on the active polygon.
+   * Why this is necessary: Clearly delineates the exact Santiago del Estero
+   * Capital area (or any newly added modular polygon) for the user.
+   */
+  function renderActivePolygonBoundaryOnMaps() {
+    const bounds = activePolygonZone.bounds;
+    const verticesLatLng = (bounds.vertices && bounds.vertices.length >= 4)
+      ? bounds.vertices.map(([lon, lat]) => [lat, lon])
+      : [
+          [bounds.south, bounds.west],
+          [bounds.south, bounds.east],
+          [bounds.north, bounds.east],
+          [bounds.north, bounds.west]
+        ];
+
+    const outlineStyle = {
+      color: '#cbd5e1',
+      weight: 2.5,
+      fill: false,
+      dashArray: '6,4',
+      interactive: false
+    };
+
+    if (zonePolygonOutlineMain) map.removeLayer(zonePolygonOutlineMain);
+    if (zonePolygonOutlineA) mapA.removeLayer(zonePolygonOutlineA);
+    if (zonePolygonOutlineB) mapB.removeLayer(zonePolygonOutlineB);
+
+    zonePolygonOutlineMain = L.polygon(verticesLatLng, outlineStyle).addTo(map);
+    zonePolygonOutlineA = L.polygon(verticesLatLng, outlineStyle).addTo(mapA);
+    zonePolygonOutlineB = L.polygon(verticesLatLng, outlineStyle).addTo(mapB);
+
+    const leafletBounds = [[bounds.south, bounds.west], [bounds.north, bounds.east]];
+    map.fitBounds(leafletBounds, { padding: [26, 26] });
+    mapA.fitBounds(leafletBounds, { padding: [18, 18] });
+    mapB.fitBounds(leafletBounds, { padding: [18, 18] });
+  }
+
+  // ============================================================================
+  // 3. REAL SURFACE SAMPLING FOR INTERACTIVE WATER/MOISTURE SECTORS
+  // ============================================================================
+
+  /**
+   * Converts geographic longitude to fractional Web Mercator tile X coordinate.
+   * Why this is necessary: Allows sampling exact sub-pixel coordinates inside
+   * offscreen cartographic and satellite map tiles.
+   */
+  function convertLongitudeToTileFloat(lon, zoomLevel) {
+    return ((lon + 180) / 360) * Math.pow(2, zoomLevel);
+  }
+
+  /**
+   * Converts geographic latitude to fractional Web Mercator tile Y coordinate.
+   * Why this is necessary: Maps latitude values cleanly to Web Mercator tile rows.
+   */
+  function convertLatitudeToTileFloat(lat, zoomLevel) {
+    const rad = (lat * Math.PI) / 180;
+    return ((1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math.PI) / 2) * Math.pow(2, zoomLevel);
+  }
+
+  /**
+   * Loads a single map tile image with CORS enabled so pixel colors can be read.
+   * Why this is necessary: Browser security blocks canvas pixel inspection unless
+   * tiles are loaded with `crossOrigin = "anonymous"`.
+   */
+  function loadCrossOriginTileImage(tileUrl) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = tileUrl;
+    });
+  }
+
+  /**
+   * Samples cartographic water tiles and satellite imagery over the active
+   * polygon to build a real surface mask (open water, riverbanks, vegetation,
+   * and bare ground/urban surfaces).
+   * Why this is necessary: Ensures the blue moisture grid respects real rivers,
+   * vegetation corridors, and urban terrain inside the Santiago del Estero polygon.
+   */
+  async function analyzeRealWaterAndLandSurfaceForZone(zone) {
+    const b = zone.bounds;
+    const rows = zone.rows || 42;
+    const cols = zone.cols || 56;
+    const cacheKey = `${b.west.toFixed(4)},${b.south.toFixed(4)},${b.east.toFixed(4)},${b.north.toFixed(4)}_${rows}x${cols}`;
+
+    if (cachedSurfaceMask.cacheKey === cacheKey && cachedSurfaceMask.cells) {
+      return cachedSurfaceMask.cells;
+    }
+
+    const lonSpan = Math.max(0.01, b.east - b.west);
+    let zoomLevel = Math.floor(Math.log2(360 / lonSpan)) + 1;
+    zoomLevel = Math.max(5, Math.min(13, zoomLevel));
+
+    const minTx = Math.floor(convertLongitudeToTileFloat(b.west, zoomLevel));
+    const maxTx = Math.floor(convertLongitudeToTileFloat(b.east, zoomLevel));
+    const minTy = Math.floor(convertLatitudeToTileFloat(b.north, zoomLevel));
+    const maxTy = Math.floor(convertLatitudeToTileFloat(b.south, zoomLevel));
+
+    const tilesX = Math.max(1, maxTx - minTx + 1);
+    const tilesY = Math.max(1, maxTy - minTy + 1);
+
+    const cartoCanvas = document.createElement('canvas');
+    cartoCanvas.width = tilesX * 256;
+    cartoCanvas.height = tilesY * 256;
+    const cartoCtx = cartoCanvas.getContext('2d', { willReadFrequently: true });
+
+    const satCanvas = document.createElement('canvas');
+    satCanvas.width = tilesX * 256;
+    satCanvas.height = tilesY * 256;
+    const satCtx = satCanvas.getContext('2d', { willReadFrequently: true });
+
+    const tilePromises = [];
+    const tileCount = Math.pow(2, zoomLevel);
+    for (let tx = minTx; tx <= maxTx; tx++) {
+      for (let ty = minTy; ty <= maxTy; ty++) {
+        const dx = (tx - minTx) * 256;
+        const dy = (ty - minTy) * 256;
+        const wrappedTx = ((tx % tileCount) + tileCount) % tileCount;
+        const cartoUrl = `https://basemaps.cartocdn.com/rastertiles/voyager_nolabels/${zoomLevel}/${wrappedTx}/${ty}.png`;
+        const satUrl = `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${zoomLevel}/${ty}/${wrappedTx}`;
+
+        tilePromises.push(
+          loadCrossOriginTileImage(cartoUrl).then((img) => {
+            if (img) cartoCtx.drawImage(img, dx, dy, 256, 256);
+          })
+        );
+        tilePromises.push(
+          loadCrossOriginTileImage(satUrl).then((img) => {
+            if (img) satCtx.drawImage(img, dx, dy, 256, 256);
+          })
+        );
+      }
+    }
+
+    await Promise.all(tilePromises);
+
+    let cartoData = null;
+    let satData = null;
+    try {
+      cartoData = cartoCtx.getImageData(0, 0, cartoCanvas.width, cartoCanvas.height).data;
+      satData = satCtx.getImageData(0, 0, satCanvas.width, satCanvas.height).data;
+    } catch (err) {
+      console.warn("Notice reading tile pixels:", err);
+    }
+
+    const latStep = (b.north - b.south) / rows;
+    const lonStep = (b.east - b.west) / cols;
+    const cells = Array.from({ length: rows }, () => new Array(cols));
+    const waterCoordinates = [];
+
+    for (let r = 0; r < rows; r++) {
+      const lat0 = b.south + r * latStep;
+      for (let c = 0; c < cols; c++) {
+        const lon0 = b.west + c * lonStep;
+        let waterHits = 0;
+        let totalSamples = 0;
+        let sumR = 0, sumG = 0, sumB = 0;
+
+        for (let sy = 0.2; sy <= 0.81; sy += 0.3) {
+          for (let sx = 0.2; sx <= 0.81; sx += 0.3) {
+            const sLat = lat0 + sy * latStep;
+            const sLon = lon0 + sx * lonStep;
+            const fx = (convertLongitudeToTileFloat(sLon, zoomLevel) - minTx) * 256;
+            const fy = (convertLatitudeToTileFloat(sLat, zoomLevel) - minTy) * 256;
+            const px = Math.max(0, Math.min(cartoCanvas.width - 1, Math.floor(fx)));
+            const py = Math.max(0, Math.min(cartoCanvas.height - 1, Math.floor(fy)));
+            const idx = (py * cartoCanvas.width + px) * 4;
+
+            if (cartoData && cartoData[idx + 3] > 0) {
+              const cr = cartoData[idx];
+              const cg = cartoData[idx + 1];
+              const cb = cartoData[idx + 2];
+              const isCartoWater = (cb >= 195 && (cb - cr) >= 22 && (cb - cg) >= 6) || (cb > cr + 28 && cb > cg + 12);
+              if (isCartoWater) waterHits++;
+            }
+
+            if (satData && satData[idx + 3] > 0) {
+              const sr = satData[idx];
+              const sg = satData[idx + 1];
+              const sb = satData[idx + 2];
+              sumR += sr;
+              sumG += sg;
+              sumB += sb;
+              if (sb > sr + 18 && sb > sg + 6 && sr < 110) {
+                waterHits += 0.35;
+              }
+            }
+            totalSamples++;
+          }
+        }
+
+        const latCenter = lat0 + latStep * 0.5;
+        const lonCenter = lon0 + lonStep * 0.5;
+        const waterFraction = Math.min(1.0, waterHits / Math.max(1, totalSamples));
+
+        const avgR = sumR / Math.max(1, totalSamples);
+        const avgG = sumG / Math.max(1, totalSamples);
+        const avgB = sumB / Math.max(1, totalSamples);
+        const vegIndex = (avgG - avgR) / Math.max(1, avgG + avgR);
+        const brightness = (avgR + avgG + avgB) / 3;
+        const isBrightBare = brightness > 142 && vegIndex < 0.04;
+        const isWaterBody = waterFraction >= 0.45;
+
+        if (isWaterBody) {
+          waterCoordinates.push([latCenter, lonCenter]);
+        }
+
+        cells[r][c] = {
+          waterFraction,
+          isWaterBody,
+          isWaterMargin: waterFraction >= 0.12 && waterFraction < 0.45,
+          vegIndex,
+          brightness,
+          isBrightBare,
+          distWaterKm: 15.0
+        };
+      }
+    }
+
+    // Compute distance in km to nearest water cell or Rio Dulce corridor
+    for (let r = 0; r < rows; r++) {
+      const latCenter = b.south + (r + 0.5) * latStep;
+      for (let c = 0; c < cols; c++) {
+        const lonCenter = b.west + (c + 0.5) * lonStep;
+        const cell = cells[r][c];
+
+        if (cell.isWaterBody) {
+          cell.distWaterKm = 0.0;
+        } else {
+          let minDeg = 999;
+          for (let i = 0; i < waterCoordinates.length; i++) {
+            const d = Math.hypot(
+              latCenter - waterCoordinates[i][0],
+              (lonCenter - waterCoordinates[i][1]) * Math.cos(latCenter * Math.PI / 180)
+            );
+            if (d < minDeg) minDeg = d;
+          }
+          if (zone.zone_id === "santiago_del_estero_capital") {
+            for (const pt of rioDulceReferenceCoordinates) {
+              const d = Math.hypot(latCenter - pt[0], lonCenter - pt[1]);
+              if (d < minDeg) minDeg = d;
+            }
+          }
+          cell.distWaterKm = minDeg < 900 ? +(minDeg * 111).toFixed(2) : 18.0;
+
+          let hasWaterNeighbor = false;
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              if (dr === 0 && dc === 0) continue;
+              const nr = r + dr;
+              const nc = c + dc;
+              if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && cells[nr][nc].isWaterBody) {
+                hasWaterNeighbor = true;
+              }
+            }
+          }
+          if (hasWaterNeighbor && cell.waterFraction >= 0.05) {
+            cell.isWaterMargin = true;
+          }
+        }
+      }
+    }
+
+    cachedSurfaceMask = { cacheKey, cells };
+    return cells;
+  }
+
+  // ============================================================================
+  // 4. BLUE-SCALE HUMIDITY EVALUATION (HH+HV GCOV NON-TECHNICAL MODEL)
+  // ============================================================================
+
+  const NISAR_RED_TO_BLUE_STOPS_X = [0.00, 0.22, 0.45, 0.68, 0.85, 1.00];
+  const NISAR_RED_TO_BLUE_STOPS_RGB = [
+    [220.0, 38.0, 38.0],
+    [248.0, 113.0, 113.0],
+    [147.0, 197.0, 253.0],
+    [59.0, 130.0, 246.0],
+    [29.0, 78.0, 216.0],
+    [12.0, 74.0, 110.0]
+  ];
+
+  const PLAIN_HUMIDITY_CATEGORY_META_BY_LANG = {
+    en: {
+      water: {
+        color: '#0c4a6e',
+        badgeText: 'OPEN WATER (100% WATER)',
+        surfaceTag: 'River, lagoon, reservoir, or water body',
+        citizenDesc: 'There is open water on the surface here (such as a river channel or lagoon). The deep navy blue tone indicates permanent water.'
+      },
+      flooded_land: {
+        color: '#1d4ed8',
+        badgeText: 'FLOODED AREA / WATER-COVERED',
+        surfaceTag: 'Riverbank or low-lying ground with standing water',
+        citizenDesc: 'Ground partially covered by water or very deep mud along the bank. The intense blue indicates surface flooding.'
+      },
+      flooded_veg: {
+        color: '#2563eb',
+        badgeText: 'FLOODED WOODLAND OR VEGETATION',
+        surfaceTag: 'Trees or grassland with water underneath',
+        citizenDesc: 'The NISAR satellite sees beneath the tree canopy and detects standing water on the ground under the vegetation.'
+      },
+      saturated: {
+        color: '#3b82f6',
+        badgeText: 'VERY WET SOIL',
+        surfaceTag: 'Saturated soil with excess moisture',
+        citizenDesc: 'The soil holds a high amount of water in the top few centimeters. Medium blue shows very wet or muddy areas.'
+      },
+      humid: {
+        color: '#93c5fd',
+        badgeText: 'NORMAL MOISTURE',
+        surfaceTag: 'Firm ground with a good water reserve',
+        citizenDesc: 'The light sky blue tone marks balanced surface moisture, favorable for crops, pastures, and healthy woodland.'
+      },
+      dry: {
+        color: '#f87171',
+        badgeText: 'LOW MOISTURE',
+        surfaceTag: 'Soil with low surface moisture',
+        citizenDesc: 'The light red (coral) tone indicates that the ground retains little surface moisture and is beginning to dry out.'
+      },
+      arid_rock: {
+        color: '#dc2626',
+        badgeText: 'DRY SOIL OR URBAN AREA',
+        surfaceTag: 'Dry terrain, road, or built-up area',
+        citizenDesc: 'The intense red color indicates dry soil, roads, or urban areas where almost no surface moisture is retained.'
+      },
+      nodata: {
+        color: '#475569',
+        badgeText: 'NO COVERAGE ON THIS DATE',
+        surfaceTag: 'Sector outside the satellite swath on this pass',
+        citizenDesc: 'This edge of the polygon fell outside the effective swath captured by the NISAR satellite on this date.'
+      }
+    },
+    es: {
+      water: {
+        color: '#0c4a6e',
+        badgeText: 'AGUA LIBRE (100% AGUA)',
+        surfaceTag: 'Río, laguna, embalse o espejo de agua',
+        citizenDesc: 'Aquí hay agua libre en la superficie (como el cauce del río o una laguna). El tono azul marino profundo indica agua permanente.'
+      },
+      flooded_land: {
+        color: '#1d4ed8',
+        badgeText: 'ZONA ANEGADA / CUBIERTA DE AGUA',
+        surfaceTag: 'Orilla o terreno bajo con agua acumulada',
+        citizenDesc: 'Terreno cubierto parcialmente por agua o barro muy profundo en la orilla. El azul intenso señala anegamiento superficial.'
+      },
+      flooded_veg: {
+        color: '#2563eb',
+        badgeText: 'MONTE O VEGETACIÓN CON AGUA',
+        surfaceTag: 'Árboles o pastizales con agua debajo',
+        citizenDesc: 'El satélite NISAR logra ver debajo de las copas de los árboles y detecta agua acumulada sobre el suelo debajo de la vegetación.'
+      },
+      saturated: {
+        color: '#3b82f6',
+        badgeText: 'TIERRA MUY MOJADA',
+        surfaceTag: 'Suelo saturado con exceso de humedad',
+        citizenDesc: 'El suelo tiene mucha agua retenida en los primeros centímetros. El azul medio muestra zonas muy húmedas o con barro.'
+      },
+      humid: {
+        color: '#93c5fd',
+        badgeText: 'HUMEDAD NORMAL',
+        surfaceTag: 'Tierra firme con buena reserva de agua',
+        citizenDesc: 'El tono celeste claro marca humedad equilibrada en superficie, favorable para cultivos, pasturas y monte sano.'
+      },
+      dry: {
+        color: '#f87171',
+        badgeText: 'POCA HUMEDAD',
+        surfaceTag: 'Suelo con baja humedad superficial',
+        citizenDesc: 'El tono rojo claro (coral) indica que el terreno conserva poca humedad en superficie y comienza a secarse.'
+      },
+      arid_rock: {
+        color: '#dc2626',
+        badgeText: 'SUELO SECO O ZONA URBANA',
+        surfaceTag: 'Terreno seco, camino o área edificada',
+        citizenDesc: 'El color rojo intenso señala suelo seco, caminos o zonas urbanas donde casi no se retiene humedad superficial.'
+      },
+      nodata: {
+        color: '#475569',
+        badgeText: 'SIN COBERTURA EN ESTA FECHA',
+        surfaceTag: 'Sector fuera de la franja satelital en esta pasada',
+        citizenDesc: 'Este borde del polígono quedó fuera de la franja efectiva capturada por el satélite NISAR en esta fecha.'
+      }
+    }
+  };
+
+  function getPlainHumidityCategoryMeta(type) {
+    const langMeta = PLAIN_HUMIDITY_CATEGORY_META_BY_LANG[currentLanguage] || PLAIN_HUMIDITY_CATEGORY_META_BY_LANG.en;
+    return langMeta[type] || langMeta.humid;
+  }
+
+  const loadedNisarRasterCanvases = new Map();
+
+  /**
+   * Projects an RGB pixel from a NISAR Red-to-Blue PNG back onto the 6-stop
+   * linear palette used by `fetch_nisar_live.py` to recover wetness (0-100%).
+   * Why this is necessary: Guarantees map-click humidity percentages and badges
+   * match the exact color shown on the raster overlay and sidebar legend.
+   */
+  function invertRedBlueRgbToWetnessPct(r, g, b) {
+    let bestW = 0.0;
+    let bestDist2 = Infinity;
+
+    for (let i = 0; i < NISAR_RED_TO_BLUE_STOPS_X.length - 1; i++) {
+      const a = NISAR_RED_TO_BLUE_STOPS_RGB[i];
+      const bStop = NISAR_RED_TO_BLUE_STOPS_RGB[i + 1];
+      const vx = bStop[0] - a[0];
+      const vy = bStop[1] - a[1];
+      const vz = bStop[2] - a[2];
+      const denom = vx * vx + vy * vy + vz * vz;
+
+      const px = r - a[0];
+      const py = g - a[1];
+      const pz = b - a[2];
+      const t = denom > 0
+        ? Math.max(0.0, Math.min(1.0, (px * vx + py * vy + pz * vz) / denom))
+        : 0.0;
+
+      const dx = px - t * vx;
+      const dy = py - t * vy;
+      const dz = pz - t * vz;
+      const dist2 = dx * dx + dy * dy + dz * dz;
+
+      if (dist2 < bestDist2) {
+        bestDist2 = dist2;
+        const x0 = NISAR_RED_TO_BLUE_STOPS_X[i];
+        const x1 = NISAR_RED_TO_BLUE_STOPS_X[i + 1];
+        bestW = x0 + t * (x1 - x0);
+      }
+    }
+
+    return +Math.max(0.0, Math.min(100.0, bestW * 100.0)).toFixed(1);
+  }
+
+  /**
+   * Maps a numeric humidity percentage (0-100%) to one of the 7 sidebar legend
+   * categories so Red (<26%) is always dry and Blue (26-100%) is always wet.
+   * Why this is necessary: Keeps map overlays, inspector popups, and the left
+   * reference card 100% consistent across all tabs and dates.
+   */
+  function classifyHumidityPercentageIntoLegendType(humidityPct) {
+    if (humidityPct >= 95.0) return 'water';
+    if (humidityPct >= 81.0) return 'flooded_land';
+    if (humidityPct >= 72.0) return 'flooded_veg';
+    if (humidityPct >= 48.0) return 'saturated';
+    if (humidityPct >= 26.0) return 'humid';
+    if (humidityPct >= 12.0) return 'dry';
+    return 'arid_rock';
+  }
+
+  /**
+   * Loads a NISAR Red-to-Blue PNG into an offscreen HTML5 canvas once so pixel
+   * humidity values can be queried instantaneously at any coordinate.
+   * Why this is necessary: Prevents reading synthetic tile heuristics instead of
+   * actual NISAR radar pixels when inspecting Before/After disaster overlays.
+   */
+  function preloadNisarBlueRasterCanvas(imagePath, overlayBounds) {
+    if (!imagePath) return Promise.resolve(null);
+    const bounds = overlayBounds || activePolygonZone.bounds;
+    const existing = loadedNisarRasterCanvases.get(imagePath);
+    if (existing && existing.ready) {
+      existing.bounds = bounds;
+      return Promise.resolve(existing);
+    }
+    if (existing && existing.promise) {
+      existing.bounds = bounds;
+      return existing.promise;
+    }
+
+    const promise = new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth || img.width;
+          canvas.height = img.naturalHeight || img.height;
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          ctx.drawImage(img, 0, 0);
+          const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+          const record = {
+            ready: true,
+            width: canvas.width,
+            height: canvas.height,
+            data,
+            bounds
+          };
+          loadedNisarRasterCanvases.set(imagePath, record);
+          resolve(record);
+        } catch (err) {
+          console.warn("Notice decoding NISAR raster pixels:", err);
+          loadedNisarRasterCanvases.delete(imagePath);
+          resolve(null);
+        }
+      };
+      img.onerror = () => {
+        loadedNisarRasterCanvases.delete(imagePath);
+        resolve(null);
+      };
+      img.src = imagePath;
+    });
+
+    loadedNisarRasterCanvases.set(imagePath, { ready: false, bounds, promise });
+    return promise;
+  }
+
+  /**
+   * Resolves the scene metadata object (with blueImagePath and overlayBounds)
+   * matching a date or explicit scene override inside the active polygon zone.
+   * Why this is necessary: Lets click inspection and grid generation read from
+   * the exact displayed Before/After or Single-Map NISAR raster PNG.
+   */
+  function resolveNisarSceneWithRasterForDate(dateStr, sceneOverride = null) {
+    if (sceneOverride && sceneOverride.blueImagePath) return sceneOverride;
+    if (activePolygonZone.before_scene && activePolygonZone.before_scene.date === dateStr && activePolygonZone.before_scene.blueImagePath) {
+      return activePolygonZone.before_scene;
+    }
+    if (activePolygonZone.after_scene && activePolygonZone.after_scene.date === dateStr && activePolygonZone.after_scene.blueImagePath) {
+      return activePolygonZone.after_scene;
+    }
+    if (Array.isArray(activeZoneNisarScenes)) {
+      const found = activeZoneNisarScenes.find((s) => s && s.date === dateStr && s.blueImagePath);
+      if (found) return found;
+    }
+    if (activePolygonZone.first_2026_scene && activePolygonZone.first_2026_scene.date === dateStr && activePolygonZone.first_2026_scene.blueImagePath) {
+      return activePolygonZone.first_2026_scene;
+    }
+    return null;
+  }
+
+  /**
+   * Samples humidity (0-100%) from a preloaded NISAR Red-to-Blue raster canvas at
+   * an exact clicked lat/lon or across a grid cell's bounding rectangle.
+   * Why this is necessary: Ensures clicking any red or blue radar feature reads
+   * the exact pixel wetness inside that NISAR scene rather than tile fallbacks.
+   */
+  function sampleNisarRasterHumidityAtPointOrCell(rasterRecord, exactLat, exactLon, latS, latN, lonW, lonE) {
+    if (!rasterRecord || !rasterRecord.ready || !rasterRecord.bounds) return null;
+    const rb = rasterRecord.bounds;
+    const w = rasterRecord.width;
+    const h = rasterRecord.height;
+    const data = rasterRecord.data;
+    const lonSpan = rb.east - rb.west;
+    const latSpan = rb.north - rb.south;
+    if (lonSpan <= 0 || latSpan <= 0 || w <= 0 || h <= 0) return null;
+
+    const readPixelWetness = (px, py) => {
+      const idx = (py * w + px) * 4;
+      if (data[idx + 3] <= 15) return null;
+      return invertRedBlueRgbToWetnessPct(data[idx], data[idx + 1], data[idx + 2]);
+    };
+
+    if (exactLat !== null && exactLon !== null) {
+      if (exactLat < rb.south || exactLat > rb.north || exactLon < rb.west || exactLon > rb.east) {
+        return { hasValidPixel: false };
+      }
+      const cx = Math.max(0, Math.min(w - 1, Math.floor(((exactLon - rb.west) / lonSpan) * w)));
+      const cy = Math.max(0, Math.min(h - 1, Math.floor(((rb.north - exactLat) / latSpan) * h)));
+      const direct = readPixelWetness(cx, cy);
+      if (direct !== null) {
+        return { hasValidPixel: true, humidityPct: direct };
+      }
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          const nx = cx + dx;
+          const ny = cy + dy;
+          if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+            const nearby = readPixelWetness(nx, ny);
+            if (nearby !== null) {
+              return { hasValidPixel: true, humidityPct: nearby };
+            }
+          }
+        }
+      }
+      return { hasValidPixel: false };
+    }
+
+    let sumW = 0.0;
+    let validCount = 0;
+    for (let sy = 0.25; sy <= 0.76; sy += 0.25) {
+      const sLat = latS + sy * (latN - latS);
+      if (sLat < rb.south || sLat > rb.north) continue;
+      const py = Math.max(0, Math.min(h - 1, Math.floor(((rb.north - sLat) / latSpan) * h)));
+      for (let sx = 0.25; sx <= 0.76; sx += 0.25) {
+        const sLon = lonW + sx * (lonE - lonW);
+        if (sLon < rb.west || sLon > rb.east) continue;
+        const px = Math.max(0, Math.min(w - 1, Math.floor(((sLon - rb.west) / lonSpan) * w)));
+        const val = readPixelWetness(px, py);
+        if (val !== null) {
+          sumW += val;
+          validCount++;
+        }
+      }
+    }
+
+    if (validCount === 0) {
+      return { hasValidPixel: false };
+    }
+    return { hasValidPixel: true, humidityPct: +(sumW / validCount).toFixed(1) };
+  }
+
+  /**
+   * Computes a smooth seasonal hydrological wave for a given 2026 capture date
+   * so fallback multi-temporal comparisons reflect realistic moisture shifts.
+   * Why this is necessary: Used only when no downloaded Earthdata PNG raster
+   * exists for a selected date.
+   */
+  function computeSeasonalMoistureOffsetForDate(dateStr, midLat) {
+    if (!dateStr) return 0;
+    const d = new Date(dateStr + "T12:00:00Z");
+    const dayOfYear = Math.floor((d - new Date(Date.UTC(d.getUTCFullYear(), 0, 0))) / 86400000) || 15;
+    const isSouthern = midLat < 0;
+    const peakDoy = isSouthern ? 40 : 210;
+    const seasonalWave = Math.cos(((dayOfYear - peakDoy) / 365.25) * 2 * Math.PI);
+    const rainBurst = Math.max(0, Math.sin(dayOfYear * 0.45) * (seasonalWave > 0 ? 11.5 : 3.5));
+    return +(seasonalWave * 10.5 + rainBurst).toFixed(1);
+  }
+
+  /**
+   * Evaluates a single grid cell [r, c] (or exact clicked coordinate) for a
+   * selected NISAR GCOV date, reading directly from the loaded NISAR PNG raster
+   * when available so colors and percentages always match the sidebar legend.
+   * Why this is necessary: Prevents optical base-map tiles from contradicting
+   * the radar L-band Red-to-Blue overlay (e.g., calling red dry ground "wet").
+   */
+  function evaluateBlueHumidityCategoryForGridCell(r, c, dateStr, sceneOverride = null, exactLat = null, exactLon = null) {
+    const b = activePolygonZone.bounds;
+    const rows = activePolygonZone.rows || 42;
+    const cols = activePolygonZone.cols || 56;
+    const latStep = (b.north - b.south) / rows;
+    const lonStep = (b.east - b.west) / cols;
+
+    const latS = b.south + r * latStep;
+    const latN = latS + latStep;
+    const lonW = b.west + c * lonStep;
+    const lonE = lonW + lonStep;
+    const latCenter = (latS + latN) / 2;
+    const lonCenter = (lonW + lonE) / 2;
+    const midLat = (b.south + b.north) / 2;
+
+    const surf = (cachedSurfaceMask.cells && cachedSurfaceMask.cells[r] && cachedSurfaceMask.cells[r][c])
+      ? cachedSurfaceMask.cells[r][c]
+      : {
+          waterFraction: 0,
+          isWaterBody: false,
+          isWaterMargin: false,
+          vegIndex: 0.08,
+          brightness: 105,
+          isBrightBare: false,
+          distWaterKm: 8.0
+        };
+
+    const rasterScene = resolveNisarSceneWithRasterForDate(dateStr, sceneOverride);
+    const rasterRecord = (rasterScene && rasterScene.blueImagePath)
+      ? loadedNisarRasterCanvases.get(rasterScene.blueImagePath)
+      : null;
+
+    let humidityPct = null;
+    let type = null;
+
+    if (rasterRecord && rasterRecord.ready) {
+      const sampled = sampleNisarRasterHumidityAtPointOrCell(
+        rasterRecord,
+        exactLat,
+        exactLon,
+        latS,
+        latN,
+        lonW,
+        lonE
+      );
+      if (sampled) {
+        if (sampled.hasValidPixel) {
+          humidityPct = sampled.humidityPct;
+          type = classifyHumidityPercentageIntoLegendType(humidityPct);
+        } else {
+          humidityPct = 0.0;
+          type = 'nodata';
+        }
+      }
+    }
+
+    if (type === null) {
+      const seasonalOffset = computeSeasonalMoistureOffsetForDate(dateStr, midLat);
+      const microVariation = Math.sin(r * 0.65 + c * 0.45) * 2.8 + Math.cos(r * 0.3 - c * 0.7) * 2.1;
+
+      if (surf.isWaterBody) {
+        humidityPct = 100.0;
+        type = 'water';
+      } else if (surf.isWaterMargin || (surf.distWaterKm < 0.85 && seasonalOffset > 4.5)) {
+        humidityPct = +Math.min(94.9, Math.max(81.0, 84.0 + surf.waterFraction * 25 + seasonalOffset * 0.4 + microVariation)).toFixed(1);
+        type = 'flooded_land';
+      } else if (surf.distWaterKm < 2.2 && surf.vegIndex > 0.04 && (seasonalOffset > 1.5 || surf.waterFraction > 0.04)) {
+        humidityPct = +Math.min(80.9, Math.max(72.0, 76.0 + seasonalOffset * 0.65 + microVariation)).toFixed(1);
+        type = 'flooded_veg';
+      } else {
+        if (surf.isBrightBare && surf.vegIndex < 0.01) {
+          humidityPct = +Math.max(4.5, Math.min(11.8, 8.0 + seasonalOffset * 0.22 + microVariation * 0.5)).toFixed(1);
+        } else {
+          const riverProximityBoost = Math.max(0, (4.5 - surf.distWaterKm) * 3.8);
+          const vegetationBoost = surf.vegIndex * 85;
+          humidityPct = +Math.max(8.0, Math.min(76.0, 27.5 + vegetationBoost + riverProximityBoost + seasonalOffset + microVariation)).toFixed(1);
+        }
+        type = classifyHumidityPercentageIntoLegendType(humidityPct);
+      }
+    }
+
+    const meta = getPlainHumidityCategoryMeta(type);
+    return {
+      r,
+      c,
+      latS,
+      latN,
+      lonW,
+      lonE,
+      latCenter,
+      lonCenter,
+      clickLat: exactLat,
+      clickLon: exactLon,
+      humidityPct,
+      type,
+      color: meta.color,
+      badgeText: meta.badgeText,
+      surfaceTag: meta.surfaceTag,
+      citizenDesc: meta.citizenDesc,
+      distWaterKm: surf.distWaterKm
+    };
+  }
+
+  /**
+   * Builds an offscreen HTML5 canvas filled with BLUE humidity squares for the
+   * specified NISAR capture date and converts it into a crisp PNG Data URL.
+   * Why this is necessary: Rendering thousands of grid squares onto one canvas
+   * keeps map panning fast and smooth in the browser.
+   */
+  function buildBlueHumidityGridDataUrl(dateStr, applyLayerFilters = false, sceneOverride = null) {
+    if (!dateStr) return { dataUrl: null, meanHumidity: 0, wetAreaKm2: 0, cells: null };
+
+    const b = activePolygonZone.bounds;
+    const rows = activePolygonZone.rows || 42;
+    const cols = activePolygonZone.cols || 56;
+    const scale = 6;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = cols * scale;
+    canvas.height = rows * scale;
+    const ctx = canvas.getContext('2d');
+
+    const showWater = true;
+    const showFloodLand = true;
+    const showFloodVeg = true;
+    const showSat = true;
+    const showHumid = true;
+    const showDry = true;
+    const showRock = true;
+
+    let sumHumidity = 0;
+    let totalCells = 0;
+    let wetCells = 0;
+
+    const latSpanKm = Math.abs(b.north - b.south) * 111.0;
+    const lonSpanKm = Math.abs(b.east - b.west) * 111.0 * Math.cos(((b.north + b.south) / 2) * Math.PI / 180);
+    const cellAreaKm2 = (latSpanKm * lonSpanKm) / (rows * cols);
+    const cellsMatrix = new Array(rows);
+
+    for (let r = 0; r < rows; r++) {
+      const canvasY = (rows - 1 - r) * scale;
+      const rowArr = new Array(cols);
+      cellsMatrix[r] = rowArr;
+
+      for (let c = 0; c < cols; c++) {
+        const cell = evaluateBlueHumidityCategoryForGridCell(r, c, dateStr, sceneOverride);
+        rowArr[c] = cell;
+        if (cell.type === 'nodata') continue;
+
+        sumHumidity += cell.humidityPct;
+        totalCells++;
+
+        if (
+          cell.type === 'water' ||
+          cell.type === 'flooded_land' ||
+          cell.type === 'flooded_veg' ||
+          cell.type === 'saturated'
+        ) {
+          wetCells++;
+        }
+
+        const isVisible =
+          (cell.type === 'water' && showWater) ||
+          (cell.type === 'flooded_land' && showFloodLand) ||
+          (cell.type === 'flooded_veg' && showFloodVeg) ||
+          (cell.type === 'saturated' && showSat) ||
+          (cell.type === 'humid' && showHumid) ||
+          (cell.type === 'dry' && showDry) ||
+          (cell.type === 'arid_rock' && showRock);
+
+        if (!isVisible) continue;
+
+        const canvasX = c * scale;
+        ctx.fillStyle = cell.color;
+        ctx.fillRect(canvasX, canvasY, scale, scale);
+
+        ctx.strokeStyle = 'rgba(4, 11, 22, 0.18)';
+        ctx.lineWidth = 0.5;
+        ctx.strokeRect(canvasX, canvasY, scale, scale);
+      }
+    }
+
+    return {
+      dataUrl: canvas.toDataURL('image/png'),
+      meanHumidity: totalCells ? +(sumHumidity / totalCells).toFixed(1) : 0,
+      wetAreaKm2: Math.round(wetCells * cellAreaKm2),
+      cells: cellsMatrix
+    };
+  }
+
+  /**
+   * Attaches a generated or downloaded PNG image overlay to a Leaflet map.
+   * Why this is necessary: Replaces any previous overlay cleanly without
+   * stacking duplicate images when switching dates or zones.
+   */
+  function applyImageOverlayToLeafletMap(targetMap, existingOverlay, imageUrl, boundsObj, opacity) {
+    if (existingOverlay && targetMap.hasLayer(existingOverlay)) {
+      targetMap.removeLayer(existingOverlay);
+    }
+    if (!imageUrl) return null;
+    const leafletBounds = [[boundsObj.south, boundsObj.west], [boundsObj.north, boundsObj.east]];
+    return L.imageOverlay(imageUrl, leafletBounds, {
+      opacity: opacity,
+      interactive: false,
+      className: 'pixelated-grid'
+    }).addTo(targetMap);
+  }
+
+  /**
+   * Checks whether an external or local PNG image URL can be loaded by the browser.
+   * Why this is necessary: If the user hasn't run the Earthdata download yet,
+   * the map gracefully falls back to the interactive blue humidity grid instead
+   * of showing a broken overlay.
+   */
+  function verifyImageUrlLoadsSuccessfully(imageUrl) {
+    if (!imageUrl) return Promise.resolve(false);
+    return new Promise((resolve) => {
+      const tester = new Image();
+      tester.onload = () => resolve(true);
+      tester.onerror = () => resolve(false);
+      tester.src = `${imageUrl}?t=${Date.now()}`;
+    });
+  }
+
+  /**
+   * Renders the selected 2026 NISAR GCOV HH+HV humidity layer on the main map,
+   * using the downloaded Earthdata blue GCOV PNG when available (and selected)
+   * or the interactive blue sector grid.
+   * Why this is necessary: Keeps the main map display synchronized with the
+   * chosen polygon, 2026 capture, layer filters, and opacity slider.
+   */
+  async function renderActiveHumidityMapOverlay() {
+    const selectedScene = activeZoneNisarScenes[currentSelectedSceneIndex] || null;
+    const dateStr = selectedScene ? selectedScene.date : "2026-01-05";
+    const mode = "blue_raster";
+
+    const candidateBluePng = (selectedScene && selectedScene.blueImagePath)
+      ? selectedScene.blueImagePath
+      : activePolygonZone.blue_image_path;
+    const overlayBounds = (selectedScene && selectedScene.overlayBounds)
+      ? selectedScene.overlayBounds
+      : activePolygonZone.bounds;
+
+    if (candidateBluePng) {
+      await preloadNisarBlueRasterCanvas(candidateBluePng, overlayBounds);
+    }
+
+    await analyzeRealWaterAndLandSurfaceForZone(activePolygonZone);
+    const gridResult = buildBlueHumidityGridDataUrl(dateStr, true, selectedScene);
+
+    let renderedOfficialRaster = false;
+    if (mode === "blue_raster" && candidateBluePng) {
+      const canLoadPng = await verifyImageUrlLoadsSuccessfully(candidateBluePng);
+      if (canLoadPng) {
+        mainRasterOverlay = applyImageOverlayToLeafletMap(
+          map,
+          mainRasterOverlay,
+          `${candidateBluePng}?t=${Date.now()}`,
+          overlayBounds,
+          blueOverlayOpacity
+        );
+        renderedOfficialRaster = true;
+      }
+    }
+
+    if (!renderedOfficialRaster) {
+      mainRasterOverlay = applyImageOverlayToLeafletMap(
+        map,
+        mainRasterOverlay,
+        gridResult.dataUrl,
+        activePolygonZone.bounds,
+        blueOverlayOpacity
+      );
+    }
+
+    document.getElementById('statMeanHumidity').textContent = `${gridResult.meanHumidity}%`;
+    document.getElementById('statWetAreaKm2').textContent = `${gridResult.wetAreaKm2} km²`;
+
+    if (selectedGridRowCol) {
+      const cell = evaluateBlueHumidityCategoryForGridCell(
+        selectedGridRowCol.r,
+        selectedGridRowCol.c,
+        dateStr,
+        selectedScene,
+        selectedGridRowCol.lat ?? null,
+        selectedGridRowCol.lon ?? null
+      );
+      openSimplifiedCitizenHumidityInspector(cell);
+    }
+  }
+
+  /**
+   * Adjusts the opacity of the blue humidity overlays across all map views
+   * and keeps both sidebar opacity sliders and percentage readouts synchronized.
+   * Why this is necessary: Lets users blend the Red-to-Blue NISAR imagery with
+   * the underlying satellite map in both single-map and comparison modes.
+   */
+  function updateBlueOverlayTransparency(sliderValue) {
+    blueOverlayOpacity = Number(sliderValue) / 100;
+    const opacityLabelEl = document.getElementById('opacityVal');
+    const compareLabelEl = document.getElementById('compareOpacityVal');
+    const mainSliderEl = document.getElementById('blueOverlayOpacitySlider');
+    const compareSliderEl = document.getElementById('compareOpacitySlider');
+
+    if (opacityLabelEl) opacityLabelEl.textContent = `${sliderValue}%`;
+    if (compareLabelEl) compareLabelEl.textContent = `${sliderValue}%`;
+    if (mainSliderEl && mainSliderEl.value !== String(sliderValue)) mainSliderEl.value = sliderValue;
+    if (compareSliderEl && compareSliderEl.value !== String(sliderValue)) compareSliderEl.value = sliderValue;
+
+    if (mainRasterOverlay) mainRasterOverlay.setOpacity(blueOverlayOpacity);
+    if (compareOverlayA) compareOverlayA.setOpacity(blueOverlayOpacity);
+    if (compareOverlayB) compareOverlayB.setOpacity(blueOverlayOpacity);
+  }
+
+  /**
+   * Resolves the fixed Before and After NISAR scenes for a disaster comparison zone,
+   * falling back to the earliest and latest loaded scenes when needed.
+   * Why this is necessary: Keeps map overlays, inspector comparisons, and change
+   * statistics reading from one shared source of truth.
+   */
+  function getBeforeAndAfterScenesForZone(zone, zoneScenes) {
+    const fallbackBefore = (zoneScenes && zoneScenes.length > 0) ? zoneScenes[0] : null;
+    const fallbackAfter = (zoneScenes && zoneScenes.length > 1)
+      ? zoneScenes[zoneScenes.length - 1]
+      : fallbackBefore;
+    return {
+      beforeScene: (zone && zone.before_scene) ? zone.before_scene : fallbackBefore,
+      afterScene: (zone && zone.after_scene) ? zone.after_scene : fallbackAfter
+    };
+  }
+
+  // ============================================================================
+  // 5. SIMPLIFIED CITIZEN HUMIDITY INSPECTOR (CLICK ON MAP)
+  // ============================================================================
+
+  /**
+   * Handles clicks on the main map or comparison maps, resolves which cell
+   * inside the active polygon was clicked, and opens the plain-language panel.
+   * Why this is necessary: Allows non-technical users to tap anywhere in the
+   * monitored polygon and immediately understand how wet or dry that spot is.
+   */
+  async function handleMapClickForHumidityInspection(clickEvent) {
+    const lat = clickEvent.latlng.lat;
+    const lon = clickEvent.latlng.lng;
+    const b = activePolygonZone.bounds;
+
+    if (lat < b.south || lat > b.north || lon < b.west || lon > b.east) {
+      closeCitizenHumidityInspector();
+      return;
+    }
+
+    const rows = activePolygonZone.rows || 42;
+    const cols = activePolygonZone.cols || 56;
+    const latStep = (b.north - b.south) / rows;
+    const lonStep = (b.east - b.west) / cols;
+
+    const r = Math.min(rows - 1, Math.max(0, Math.floor((lat - b.south) / latStep)));
+    const c = Math.min(cols - 1, Math.max(0, Math.floor((lon - b.west) / lonStep)));
+
+    let dateStr = "2026-01-05";
+    let clickedScene = null;
+    const clickedBeforeMap = Boolean(clickEvent && clickEvent.target === mapA);
+    if (activePolygonZone.view_mode === 'before_after_disaster') {
+      const { beforeScene, afterScene } = getBeforeAndAfterScenesForZone(activePolygonZone, activeZoneNisarScenes);
+      await Promise.all([
+        beforeScene && beforeScene.blueImagePath
+          ? preloadNisarBlueRasterCanvas(beforeScene.blueImagePath, beforeScene.overlayBounds || b)
+          : Promise.resolve(null),
+        afterScene && afterScene.blueImagePath
+          ? preloadNisarBlueRasterCanvas(afterScene.blueImagePath, afterScene.overlayBounds || b)
+          : Promise.resolve(null)
+      ]);
+      clickedScene = clickedBeforeMap ? beforeScene : afterScene;
+      dateStr = clickedScene ? clickedScene.date : "2026-01-17";
+    } else {
+      clickedScene = activeZoneNisarScenes[currentSelectedSceneIndex] || null;
+      if (clickedScene && clickedScene.blueImagePath) {
+        await preloadNisarBlueRasterCanvas(clickedScene.blueImagePath, clickedScene.overlayBounds || b);
+      } else if (activePolygonZone.blue_image_path && !clickedScene) {
+        await preloadNisarBlueRasterCanvas(activePolygonZone.blue_image_path, b);
+      }
+      dateStr = clickedScene ? clickedScene.date : "2026-01-05";
+    }
+
+    selectedGridRowCol = { r, c, lat, lon, clickedBeforeMap };
+
+    const cell = evaluateBlueHumidityCategoryForGridCell(r, c, dateStr, clickedScene, lat, lon);
+    drawSelectedCellHighlightBox(cell);
+    openSimplifiedCitizenHumidityInspector(cell);
+  }
+
+  map.on('click', handleMapClickForHumidityInspection);
+  mapA.on('click', handleMapClickForHumidityInspection);
+  mapB.on('click', handleMapClickForHumidityInspection);
+
+  /**
+   * Draws a bright outline rectangle around the clicked location on all maps.
+   * Why this is necessary: Provides immediate visual feedback confirming which
+   * sector the user is inspecting.
+   */
+  function drawSelectedCellHighlightBox(cell) {
+    const bounds = [[cell.latS, cell.lonW], [cell.latN, cell.lonE]];
+    const style = {
+      color: '#ffffff',
+      weight: 2.2,
+      fillColor: '#94a3b8',
+      fillOpacity: 0.22,
+      interactive: false
+    };
+    if (selectedCellHighlightMain) map.removeLayer(selectedCellHighlightMain);
+    if (selectedCellHighlightA) mapA.removeLayer(selectedCellHighlightA);
+    if (selectedCellHighlightB) mapB.removeLayer(selectedCellHighlightB);
+
+    selectedCellHighlightMain = L.rectangle(bounds, style).addTo(map);
+    selectedCellHighlightA = L.rectangle(bounds, style).addTo(mapA);
+    selectedCellHighlightB = L.rectangle(bounds, style).addTo(mapB);
+  }
+
+  /**
+   * Populates and opens the floating top-right inspector using clear, everyday
+   * language (English or Spanish) without scientific radar terminology.
+   * Why this is necessary: Presents humidity metrics in a friendly format for
+   * citizens with no scientific background.
+   */
+  function openSimplifiedCitizenHumidityInspector(cell) {
+    const isEs = (currentLanguage === 'es');
+    const panel = document.getElementById('cellInspector');
+    panel.style.display = 'block';
+
+    const dispLat = (cell.clickLat !== null && cell.clickLat !== undefined) ? cell.clickLat : cell.latCenter;
+    const dispLon = (cell.clickLon !== null && cell.clickLon !== undefined) ? cell.clickLon : cell.lonCenter;
+    document.getElementById('inspCoords').textContent =
+      `Lat: ${dispLat.toFixed(4)}° • Lon: ${dispLon.toFixed(4)}°`;
+
+    const badge = document.getElementById('inspBadge');
+    badge.textContent = cell.badgeText;
+    badge.style.background = cell.color;
+    badge.style.color = (cell.type === 'humid' || cell.type === 'dry') ? '#041226' : '#ffffff';
+
+    const surfaceTag = document.getElementById('inspSurfaceTag');
+    surfaceTag.textContent = cell.surfaceTag;
+    surfaceTag.style.borderColor = cell.color;
+
+    const isNoData = (cell.type === 'nodata');
+    document.getElementById('inspMoisture').textContent = isNoData ? '--' : cell.humidityPct.toFixed(1);
+    const bar = document.getElementById('inspMoistureBar');
+    bar.style.width = isNoData ? '0%' : (Math.min(100, cell.humidityPct) + '%');
+    bar.style.background = cell.color;
+
+    document.getElementById('inspDistRiver').textContent = cell.distWaterKm.toFixed(2);
+    document.getElementById('inspPhysDesc').textContent = cell.citizenDesc;
+
+    const cmpBox = document.getElementById('inspCompareBox');
+    const isCompareZone = activePolygonZone.view_mode === 'before_after_disaster';
+    const { beforeScene: sceneA, afterScene: sceneB } = getBeforeAndAfterScenesForZone(
+      activePolygonZone,
+      activeZoneNisarScenes
+    );
+
+    if (isCompareZone && sceneA && sceneB) {
+      const clickLat = (cell.clickLat !== null && cell.clickLat !== undefined) ? cell.clickLat : null;
+      const clickLon = (cell.clickLon !== null && cell.clickLon !== undefined) ? cell.clickLon : null;
+      const cA = evaluateBlueHumidityCategoryForGridCell(cell.r, cell.c, sceneA.date, sceneA, clickLat, clickLon);
+      const cB = evaluateBlueHumidityCategoryForGridCell(cell.r, cell.c, sceneB.date, sceneB, clickLat, clickLon);
+
+      cmpBox.style.display = 'block';
+      const beforeLbl = isEs ? 'Antes' : 'Before';
+      const afterLbl = isEs ? 'Después' : 'After';
+      const noCovTxt = isEs ? 'Sin cobertura satelital' : 'No satellite coverage';
+
+      if (cA.type === 'nodata' || cB.type === 'nodata') {
+        const valA = cA.type === 'nodata' ? noCovTxt : `${cA.humidityPct}% (${cA.badgeText})`;
+        const valB = cB.type === 'nodata' ? noCovTxt : `${cB.humidityPct}% (${cB.badgeText})`;
+        const noteLbl = isEs ? 'Nota:' : 'Note:';
+        const noteMsg = isEs
+          ? 'Una de las imágenes no cubre este borde del área.'
+          : 'One of the satellite captures does not cover this edge of the area.';
+        document.getElementById('inspCompareDetails').innerHTML =
+          `<b>${beforeLbl} (${sceneA.date}):</b> ${valA}<br/>` +
+          `<b>${afterLbl} (${sceneB.date}):</b> ${valB}<br/>` +
+          `<b>${noteLbl}</b> <span style="color:#b4bfcc;">${noteMsg}</span>`;
+        return;
+      }
+
+      const deltaPct = +(cB.humidityPct - cA.humidityPct).toFixed(1);
+      const sign = deltaPct >= 0 ? '+' : '';
+
+      let plainDiagnosis = isEs
+        ? 'Humedad estable entre ambas fechas.'
+        : 'Stable moisture between both dates.';
+      if (cA.type === 'water' && cB.type === 'water') {
+        plainDiagnosis = isEs
+          ? 'Cuerpo de agua permanente en ambas fechas.'
+          : 'Permanent water body on both dates.';
+      } else if ((cB.type === 'flooded_land' || cB.type === 'flooded_veg' || cB.type === 'water') && cA.type !== 'flooded_land' && cA.type !== 'flooded_veg' && cA.type !== 'water') {
+        plainDiagnosis = isEs
+          ? 'Se observa nueva presencia de agua superficial.'
+          : 'New surface water presence observed.';
+      } else if (deltaPct >= 8.0) {
+        plainDiagnosis = isEs
+          ? 'Aumento notable de humedad en este sector.'
+          : 'Notable moisture increase in this sector.';
+      } else if (deltaPct <= -8.0) {
+        plainDiagnosis = isEs
+          ? 'Este sector perdió humedad y se volvió más seco.'
+          : 'This sector lost moisture and became drier.';
+      }
+
+      const varLbl = isEs ? 'Variación:' : 'Variation:';
+      document.getElementById('inspCompareDetails').innerHTML =
+        `<b>${beforeLbl} (${sceneA.date}):</b> ${cA.humidityPct}% (${cA.badgeText})<br/>` +
+        `<b>${afterLbl} (${sceneB.date}):</b> ${cB.humidityPct}% (${cB.badgeText})<br/>` +
+        `<b>${varLbl}</b> ${sign}${deltaPct}% • <span style="color:#b4bfcc;">${plainDiagnosis}</span>`;
+    } else {
+      cmpBox.style.display = 'none';
+    }
+  }
+
+  /**
+   * Closes the citizen humidity inspector and clears map cell highlights.
+   * Why this is necessary: Lets users dismiss the details box cleanly.
+   */
+  function closeCitizenHumidityInspector() {
+    selectedGridRowCol = null;
+    document.getElementById('cellInspector').style.display = 'none';
+    if (selectedCellHighlightMain) { map.removeLayer(selectedCellHighlightMain); selectedCellHighlightMain = null; }
+    if (selectedCellHighlightA) { mapA.removeLayer(selectedCellHighlightA); selectedCellHighlightA = null; }
+    if (selectedCellHighlightB) { mapB.removeLayer(selectedCellHighlightB); selectedCellHighlightB = null; }
+  }
+
+  // ============================================================================
+  // 6. BEFORE / AFTER FLOOD COMPARATOR (TABS 2 & 3) & SUPERIOR TAB NAVIGATION
+  // ============================================================================
+
+  const SUPERIOR_BROWSER_TAB_ZONES = {
+    1: "santiago_del_estero_capital",
+    2: "mozambique_chokwe_macia_floods_2026",
+    3: "nepal_china_gyirong_port_floods_2026",
+    4: "mas_usos_interesantes_gallery"
+  };
+
+  /**
+   * Resolves and applies the selected track configuration (bounds, WKT polygon,
+   * Before/After scenes, and grid resolution) onto activePolygonZone.
+   * Why this is necessary: Zones like Nepal–China (Gyirong Port) include
+   * multiple orbital tracks with distinct polygons and acquisition dates.
+   */
+  function applyTrackToActivePolygonZone(trackIndex) {
+    const tracks = Array.isArray(activePolygonZone.tracks) ? activePolygonZone.tracks : [];
+    if (tracks.length === 0) return null;
+
+    const safeIdx = Math.max(0, Math.min(tracks.length - 1, Number(trackIndex) || 0));
+    const track = tracks[safeIdx];
+    currentSelectedCompareTrackIndex = safeIdx;
+
+    const b = track.bounds || activePolygonZone.bounds;
+    const latSpan = Math.abs(b.north - b.south);
+    const lonSpan = Math.abs(b.east - b.west);
+    const rows = track.rows || Math.min(80, Math.max(24, Math.round(latSpan * 100)));
+    const cols = track.cols || Math.min(80, Math.max(24, Math.round(lonSpan * 90)));
+
+    activePolygonZone = {
+      ...activePolygonZone,
+      bounds: b,
+      wkt_polygon: track.wkt_polygon || activePolygonZone.wkt_polygon,
+      before_scene: track.before_scene || activePolygonZone.before_scene,
+      after_scene: track.after_scene || activePolygonZone.after_scene,
+      active_track: track,
+      rows,
+      cols
+    };
+
+    let trackScenes = Array.isArray(track.scenes) ? [...track.scenes] : [];
+    if (trackScenes.length === 0) {
+      if (track.before_scene) trackScenes.push(track.before_scene);
+      if (track.after_scene) trackScenes.push(track.after_scene);
+    }
+    trackScenes.sort((a, bItem) => (a.startTime || a.date).localeCompare(bItem.startTime || bItem.date));
+    activePolygonZone.scenes = trackScenes;
+    activeZoneNisarScenes = trackScenes;
+    return track;
+  }
+
+  /**
+   * Renders Track A / Track B switcher buttons in the left comparison sidebar
+   * when the active disaster zone defines multiple orbital track comparisons.
+   * Why this is necessary: Lets users toggle cleanly between Track A (ASCENDING)
+   * and Track B (DESCENDING) polygons without duplicating map viewports.
+   */
+  function renderCompareTrackSelectorButtons() {
+    const cardEl = document.getElementById('compareTrackSelectorCard');
+    const containerEl = document.getElementById('compareTrackButtons');
+    const badgeEl = document.getElementById('compareTrackCountBadge');
+    if (!cardEl || !containerEl) return;
+
+    const tracks = Array.isArray(activePolygonZone.tracks) ? activePolygonZone.tracks : [];
+    if (tracks.length === 0) {
+      cardEl.style.display = 'none';
+      containerEl.innerHTML = '';
+      return;
+    }
+
+    const isEs = (currentLanguage === 'es');
+    cardEl.style.display = 'block';
+    if (badgeEl) badgeEl.textContent = isEs ? `${tracks.length} Vistas` : `${tracks.length} Views`;
+    containerEl.innerHTML = '';
+
+    tracks.forEach((track, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `track-switch-btn${idx === currentSelectedCompareTrackIndex ? ' active' : ''}`;
+      btn.onclick = () => selectCompareTrackForActiveZone(idx);
+
+      const titleStrong = document.createElement('strong');
+      titleStrong.textContent = getLocalizedTrackLabel(track, idx);
+      btn.appendChild(titleStrong);
+
+      const beforeDate = track.before_scene ? track.before_scene.date : '--';
+      const afterDate = track.after_scene ? track.after_scene.date : '--';
+      const beforeWord = isEs ? 'Antes' : 'Before';
+      const afterWord = isEs ? 'Desp.' : 'After';
+      const metaSpan = document.createElement('span');
+      metaSpan.className = 'track-meta';
+      metaSpan.textContent = `${beforeWord}: ${beforeDate} → ${afterWord}: ${afterDate}`;
+      btn.appendChild(metaSpan);
+
+      containerEl.appendChild(btn);
+    });
+  }
+
+  /**
+   * Switches the active Track A / Track B comparison within a multi-track
+   * Before/After disaster tab and redraws boundaries, overlays, and metrics.
+   * Why this is necessary: Updates both synchronized maps and sidebar statistics
+   * immediately when switching orbital geometry and polygon bounds.
+   */
+  async function selectCompareTrackForActiveZone(trackIndex) {
+    closeCitizenHumidityInspector();
+    cachedSurfaceMask = { cacheKey: "", cells: null };
+    applyTrackToActivePolygonZone(trackIndex);
+    renderCompareTrackSelectorButtons();
+    renderActivePolygonBoundaryOnMaps();
+    await updateBeforeAndAfterComparisonMaps();
+  }
+
+  /**
+   * Renders the real recolored Earthdata NISAR GCOV HH+HV PNG raster onto the
+   * target Leaflet map when available, or falls back seamlessly to the computed
+   * interactive humidity sector grid.
+   * Why this is necessary: Guarantees both Before and After maps display actual
+   * satellite wetness imagery without blank tiles or duplicated load logic.
+   */
+  async function applySceneRasterOrGridFallbackToMap(targetMap, existingOverlay, scene, fallbackGridDataUrl) {
+    const candidatePng = scene && scene.blueImagePath;
+    if (candidatePng) {
+      const canLoadPng = await verifyImageUrlLoadsSuccessfully(candidatePng);
+      if (canLoadPng) {
+        const overlayBounds = (scene && scene.overlayBounds) ? scene.overlayBounds : activePolygonZone.bounds;
+        return {
+          overlay: applyImageOverlayToLeafletMap(
+            targetMap,
+            existingOverlay,
+            `${candidatePng}?t=${Date.now()}`,
+            overlayBounds,
+            blueOverlayOpacity
+          ),
+          usedRealRaster: true
+        };
+      }
+    }
+    return {
+      overlay: applyImageOverlayToLeafletMap(
+        targetMap,
+        existingOverlay,
+        fallbackGridDataUrl,
+        activePolygonZone.bounds,
+        blueOverlayOpacity
+      ),
+      usedRealRaster: false
+    };
+  }
+
+  /**
+   * Renders the synchronized Before and After maps in comparison tabs using
+   * the real Earthdata NISAR Red-to-Blue rasters (with grid fallback) and
+   * populates the flood expansion summary and mission context in the active language.
+   * Why this is necessary: Displays actual flood progression side-by-side for
+   * fixed disaster event dates without requiring manual date selection.
+   */
+  async function updateBeforeAndAfterComparisonMaps() {
+    const { beforeScene, afterScene } = getBeforeAndAfterScenesForZone(
+      activePolygonZone,
+      activeZoneNisarScenes
+    );
+    if (!beforeScene || !afterScene) return;
+
+    await Promise.all([
+      analyzeRealWaterAndLandSurfaceForZone(activePolygonZone),
+      beforeScene.blueImagePath
+        ? preloadNisarBlueRasterCanvas(beforeScene.blueImagePath, beforeScene.overlayBounds || activePolygonZone.bounds)
+        : Promise.resolve(null),
+      afterScene.blueImagePath
+        ? preloadNisarBlueRasterCanvas(afterScene.blueImagePath, afterScene.overlayBounds || activePolygonZone.bounds)
+        : Promise.resolve(null)
+    ]);
+
+    const resA = buildBlueHumidityGridDataUrl(beforeScene.date, false, beforeScene);
+    const resB = buildBlueHumidityGridDataUrl(afterScene.date, false, afterScene);
+
+    const renderA = await applySceneRasterOrGridFallbackToMap(mapA, compareOverlayA, beforeScene, resA.dataUrl);
+    const renderB = await applySceneRasterOrGridFallbackToMap(mapB, compareOverlayB, afterScene, resB.dataUrl);
+    compareOverlayA = renderA.overlay;
+    compareOverlayB = renderB.overlay;
+
+    const meanBefore = (beforeScene.stats && typeof beforeScene.stats.mean_wetness_pct === 'number')
+      ? beforeScene.stats.mean_wetness_pct.toFixed(1)
+      : resA.meanHumidity;
+    const meanAfter = (afterScene.stats && typeof afterScene.stats.mean_wetness_pct === 'number')
+      ? afterScene.stats.mean_wetness_pct.toFixed(1)
+      : resB.meanHumidity;
+
+    const isEs = (currentLanguage === 'es');
+    const isNepalZone = activePolygonZone.zone_id === 'nepal_china_gyirong_port_floods_2026';
+
+    const activeTrack = activePolygonZone.active_track || null;
+    const introDescEl = document.getElementById('compareIntroDesc');
+    if (introDescEl) {
+      if (isNepalZone) {
+        const viewLabel = activeTrack
+          ? (activeTrack.track_id === 'track_b_descending'
+              ? (isEs ? 'Vista Valle Amplio' : 'Wider Valley View')
+              : (isEs ? 'Vista Zona del Puerto' : 'Port Area View'))
+          : (isEs ? 'Vista Zona del Puerto' : 'Port Area View');
+        introDescEl.innerHTML = isEs
+          ? `Imágenes reales del satélite <b>NISAR</b> sobre el corredor fronterizo <b>Nepal–China (Puerto Gyirong / Rasuwagadhi)</b>, obtenidas a través de espesa nubosidad monzónica. Vista activa: <b>${viewLabel}</b>:`
+          : `Real <b>NISAR</b> satellite images over the <b>Nepal–China border corridor (Gyirong Port / Rasuwagadhi)</b>, captured through thick monsoon cloud cover. Active view: <b>${viewLabel}</b>:`;
+      } else {
+        introDescEl.innerHTML = isEs
+          ? `Imágenes reales del satélite NISAR sobre el <b>Corredor Agrícola Chokwe–Macia (Río Limpopo)</b> con suelo seco en rojo y agua o inundación en tonos azules:`
+          : `Real NISAR satellite images over the <b>Chokwe–Macia Agricultural Corridor (Limpopo River)</b> with dry soil in red and water or flooding in blue tones:`;
+      }
+    }
+
+    const localizedZoneText = getLocalizedZoneText(activePolygonZone);
+    const mainHeaderEl = document.getElementById('compareMainHeader');
+    if (mainHeaderEl) {
+      const trackSuffix = activeTrack
+        ? ` — ${activeTrack.track_id === 'track_b_descending'
+            ? (isEs ? 'Vista Valle Amplio' : 'Wider Valley View')
+            : (isEs ? 'Vista Zona del Puerto' : 'Port Area View')}`
+        : '';
+      const vsSuffix = isEs ? 'Antes vs. Después' : 'Before vs. After';
+      mainHeaderEl.textContent = `${localizedZoneText.main_title || 'NISAR Comparator'}${trackSuffix}: ${vsSuffix}`;
+    }
+    const badgeCountEl = document.getElementById('sceneCountBadge');
+    if (badgeCountEl) {
+      badgeCountEl.textContent = `${beforeScene.date} vs. ${afterScene.date}`;
+    }
+    const lockedBeforeEl = document.getElementById('lockedDateBeforeText');
+    if (lockedBeforeEl) {
+      lockedBeforeEl.textContent = `${beforeScene.date} (${beforeScene.timeUtc || '03:42'} UTC)`;
+    }
+    const lockedAfterEl = document.getElementById('lockedDateAfterText');
+    if (lockedAfterEl) {
+      lockedAfterEl.textContent = `${afterScene.date} (${afterScene.timeUtc || '03:42'} UTC)`;
+    }
+
+    document.getElementById('dateBadgeA').textContent = `${beforeScene.date} (${beforeScene.timeUtc || '03:42'} UTC)`;
+    document.getElementById('satA').textContent = 'NASA NISAR';
+    document.getElementById('polA').textContent = isEs ? 'Mapa de Humedad' : 'Moisture Map';
+    document.getElementById('vsmA').textContent = `${meanBefore}%`;
+
+    document.getElementById('dateBadgeB').textContent = `${afterScene.date} (${afterScene.timeUtc || '03:42'} UTC)`;
+    document.getElementById('satB').textContent = 'NASA NISAR';
+    document.getElementById('polB').textContent = isEs ? 'Mapa de Humedad' : 'Moisture Map';
+    document.getElementById('vsmB').textContent = `${meanAfter}%`;
+
+    computePlainLanguageHumidityChangeSummary(beforeScene, afterScene, resA.cells, resB.cells);
+  }
+
+  /**
+   * Computes and displays flood-area expansion and plain-language moisture
+   * changes between Scene A (Before) and Scene B (After), preferring real
+   * Earthdata raster statistics when present and falling back to cell grids.
+   * Why this is necessary: Turns complex radar inundation changes into clear
+   * hectare and percentage metrics for non-technical readers.
+   */
+  function computePlainLanguageHumidityChangeSummary(sceneA, sceneB, cellsA, cellsB) {
+    const isEs = (currentLanguage === 'es');
+    const badge = document.getElementById('dmgSeverityBadge');
+    const summary = document.getElementById('dmgSummaryText');
+    const narrative = document.getElementById('dmgImpactNarrative');
+
+    const hasRealRasterStats = (
+      sceneA && sceneA.stats &&
+      sceneB && sceneB.stats &&
+      typeof sceneA.stats.flooded_area_ha === 'number' &&
+      typeof sceneB.stats.flooded_area_ha === 'number'
+    );
+
+    if (hasRealRasterStats) {
+      const floodHaA = Math.round(sceneA.stats.flooded_area_ha);
+      const floodHaB = Math.round(sceneB.stats.flooded_area_ha);
+      const deltaFloodHa = floodHaB - floodHaA;
+      const wetKm2A = Number(sceneA.stats.wet_area_km2) || 0;
+      const wetKm2B = Number(sceneB.stats.wet_area_km2) || 0;
+      const deltaWetKm2 = +(wetKm2B - wetKm2A).toFixed(1);
+      const meanA = Number(sceneA.stats.mean_wetness_pct) || 0;
+      const meanB = Number(sceneB.stats.mean_wetness_pct) || 0;
+      const meanDelta = +(meanB - meanA).toFixed(1);
+      const lowPctA = Number(sceneA.stats.low_humidity_pct) || 0;
+      const lowPctB = Number(sceneB.stats.low_humidity_pct) || 0;
+      const totalKm2 = Number(sceneB.stats.total_polygon_km2) || 0;
+
+      const floodSign = deltaFloodHa >= 0 ? '+' : '';
+      const wetSign = deltaWetKm2 >= 0 ? '+' : '';
+      const meanSign = meanDelta >= 0 ? '+' : '';
+
+      document.getElementById('dmgNewFloodHa').textContent = `${floodSign}${deltaFloodHa.toLocaleString()} ha`;
+      document.getElementById('dmgNewFloodCells').textContent = isEs
+        ? `Antes: ${floodHaA.toLocaleString()} ha → Desp.: ${floodHaB.toLocaleString()} ha`
+        : `Before: ${floodHaA.toLocaleString()} ha → After: ${floodHaB.toLocaleString()} ha`;
+      document.getElementById('dmgNewSatHa').textContent = `${wetKm2B.toLocaleString()} km²`;
+      document.getElementById('dmgNewSatCells').textContent = isEs
+        ? `Antes: ${wetKm2A.toLocaleString()} km² (${wetSign}${deltaWetKm2} km²)`
+        : `Before: ${wetKm2A.toLocaleString()} km² (${wetSign}${deltaWetKm2} km²)`;
+      document.getElementById('dmgDryingHa').textContent = `${lowPctB.toFixed(1)}%`;
+      document.getElementById('dmgDryingCells').textContent = isEs
+        ? `Suelo seco (Antes: ${lowPctA.toFixed(1)}%)`
+        : `Dry soil (Before: ${lowPctA.toFixed(1)}%)`;
+      document.getElementById('dmgMeanDelta').textContent = `${meanSign}${meanDelta}%`;
+
+      summary.innerHTML = isEs
+        ? `Comparación real NISAR entre <b>${sceneA.date}</b> (Antes) y <b>${sceneB.date}</b> (Después)${totalKm2 > 0 ? ` sobre ${totalKm2.toLocaleString()} km²` : ''}:`
+        : `Real NISAR comparison between <b>${sceneA.date}</b> (Before) and <b>${sceneB.date}</b> (After)${totalKm2 > 0 ? ` over ${totalKm2.toLocaleString()} km²` : ''}:`;
+
+      if (deltaFloodHa >= 1000) {
+        badge.textContent = isEs ? "Expansión grave de inundación" : "Severe flood expansion";
+        badge.style.background = "#2f3d50";
+        narrative.innerHTML = isEs
+          ? `La superficie anegada o con agua creció en <b>${floodSign}${deltaFloodHa.toLocaleString()} ha</b> (de <b>${floodHaA.toLocaleString()} ha</b> a <b>${floodHaB.toLocaleString()} ha</b>), mientras el área muy húmeda pasó de <b>${wetKm2A.toLocaleString()} km²</b> a <b>${wetKm2B.toLocaleString()} km²</b>.`
+          : `The flooded or water-covered area grew by <b>${floodSign}${deltaFloodHa.toLocaleString()} ha</b> (from <b>${floodHaA.toLocaleString()} ha</b> to <b>${floodHaB.toLocaleString()} ha</b>), while the very wet area shifted from <b>${wetKm2A.toLocaleString()} km²</b> to <b>${wetKm2B.toLocaleString()} km²</b>.`;
+      } else if (deltaFloodHa <= -1000) {
+        badge.textContent = isEs ? "Retroceso del agua" : "Water recession";
+        badge.style.background = "#4a5d78";
+        narrative.innerHTML = isEs
+          ? `Se observa una reducción de <b>${Math.abs(deltaFloodHa).toLocaleString()} ha</b> en zonas anegadas respecto de ${sceneA.date}.`
+          : `A reduction of <b>${Math.abs(deltaFloodHa).toLocaleString()} ha</b> in flooded areas is observed compared to ${sceneA.date}.`;
+      } else {
+        badge.textContent = isEs ? "Cambios moderados" : "Moderate changes";
+        badge.style.background = "#3a4a60";
+        narrative.innerHTML = isEs
+          ? `Variación de <b>${floodSign}${deltaFloodHa.toLocaleString()} ha</b> en área inundada y <b>${meanSign}${meanDelta}%</b> en humedad promedio.`
+          : `Variation of <b>${floodSign}${deltaFloodHa.toLocaleString()} ha</b> in flooded area and <b>${meanSign}${meanDelta}%</b> in average moisture.`;
+      }
+
+      document.getElementById('deltaSummary').innerHTML = isEs
+        ? `<strong>Resumen (${sceneA.date} → ${sceneB.date}):</strong> Área inundada: <b>${floodHaA.toLocaleString()} → ${floodHaB.toLocaleString()} ha (${floodSign}${deltaFloodHa.toLocaleString()} ha)</b> | Muy húmedo: <b>${wetKm2A.toLocaleString()} → ${wetKm2B.toLocaleString()} km²</b>`
+        : `<strong>Summary (${sceneA.date} → ${sceneB.date}):</strong> Flooded area: <b>${floodHaA.toLocaleString()} → ${floodHaB.toLocaleString()} ha (${floodSign}${deltaFloodHa.toLocaleString()} ha)</b> | Very wet: <b>${wetKm2A.toLocaleString()} → ${wetKm2B.toLocaleString()} km²</b>`;
+      document.getElementById('deltaHighlight').textContent = isEs
+        ? `Humedad promedio: ${meanSign}${meanDelta}%`
+        : `Average moisture: ${meanSign}${meanDelta}%`;
+      return;
+    }
+
+    const b = activePolygonZone.bounds;
+    const rows = activePolygonZone.rows || 42;
+    const cols = activePolygonZone.cols || 56;
+    const totalPixels = rows * cols;
+
+    const latSpanKm = Math.abs(b.north - b.south) * 111.0;
+    const lonSpanKm = Math.abs(b.east - b.west) * 111.0 * Math.cos(((b.north + b.south) / 2) * Math.PI / 180);
+    const haPerPixel = Math.max(1, Math.round(((latSpanKm * lonSpanKm) / totalPixels) * 100));
+
+    let newFloodPixels = 0;
+    let wetterPixels = 0;
+    let drierPixels = 0;
+    let sumA = 0;
+    let sumB = 0;
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const cA = (cellsA && cellsA[r] && cellsA[r][c]) ? cellsA[r][c] : evaluateBlueHumidityCategoryForGridCell(r, c, sceneA.date);
+        const cB = (cellsB && cellsB[r] && cellsB[r][c]) ? cellsB[r][c] : evaluateBlueHumidityCategoryForGridCell(r, c, sceneB.date);
+        sumA += cA.humidityPct;
+        sumB += cB.humidityPct;
+
+        const delta = cB.humidityPct - cA.humidityPct;
+        if ((cB.type === 'flooded_veg' || cB.type === 'flooded_land') && cA.type !== 'flooded_veg' && cA.type !== 'flooded_land' && cA.type !== 'water') {
+          newFloodPixels++;
+        } else if (delta >= 8.0) {
+          wetterPixels++;
+        } else if (delta <= -8.0) {
+          drierPixels++;
+        }
+      }
+    }
+
+    const meanDelta = +((sumB - sumA) / totalPixels).toFixed(1);
+    const sign = meanDelta >= 0 ? '+' : '';
+    const newFloodHa = newFloodPixels * haPerPixel;
+    const wetterHa = wetterPixels * haPerPixel;
+    const drierHa = drierPixels * haPerPixel;
+
+    document.getElementById('dmgNewFloodHa').textContent = `${newFloodHa.toLocaleString()} ha`;
+    document.getElementById('dmgNewFloodCells').textContent = isEs
+      ? `${newFloodPixels} sectores nuevos`
+      : `${newFloodPixels} new sectors`;
+    document.getElementById('dmgNewSatHa').textContent = `${wetterHa.toLocaleString()} ha`;
+    document.getElementById('dmgNewSatCells').textContent = isEs
+      ? `${wetterPixels} sectores más húmedos`
+      : `${wetterPixels} wetter sectors`;
+    document.getElementById('dmgDryingHa').textContent = `${drierHa.toLocaleString()} ha`;
+    document.getElementById('dmgDryingCells').textContent = isEs
+      ? `${drierPixels} sectores más secos`
+      : `${drierPixels} drier sectors`;
+    document.getElementById('dmgMeanDelta').textContent = `${sign}${meanDelta}%`;
+
+    summary.innerHTML = isEs
+      ? `Comparación entre <b>${sceneA.date}</b> (Antes) y <b>${sceneB.date}</b> (Después):`
+      : `Comparison between <b>${sceneA.date}</b> (Before) and <b>${sceneB.date}</b> (After):`;
+
+    if (newFloodPixels > totalPixels * 0.03 || meanDelta >= 7.5) {
+      badge.textContent = isEs ? "Aumento importante de agua" : "Significant water increase";
+      badge.style.background = "#2f3d50";
+      narrative.innerHTML = isEs
+        ? `Se detectan <b>${newFloodHa.toLocaleString()} ha</b> con nueva agua en superficie y <b>${wetterHa.toLocaleString()} ha</b> con aumento fuerte de humedad.`
+        : `<b>${newFloodHa.toLocaleString()} ha</b> with new surface water and <b>${wetterHa.toLocaleString()} ha</b> with a strong moisture increase are detected.`;
+    } else if (drierPixels > totalPixels * 0.12 || meanDelta <= -6.0) {
+      badge.textContent = isEs ? "Terreno más seco" : "Drier terrain";
+      badge.style.background = "#4a5d78";
+      narrative.innerHTML = isEs
+        ? `La humedad promedio bajó <b>${sign}${meanDelta}%</b>, con <b>${drierHa.toLocaleString()} ha</b> más secas que en la primera fecha.`
+        : `Average moisture dropped by <b>${sign}${meanDelta}%</b>, with <b>${drierHa.toLocaleString()} ha</b> drier than on the first date.`;
+    } else {
+      badge.textContent = isEs ? "Cambios moderados" : "Moderate changes";
+      badge.style.background = "#3a4a60";
+      narrative.innerHTML = isEs
+        ? `Variación general de <b>${sign}${meanDelta}%</b> en la humedad promedio dentro de la zona.`
+        : `Overall variation of <b>${sign}${meanDelta}%</b> in average moisture within the zone.`;
+    }
+
+    document.getElementById('deltaSummary').innerHTML = isEs
+      ? `<strong>Resumen (${sceneA.date} → ${sceneB.date}):</strong> Agua nueva: <b>${newFloodHa.toLocaleString()} ha</b> | Más húmedo: <b>${wetterHa.toLocaleString()} ha</b> | Más seco: <b>${drierHa.toLocaleString()} ha</b>`
+      : `<strong>Summary (${sceneA.date} → ${sceneB.date}):</strong> New water: <b>${newFloodHa.toLocaleString()} ha</b> | Wetter: <b>${wetterHa.toLocaleString()} ha</b> | Drier: <b>${drierHa.toLocaleString()} ha</b>`;
+    document.getElementById('deltaHighlight').textContent = isEs
+      ? `Cambio promedio: ${sign}${meanDelta}%`
+      : `Average change: ${sign}${meanDelta}%`;
+  }
+
+  /**
+   * Switches sidebar and stage layout between the Single Humidity Map view
+   * (Tab 1), the Synchronized Before/After Flood Comparator view (Tabs 2 & 3),
+   * and the "More interesting uses!" picture gallery view (Tab 4).
+   * Why this is necessary: Ensures Leaflet recalculates container dimensions
+   * cleanly and keeps the wavelength equation easter egg visible only in Tab 1.
+   */
+  function applyViewModeLayoutForActiveZone(viewMode) {
+    const isSingleMap = (viewMode === 'single_map');
+    const isCompareView = (viewMode === 'before_after_disaster');
+    const isGalleryView = (viewMode === 'gallery');
+
+    const sidebarMap = document.getElementById('sidebarMapControls');
+    const sidebarCompare = document.getElementById('sidebarCompareControls');
+    const sidebarGallery = document.getElementById('sidebarGalleryControls');
+    const sharedLegend = document.getElementById('sharedColorLegendCard');
+    const mapViewEl = document.getElementById('mapView');
+    const compareViewEl = document.getElementById('compareView');
+    const galleryViewEl = document.getElementById('galleryView');
+
+    if (sidebarMap) sidebarMap.style.display = isSingleMap ? 'block' : 'none';
+    if (sidebarCompare) sidebarCompare.style.display = isCompareView ? 'block' : 'none';
+    if (sidebarGallery) sidebarGallery.style.display = isGalleryView ? 'block' : 'none';
+    if (sharedLegend) sharedLegend.style.display = isGalleryView ? 'none' : 'block';
+    if (mapViewEl) mapViewEl.style.display = isSingleMap ? 'block' : 'none';
+    if (compareViewEl) compareViewEl.style.display = isCompareView ? 'grid' : 'none';
+    if (galleryViewEl) galleryViewEl.style.display = isGalleryView ? 'grid' : 'none';
+
+    const sidebarEl = document.querySelector('.sidebar');
+    if (sidebarEl) sidebarEl.scrollTop = 0;
+
+    if (!isGalleryView) {
+      setTimeout(() => {
+        map.invalidateSize();
+        mapA.invalidateSize();
+        mapB.invalidateSize();
+      }, 60);
+    }
+  }
+
+  function updatePresentationHeaderForActiveZone() {
+    const localized = getLocalizedZoneText(activePolygonZone);
+    document.getElementById('zoneMainTitle').textContent = localized.main_title;
+    document.getElementById('zoneSubtitle').textContent = localized.subtitle;
+    document.getElementById('zoneDescriptionText').textContent = localized.description_text;
+  }
+
+  /**
+   * Handles clicks on the top browser-style tabs, highlights the active tab,
+   * clears temporary map inspection boxes, and activates the tab's polygon zone
+   * or the Tab 4 picture gallery view.
+   * Why this is necessary: Lets users navigate directly between the Santiago
+   * del Estero monitor, dedicated regional disaster tabs, and the global SAR gallery.
+   */
+  async function selectSuperiorBrowserTab(tabNumber) {
+    const targetZoneId = SUPERIOR_BROWSER_TAB_ZONES[tabNumber];
+    if (!targetZoneId) return;
+    currentSelectedTabNumber = tabNumber;
+
+    [1, 2, 3, 4].forEach((idx) => {
+      const btn = document.getElementById(`browserTab${idx}`);
+      if (!btn) return;
+      const isSelected = (idx === tabNumber);
+      btn.classList.toggle('active', isSelected);
+      btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+    });
+
+    closeCitizenHumidityInspector();
+    cachedSurfaceMask = { cacheKey: "", cells: null };
+
+    if (tabNumber === 4) {
+      activePolygonZone = {
+        ...activePolygonZone,
+        zone_id: "mas_usos_interesantes_gallery",
+        view_mode: "gallery"
+      };
+      updatePresentationHeaderForActiveZone();
+      applyViewModeLayoutForActiveZone('gallery');
+      return;
+    }
+
+    const foundIdx = modularPolygonZones.findIndex((z) => z.zone_id === targetZoneId);
+    const resolvedIndex = (foundIdx >= 0) ? foundIdx : Math.min(tabNumber - 1, modularPolygonZones.length - 1);
+    await activateModularPolygonZone(resolvedIndex);
+
+    setTimeout(() => {
+      map.invalidateSize();
+      mapA.invalidateSize();
+      mapB.invalidateSize();
+      renderActivePolygonBoundaryOnMaps();
+    }, 80);
+  }
+
+  // ============================================================================
+  // 7. MODULAR POLYGON CATALOG LOADING & EARTHDATA CMR FALLBACK
+  // ============================================================================
+
+  /**
+   * Queries NASA Earthdata CMR directly for 2026 NISAR L2 GCOV HH+HV granules
+   * inside the active polygon ONLY if `nisar_live_scenes.json` has no scenes yet.
+   * Why this is necessary: Ensures the web app still discovers 2026 NISAR GCOV
+   * dates if opened before running `fetch_nisar_live.py` once.
+   */
+  async function queryNasaEarthdataCmrForNisarGcovFallback(zoneBounds) {
+    const bbox = `${zoneBounds.west.toFixed(4)},${zoneBounds.south.toFixed(4)},${zoneBounds.east.toFixed(4)},${zoneBounds.north.toFixed(4)}`;
+    const collParams = NISAR_GCOV_CMR_COLLECTIONS.map(c => `short_name=${encodeURIComponent(c)}`).join('&');
+    const url = `https://cmr.earthdata.nasa.gov/search/granules.json?${collParams}&bounding_box=${bbox}&temporal=2026-01-01T00:00:00Z,2026-12-31T23:59:59Z&page_size=2000&sort_key=start_date`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) return [];
+      const data = await response.json();
+      const entries = (data.feed && data.feed.entry) ? data.feed.entry : [];
+      const byKey = new Map();
+
+      entries.forEach((entry) => {
+        const startTime = entry.time_start || "";
+        const title = entry.title || entry.producer_granule_id || "";
+        if (startTime.length < 16 || !startTime.startsWith("2026-")) return;
+        if (!title.includes("GCOV") || title.includes("NISAR_ANC") || title.includes("ECMWF")) return;
+        if (!title.includes("DHDH")) return;
+
+        const key = startTime.slice(0, 16);
+        if (!byKey.has(key)) {
+          byKey.set(key, {
+            granule: title,
+            startTime: startTime.slice(0, 19) + "Z",
+            date: startTime.slice(0, 10),
+            timeUtc: startTime.slice(11, 16),
+            polarization: "HH+HV",
+            productLevel: "GCOV",
+            platform: "NISAR L-Band"
+          });
+        }
+      });
+
+      return Array.from(byKey.values()).sort((a, b) => a.startTime.localeCompare(b.startTime));
+    } catch (err) {
+      console.warn("Notice querying CMR fallback:", err);
+      return [];
+    }
+  }
+
+  const DEFAULT_ZONES_BY_ID = {
+    [DEFAULT_SANTIAGO_ZONE.zone_id]: DEFAULT_SANTIAGO_ZONE,
+    [DEFAULT_MOZAMBIQUE_ZONE.zone_id]: DEFAULT_MOZAMBIQUE_ZONE,
+    [DEFAULT_NEPAL_GYIRONG_ZONE.zone_id]: DEFAULT_NEPAL_GYIRONG_ZONE
+  };
+
+  function populateNisarSceneSelectorOptions(preserveIndex = 0) {
+    const sceneSelect = document.getElementById('nisarSceneSelector');
+    if (!sceneSelect) return;
+    const isEs = (currentLanguage === 'es');
+    sceneSelect.innerHTML = "";
+    activeZoneNisarScenes.forEach((scene, idx) => {
+      const firstTag = idx === 0
+        ? (isEs ? " • Primera imagen 2026" : " • First 2026 image")
+        : "";
+      const label = `${scene.date} (${scene.timeUtc || "00:00"} UTC)${firstTag}`;
+      sceneSelect.add(new Option(label, idx));
+    });
+    const safeIdx = Math.max(0, Math.min(activeZoneNisarScenes.length - 1, Number(preserveIndex) || 0));
+    sceneSelect.selectedIndex = safeIdx;
+  }
+
+  /**
+   * Populates the left panel title/subtitle/text and activates either the
+   * single Humidity Map view (Tab 1) or the Before/After Flood Comparator
+   * (Tabs 2 & 3) for the selected polygon zone.
+   * Why this is necessary: Makes switching browser tabs or adding new disaster
+   * zones in Python automatically configure the entire map workspace.
+   */
+  async function activateModularPolygonZone(zoneIndex) {
+    const selectedZone = modularPolygonZones[zoneIndex] || DEFAULT_SANTIAGO_ZONE;
+    const baseDefault = DEFAULT_ZONES_BY_ID[selectedZone.zone_id] || {};
+    const mergedZone = { ...baseDefault, ...selectedZone };
+
+    const b = mergedZone.bounds || DEFAULT_SANTIAGO_ZONE.bounds;
+    const latSpan = Math.abs(b.north - b.south);
+    const lonSpan = Math.abs(b.east - b.west);
+    const rows = mergedZone.rows || Math.min(80, Math.max(24, Math.round(latSpan * 100)));
+    const cols = mergedZone.cols || Math.min(80, Math.max(24, Math.round(lonSpan * 90)));
+    const viewMode = mergedZone.view_mode || 'single_map';
+
+    activePolygonZone = {
+      ...mergedZone,
+      view_mode: viewMode,
+      bounds: b,
+      rows,
+      cols
+    };
+
+    currentSelectedCompareTrackIndex = 0;
+    if (Array.isArray(activePolygonZone.tracks) && activePolygonZone.tracks.length > 0) {
+      applyTrackToActivePolygonZone(0);
+    }
+
+    updatePresentationHeaderForActiveZone();
+    renderCompareTrackSelectorButtons();
+    applyViewModeLayoutForActiveZone(viewMode);
+    renderActivePolygonBoundaryOnMaps();
+
+    let scenes = Array.isArray(activePolygonZone.scenes) ? [...activePolygonZone.scenes] : [];
+    if (scenes.length === 0 && activePolygonZone.first_2026_scene) {
+      scenes = [activePolygonZone.first_2026_scene];
+    }
+    if (scenes.length === 0 && viewMode === 'before_after_disaster') {
+      if (activePolygonZone.before_scene) scenes.push(activePolygonZone.before_scene);
+      if (activePolygonZone.after_scene) scenes.push(activePolygonZone.after_scene);
+    }
+    if (scenes.length === 0) {
+      scenes = await queryNasaEarthdataCmrForNisarGcovFallback(activePolygonZone.bounds);
+    }
+
+    scenes.sort((a, bItem) => (a.startTime || a.date).localeCompare(bItem.startTime || bItem.date));
+    if (scenes.length === 0) {
+      scenes = [{
+        granule: "NISAR_L2_PR_GCOV_2026_HH_HV",
+        startTime: "2026-01-05T10:21:19Z",
+        date: "2026-01-05",
+        timeUtc: "10:21",
+        polarization: "HH+HV",
+        productLevel: "GCOV",
+        platform: "NISAR L-Band",
+        blueImagePath: activePolygonZone.blue_image_path || null,
+        isFirst2026Image: true
+      }];
+    }
+
+    activeZoneNisarScenes = scenes;
+    currentSelectedSceneIndex = 0;
+
+    if (viewMode === 'before_after_disaster') {
+      await updateBeforeAndAfterComparisonMaps();
+      return;
+    }
+
+    populateNisarSceneSelectorOptions(0);
+    updateSelectedSceneStatusNote();
+    await renderActiveHumidityMapOverlay();
+  }
+
+  /**
+   * Updates the plain-language status note describing the currently displayed
+   * 2026 NISAR GCOV image.
+   * Why this is necessary: Confirms to the user which 2026 capture they are
+   * viewing without cluttering the interface with technical metadata.
+   */
+  function updateSelectedSceneStatusNote() {
+    const scene = activeZoneNisarScenes[currentSelectedSceneIndex];
+    const noteEl = document.getElementById('sceneStatusNote');
+    if (!scene || !noteEl) return;
+
+    const isEs = (currentLanguage === 'es');
+    const isFirst = currentSelectedSceneIndex === 0;
+    if (isEs) {
+      const prefix = isFirst
+        ? "Mostrando la primera imagen capturada por el satélite NISAR en 2026"
+        : "Mostrando imagen NISAR del año 2026";
+      noteEl.innerHTML = `<b>${prefix}:</b> ${scene.date} (${scene.timeUtc || "00:00"} UTC).`;
+    } else {
+      const prefix = isFirst
+        ? "Showing the first image captured by the NISAR satellite in 2026"
+        : "Showing 2026 NISAR image";
+      noteEl.innerHTML = `<b>${prefix}:</b> ${scene.date} (${scene.timeUtc || "00:00"} UTC).`;
+    }
+  }
+
+  /**
+   * Responds to choosing a different 2026 NISAR GCOV capture date in Tab 1.
+   * Why this is necessary: Updates the displayed Red-to-Blue overlay and status
+   * text whenever the user switches dates in Santiago del Estero.
+   */
+  function handleSelectedNisarSceneChange() {
+    const selector = document.getElementById('nisarSceneSelector');
+    currentSelectedSceneIndex = Number(selector.value) || 0;
+    updateSelectedSceneStatusNote();
+    renderActiveHumidityMapOverlay();
+  }
+
+  /**
+   * Translates all static and dynamic front-page text between English ('en',
+   * with the USA flag) and Spanish ('es', with the Spain flag) without losing
+   * current map position, selected tab, track, or open cell inspector state.
+   */
+  async function setApplicationLanguage(lang) {
+    currentLanguage = (lang === 'es') ? 'es' : 'en';
+    const dict = I18N_DICTIONARY[currentLanguage] || I18N_DICTIONARY.en;
+
+    document.documentElement.lang = currentLanguage;
+    document.title = dict.pageTitle;
+
+    const btnEn = document.getElementById('langBtnEn');
+    const btnEs = document.getElementById('langBtnEs');
+    if (btnEn) {
+      const isEn = (currentLanguage === 'en');
+      btnEn.classList.toggle('active', isEn);
+      btnEn.setAttribute('aria-pressed', isEn ? 'true' : 'false');
+    }
+    if (btnEs) {
+      const isEs = (currentLanguage === 'es');
+      btnEs.classList.toggle('active', isEs);
+      btnEs.setAttribute('aria-pressed', isEs ? 'true' : 'false');
+    }
+
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.getAttribute('data-i18n');
+      if (key && dict[key] !== undefined) {
+        el.textContent = dict[key];
+      }
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-html');
+      if (key && dict[key] !== undefined) {
+        el.innerHTML = dict[key];
+      }
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-title');
+      if (key && dict[key] !== undefined) {
+        el.setAttribute('title', dict[key]);
+      }
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-alt');
+      if (key && dict[key] !== undefined) {
+        el.setAttribute('alt', dict[key]);
+      }
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-aria-label');
+      if (key && dict[key] !== undefined) {
+        el.setAttribute('aria-label', dict[key]);
+      }
+    });
+
+    refreshLeafletBaseLayersControlLanguage();
+    updatePresentationHeaderForActiveZone();
+    renderCompareTrackSelectorButtons();
+
+    if (activePolygonZone.view_mode === 'single_map') {
+      populateNisarSceneSelectorOptions(currentSelectedSceneIndex);
+      updateSelectedSceneStatusNote();
+    } else if (activePolygonZone.view_mode === 'before_after_disaster') {
+      await updateBeforeAndAfterComparisonMaps();
+    }
+
+    if (selectedGridRowCol) {
+      let dateStr = "2026-01-05";
+      let clickedScene = null;
+      if (activePolygonZone.view_mode === 'before_after_disaster') {
+        const { beforeScene, afterScene } = getBeforeAndAfterScenesForZone(activePolygonZone, activeZoneNisarScenes);
+        clickedScene = selectedGridRowCol.clickedBeforeMap ? beforeScene : afterScene;
+        dateStr = clickedScene ? clickedScene.date : "2026-01-17";
+      } else {
+        clickedScene = activeZoneNisarScenes[currentSelectedSceneIndex] || null;
+        dateStr = clickedScene ? clickedScene.date : "2026-01-05";
+      }
+      const cell = evaluateBlueHumidityCategoryForGridCell(
+        selectedGridRowCol.r,
+        selectedGridRowCol.c,
+        dateStr,
+        clickedScene,
+        selectedGridRowCol.lat ?? null,
+        selectedGridRowCol.lon ?? null
+      );
+      openSimplifiedCitizenHumidityInspector(cell);
+    }
+  }
+
+  /**
+   * Loads the modular polygon catalog generated by `fetch_nisar_live.py`
+   * (`nisar_live_scenes.json`), merges it with built-in zone defaults, and
+   * opens Tab 1 (Santiago del Estero) in English by default.
+   * Why this is necessary: Connects the run-once Python Earthdata pipeline to
+   * the browser-style multi-tab interface automatically on page load.
+   */
+  async function initializeNisarHumidityWebApplication() {
+    let loadedPolygons = [];
+    try {
+      const response = await fetch(`nisar_live_scenes.json?t=${Date.now()}`, { cache: 'no-store' });
+      if (response.ok) {
+        const catalog = await response.json();
+        if (Array.isArray(catalog.polygons) && catalog.polygons.length > 0) {
+          loadedPolygons = catalog.polygons;
+        }
+      }
+    } catch (err) {
+      console.warn("Using default NISAR polygon configurations:", err);
+    }
+
+    const mergedById = new Map();
+    [DEFAULT_SANTIAGO_ZONE, DEFAULT_MOZAMBIQUE_ZONE, DEFAULT_NEPAL_GYIRONG_ZONE].forEach((defaultZone) => {
+      mergedById.set(defaultZone.zone_id, { ...defaultZone });
+    });
+    loadedPolygons.forEach((zone) => {
+      const baseDefault = DEFAULT_ZONES_BY_ID[zone.zone_id] || {};
+      mergedById.set(zone.zone_id, { ...baseDefault, ...zone });
+    });
+
+    modularPolygonZones = Array.from(mergedById.values());
+    await setApplicationLanguage('en');
+    await selectSuperiorBrowserTab(1);
+  }
+
+  initializeNisarHumidityWebApplication();
+</script>
+</body>
+</html>

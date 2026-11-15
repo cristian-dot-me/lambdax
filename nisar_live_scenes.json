@@ -1,0 +1,2272 @@
+{
+  "updated_at": "2026-11-15T13:24:16.408279+00:00",
+  "mission": "NASA-ISRO NISAR L-Band",
+  "product_level": "GCOV",
+  "polarization": "HH+HV",
+  "target_year": 2026,
+  "polygons_count": 3,
+  "polygons": [
+    {
+      "zone_id": "santiago_del_estero_capital",
+      "tab_index": 1,
+      "tab_title": "1. Santiago del Estero",
+      "view_mode": "single_map",
+      "main_title": "Santiago del Estero, zona capital",
+      "subtitle": "Imagenes del satelite NISAR que muestran humedad",
+      "description_text": "Nuestra provincia desde arriba!",
+      "wkt_polygon": "POLYGON((-64.4987 -27.9933,-63.8676 -27.9933,-63.8676 -27.5779,-64.4987 -27.5779,-64.4987 -27.9933))",
+      "bounds": {
+        "west": -64.4987,
+        "south": -27.9933,
+        "east": -63.8676,
+        "north": -27.5779,
+        "vertices": [
+          [
+            -64.4987,
+            -27.9933
+          ],
+          [
+            -63.8676,
+            -27.9933
+          ],
+          [
+            -63.8676,
+            -27.5779
+          ],
+          [
+            -64.4987,
+            -27.5779
+          ],
+          [
+            -64.4987,
+            -27.9933
+          ]
+        ],
+        "wkt": "POLYGON((-64.4987 -27.9933,-63.8676 -27.9933,-63.8676 -27.5779,-64.4987 -27.5779,-64.4987 -27.9933))"
+      },
+      "configuration": {
+        "polarization": "HH+HV",
+        "polarization_code": "DHDH",
+        "product_level": "GCOV",
+        "target_year": 2026,
+        "start_date": null,
+        "end_date": null,
+        "before_date": null,
+        "after_date": null,
+        "select_first_image_of_year": true,
+        "cmr_collections": [
+          "NISAR_L2_GCOV_V1",
+          "NISAR_L2_GCOV_PROVISIONAL_V1",
+          "NISAR_L2_GCOV_BETA_V1"
+        ],
+        "gamma_correction": 0.82,
+        "minimum_wetness_threshold": 0.04,
+        "output_opacity_alpha": 235
+      },
+      "is_dry_run_preview": false,
+      "first_2026_scene": {
+        "granule": "NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001",
+        "startTime": "2026-06-23T22:23:15",
+        "date": "2026-06-23",
+        "timeUtc": "22:23",
+        "datetimeLabel": "2026-06-23 22:23 UTC",
+        "path": "140",
+        "frame": "102 (D)",
+        "polarization": "HH+HV",
+        "pol": "HH+HV",
+        "polarizationCode": "DHDH",
+        "productLevel": "GCOV",
+        "platform": "NISAR L-Band",
+        "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001_LATLON.png",
+        "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001.h5",
+        "granuleBounds": {
+          "west": -65.49716,
+          "south": -28.333,
+          "east": -62.5548,
+          "north": -25.78862
+        },
+        "source": "NASA Earthdata CMR (NISAR GCOV)",
+        "blueImagePath": "nisar_data/santiago_del_estero_capital_gcov_blue.png",
+        "overlayBounds": {
+          "west": -64.4987,
+          "south": -27.9933,
+          "east": -63.8676,
+          "north": -27.5779
+        },
+        "isFirst2026Image": true
+      },
+      "blue_image_path": "nisar_data/santiago_del_estero_capital_gcov_blue.png",
+      "blue_image_stats": {
+        "overlay_bounds": {
+          "west": -64.4987,
+          "south": -27.9933,
+          "east": -63.8676,
+          "north": -27.5779
+        },
+        "image_width_px": 393,
+        "image_height_px": 289,
+        "high_humidity_pct": 22.7,
+        "moderate_humidity_pct": 25.1,
+        "low_humidity_pct": 52.2,
+        "mean_wetness_pct": 40.8,
+        "wet_area_km2": 867.7,
+        "flooded_area_ha": 64868,
+        "total_polygon_km2": 2857.6
+      },
+      "scenes": [
+        {
+          "granule": "NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001",
+          "startTime": "2026-06-23T22:23:15",
+          "date": "2026-06-23",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-06-23 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.49716,
+            "south": -28.333,
+            "east": -62.5548,
+            "north": -25.78862
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)",
+          "blueImagePath": "nisar_data/santiago_del_estero_capital_gcov_blue.png",
+          "overlayBounds": {
+            "west": -64.4987,
+            "south": -27.9933,
+            "east": -63.8676,
+            "north": -27.5779
+          },
+          "isFirst2026Image": true
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001",
+          "startTime": "2026-06-27T10:12:23",
+          "date": "2026-06-27",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-06-27 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001/NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001/NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.47358,
+            "south": -30.34784,
+            "east": -62.4515,
+            "north": -27.80505
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001",
+          "startTime": "2026-07-05T22:23:14",
+          "date": "2026-07-05",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-07-05 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001/NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001/NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.49383,
+            "south": -28.31212,
+            "east": -62.55161,
+            "north": -25.76774
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001",
+          "startTime": "2026-07-09T10:12:23",
+          "date": "2026-07-09",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-07-09 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001/NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001/NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.46945,
+            "south": -30.3185,
+            "east": -62.45809,
+            "north": -27.83502
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001",
+          "startTime": "2026-07-17T22:23:14",
+          "date": "2026-07-17",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-07-17 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001/NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001/NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.48987,
+            "south": -28.29901,
+            "east": -62.55984,
+            "north": -25.81393
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001",
+          "startTime": "2026-07-21T10:12:22",
+          "date": "2026-07-21",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-07-21 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001/NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001/NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.47358,
+            "south": -30.33338,
+            "east": -62.45453,
+            "north": -27.79054
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001",
+          "startTime": "2026-08-10T22:23:12",
+          "date": "2026-08-10",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-08-10 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001/NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001/NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.48892,
+            "south": -28.29713,
+            "east": -62.54715,
+            "north": -25.75272
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001",
+          "startTime": "2026-08-14T10:12:21",
+          "date": "2026-08-14",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-08-14 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.46902,
+            "south": -30.32195,
+            "east": -62.45676,
+            "north": -27.83844
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001",
+          "startTime": "2026-08-26T10:12:21",
+          "date": "2026-08-26",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-08-26 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.4699,
+            "south": -30.30608,
+            "east": -62.46117,
+            "north": -27.82264
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001",
+          "startTime": "2026-09-03T22:23:12",
+          "date": "2026-09-03",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-09-03 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.48377,
+            "south": -28.26762,
+            "east": -62.55403,
+            "north": -25.78253
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001",
+          "startTime": "2026-09-07T10:12:54",
+          "date": "2026-09-07",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-09-07 10:12 UTC",
+          "path": "17",
+          "frame": "164 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.89,
+            "south": -28.34368,
+            "east": -62.90251,
+            "north": -25.6194
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001",
+          "startTime": "2026-09-15T22:23:11",
+          "date": "2026-09-15",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-09-15 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.48501,
+            "south": -28.27374,
+            "east": -62.54348,
+            "north": -25.72932
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001",
+          "startTime": "2026-09-19T10:12:20",
+          "date": "2026-09-19",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-09-19 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001/NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001/NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.46933,
+            "south": -30.3645,
+            "east": -62.44703,
+            "north": -27.82168
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001",
+          "startTime": "2026-09-27T22:23:11",
+          "date": "2026-09-27",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-09-27 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.48512,
+            "south": -28.27685,
+            "east": -62.54353,
+            "north": -25.73248
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001",
+          "startTime": "2026-10-01T10:12:20",
+          "date": "2026-10-01",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-10-01 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.46954,
+            "south": -30.36589,
+            "east": -62.44654,
+            "north": -27.82306
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001",
+          "startTime": "2026-10-09T22:23:12",
+          "date": "2026-10-09",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-10-09 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.48265,
+            "south": -28.26186,
+            "east": -62.55294,
+            "north": -25.77681
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001",
+          "startTime": "2026-10-13T10:12:21",
+          "date": "2026-10-13",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-10-13 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.4693,
+            "south": -30.3212,
+            "east": -62.45732,
+            "north": -27.83772
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001",
+          "startTime": "2026-10-21T22:23:12",
+          "date": "2026-10-21",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-10-21 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001/NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001/NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.48096,
+            "south": -28.25093,
+            "east": -62.5512,
+            "north": -25.76575
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001",
+          "startTime": "2026-10-25T10:12:21",
+          "date": "2026-10-25",
+          "timeUtc": "10:12",
+          "datetimeLabel": "2026-10-25 10:12 UTC",
+          "path": "17",
+          "frame": "163 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.4743,
+            "south": -30.33844,
+            "east": -62.45364,
+            "north": -27.79559
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001",
+          "startTime": "2026-11-02T22:23:12",
+          "date": "2026-11-02",
+          "timeUtc": "22:23",
+          "datetimeLabel": "2026-11-02 22:23 UTC",
+          "path": "140",
+          "frame": "102 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001.h5",
+          "granuleBounds": {
+            "west": -65.48631,
+            "south": -28.27068,
+            "east": -62.54444,
+            "north": -25.72617
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        }
+      ]
+    },
+    {
+      "zone_id": "mozambique_chokwe_macia_floods_2026",
+      "tab_index": 2,
+      "tab_title": "2. Inundaciones Mozambique (2026)",
+      "view_mode": "before_after_disaster",
+      "main_title": "Inundaciones en Mozambique (2026)",
+      "subtitle": "Corredor Agrícola Chokwe–Macia (Río Limpopo)",
+      "description_text": "Comparación Antes (5 ene 2026) y Después (17 ene 2026) capturada por el satélite NISAR",
+      "wkt_polygon": "POLYGON((32.80 -25.15, 33.35 -25.15, 33.35 -24.40, 32.80 -24.40, 32.80 -24.40, 32.80 -25.15))",
+      "bounds": {
+        "west": 32.8,
+        "south": -25.15,
+        "east": 33.35,
+        "north": -24.4,
+        "vertices": [
+          [
+            32.8,
+            -25.15
+          ],
+          [
+            33.35,
+            -25.15
+          ],
+          [
+            33.35,
+            -24.4
+          ],
+          [
+            32.8,
+            -24.4
+          ],
+          [
+            32.8,
+            -24.4
+          ],
+          [
+            32.8,
+            -25.15
+          ]
+        ],
+        "wkt": "POLYGON((32.80 -25.15, 33.35 -25.15, 33.35 -24.40, 32.80 -24.40, 32.80 -24.40, 32.80 -25.15))"
+      },
+      "configuration": {
+        "polarization": "HH+HV",
+        "polarization_code": "DHDH",
+        "product_level": "GCOV",
+        "target_year": 2026,
+        "start_date": "2026-01-05",
+        "end_date": "2026-01-17",
+        "before_date": "2026-01-05",
+        "after_date": "2026-01-17",
+        "select_first_image_of_year": false,
+        "cmr_collections": [
+          "NISAR_L2_GCOV_V1",
+          "NISAR_L2_GCOV_PROVISIONAL_V1",
+          "NISAR_L2_GCOV_BETA_V1"
+        ],
+        "gamma_correction": 0.82,
+        "minimum_wetness_threshold": 0.04,
+        "output_opacity_alpha": 235
+      },
+      "is_dry_run_preview": false,
+      "before_scene": {
+        "granule": "NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001",
+        "startTime": "2026-01-05T03:42:32",
+        "date": "2026-01-05",
+        "timeUtc": "03:42",
+        "datetimeLabel": "2026-01-05 03:42 UTC",
+        "path": "114",
+        "frame": "165 (A)",
+        "polarization": "HH+HV",
+        "pol": "HH+HV",
+        "polarizationCode": "DHDH",
+        "productLevel": "GCOV",
+        "platform": "NISAR L-Band",
+        "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.png",
+        "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.h5",
+        "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.kml",
+        "granuleBounds": {
+          "west": 31.59616,
+          "south": -25.57617,
+          "east": 34.33072,
+          "north": -23.85236
+        },
+        "source": "NASA Earthdata CMR (NISAR GCOV)",
+        "rasterBounds": {
+          "west": 31.29212,
+          "south": -26.47771,
+          "east": 34.61481,
+          "north": -23.58434
+        },
+        "blueImagePath": "nisar_data/mozambique_chokwe_macia_floods_2026_before_blue.png",
+        "overlayBounds": {
+          "west": 32.8,
+          "south": -25.15,
+          "east": 33.35,
+          "north": -24.4
+        },
+        "stats": {
+          "overlay_bounds": {
+            "west": 32.8,
+            "south": -25.15,
+            "east": 33.35,
+            "north": -24.4
+          },
+          "image_width_px": 322,
+          "image_height_px": 488,
+          "high_humidity_pct": 15.5,
+          "moderate_humidity_pct": 35.0,
+          "low_humidity_pct": 49.5,
+          "mean_wetness_pct": 36.7,
+          "wet_area_km2": 1218.4,
+          "flooded_area_ha": 71526,
+          "total_polygon_km2": 4614.6
+        }
+      },
+      "after_scene": {
+        "granule": "NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001",
+        "startTime": "2026-01-17T03:42:32",
+        "date": "2026-01-17",
+        "timeUtc": "03:42",
+        "datetimeLabel": "2026-01-17 03:42 UTC",
+        "path": "114",
+        "frame": "165 (A)",
+        "polarization": "HH+HV",
+        "pol": "HH+HV",
+        "polarizationCode": "DHDH",
+        "productLevel": "GCOV",
+        "platform": "NISAR L-Band",
+        "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001.png",
+        "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001.h5",
+        "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001.kml",
+        "granuleBounds": {
+          "west": 31.59257,
+          "south": -25.62177,
+          "east": 34.33933,
+          "north": -23.83864
+        },
+        "source": "NASA Earthdata CMR (NISAR GCOV)",
+        "rasterBounds": {
+          "west": 31.29212,
+          "south": -26.47771,
+          "east": 34.61481,
+          "north": -23.58434
+        },
+        "blueImagePath": "nisar_data/mozambique_chokwe_macia_floods_2026_after_blue.png",
+        "overlayBounds": {
+          "west": 32.8,
+          "south": -25.15,
+          "east": 33.35,
+          "north": -24.4
+        },
+        "stats": {
+          "overlay_bounds": {
+            "west": 32.8,
+            "south": -25.15,
+            "east": 33.35,
+            "north": -24.4
+          },
+          "image_width_px": 322,
+          "image_height_px": 488,
+          "high_humidity_pct": 20.2,
+          "moderate_humidity_pct": 27.8,
+          "low_humidity_pct": 52.0,
+          "mean_wetness_pct": 38.1,
+          "wet_area_km2": 1319.8,
+          "flooded_area_ha": 93215,
+          "total_polygon_km2": 4614.6
+        }
+      },
+      "first_2026_scene": {
+        "granule": "NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001",
+        "startTime": "2026-01-05T03:42:32",
+        "date": "2026-01-05",
+        "timeUtc": "03:42",
+        "datetimeLabel": "2026-01-05 03:42 UTC",
+        "path": "114",
+        "frame": "165 (A)",
+        "polarization": "HH+HV",
+        "pol": "HH+HV",
+        "polarizationCode": "DHDH",
+        "productLevel": "GCOV",
+        "platform": "NISAR L-Band",
+        "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.png",
+        "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.h5",
+        "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.kml",
+        "granuleBounds": {
+          "west": 31.59616,
+          "south": -25.57617,
+          "east": 34.33072,
+          "north": -23.85236
+        },
+        "source": "NASA Earthdata CMR (NISAR GCOV)",
+        "rasterBounds": {
+          "west": 31.29212,
+          "south": -26.47771,
+          "east": 34.61481,
+          "north": -23.58434
+        },
+        "blueImagePath": "nisar_data/mozambique_chokwe_macia_floods_2026_before_blue.png",
+        "overlayBounds": {
+          "west": 32.8,
+          "south": -25.15,
+          "east": 33.35,
+          "north": -24.4
+        },
+        "stats": {
+          "overlay_bounds": {
+            "west": 32.8,
+            "south": -25.15,
+            "east": 33.35,
+            "north": -24.4
+          },
+          "image_width_px": 322,
+          "image_height_px": 488,
+          "high_humidity_pct": 15.5,
+          "moderate_humidity_pct": 35.0,
+          "low_humidity_pct": 49.5,
+          "mean_wetness_pct": 36.7,
+          "wet_area_km2": 1218.4,
+          "flooded_area_ha": 71526,
+          "total_polygon_km2": 4614.6
+        }
+      },
+      "blue_image_path": "nisar_data/mozambique_chokwe_macia_floods_2026_after_blue.png",
+      "blue_image_stats": {
+        "overlay_bounds": {
+          "west": 32.8,
+          "south": -25.15,
+          "east": 33.35,
+          "north": -24.4
+        },
+        "image_width_px": 322,
+        "image_height_px": 488,
+        "high_humidity_pct": 20.2,
+        "moderate_humidity_pct": 27.8,
+        "low_humidity_pct": 52.0,
+        "mean_wetness_pct": 38.1,
+        "wet_area_km2": 1319.8,
+        "flooded_area_ha": 93215,
+        "total_polygon_km2": 4614.6
+      },
+      "scenes": [
+        {
+          "granule": "NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001",
+          "startTime": "2026-01-05T03:42:32",
+          "date": "2026-01-05",
+          "timeUtc": "03:42",
+          "datetimeLabel": "2026-01-05 03:42 UTC",
+          "path": "114",
+          "frame": "165 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.h5",
+          "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001/NISAR_L2_PR_GCOV_009_114_A_165_4005_DHDH_A_20260105T034232_20260105T034253_X05010_N_P_J_001.kml",
+          "granuleBounds": {
+            "west": 31.59616,
+            "south": -25.57617,
+            "east": 34.33072,
+            "north": -23.85236
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001",
+          "startTime": "2026-01-17T03:42:32",
+          "date": "2026-01-17",
+          "timeUtc": "03:42",
+          "datetimeLabel": "2026-01-17 03:42 UTC",
+          "path": "114",
+          "frame": "165 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001.h5",
+          "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_BETA_V1/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001/NISAR_L2_PR_GCOV_010_114_A_165_4005_DHDH_A_20260117T034232_20260117T034254_X05010_N_P_J_001.kml",
+          "granuleBounds": {
+            "west": 31.59257,
+            "south": -25.62177,
+            "east": 34.33933,
+            "north": -23.83864
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        }
+      ]
+    },
+    {
+      "zone_id": "nepal_china_gyirong_port_floods_2026",
+      "tab_index": 3,
+      "tab_title": "3. Inundaciones Frontera Nepal–China (Puerto Gyirong)",
+      "view_mode": "before_after_disaster",
+      "main_title": "Inundaciones en Frontera Nepal–China (Puerto Gyirong)",
+      "subtitle": "Corredor Transfronterizo Gyirong–Rasuwagadhi (Río Trishuli / Bhote Koshi)",
+      "description_text": "Comparación multi-órbita capturada por NISAR Banda L bajo densa nubosidad monzónica (agosto de 2026)",
+      "wkt_polygon": "POLYGON((85.3 28.14,85.56 28.14,85.56 28.34,85.3 28.34,85.3 28.14))",
+      "bounds": {
+        "west": 85.3,
+        "south": 28.14,
+        "east": 85.56,
+        "north": 28.34,
+        "vertices": [
+          [
+            85.3,
+            28.14
+          ],
+          [
+            85.56,
+            28.14
+          ],
+          [
+            85.56,
+            28.34
+          ],
+          [
+            85.3,
+            28.34
+          ],
+          [
+            85.3,
+            28.14
+          ]
+        ],
+        "wkt": "POLYGON((85.3 28.14,85.56 28.14,85.56 28.34,85.3 28.34,85.3 28.14))"
+      },
+      "configuration": {
+        "polarization": "HH+HV",
+        "polarization_code": "DHDH",
+        "product_level": "GCOV",
+        "target_year": 2026,
+        "start_date": "2026-08-16",
+        "end_date": "2026-08-28",
+        "before_date": "2026-08-16",
+        "after_date": "2026-08-28",
+        "select_first_image_of_year": false,
+        "cmr_collections": [
+          "NISAR_L2_GCOV_V1",
+          "NISAR_L2_GCOV_PROVISIONAL_V1",
+          "NISAR_L2_GCOV_BETA_V1"
+        ],
+        "gamma_correction": 0.82,
+        "minimum_wetness_threshold": 0.04,
+        "output_opacity_alpha": 235
+      },
+      "is_dry_run_preview": false,
+      "before_scene": {
+        "granule": "NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001",
+        "startTime": "2026-08-16T12:58:12",
+        "date": "2026-08-16",
+        "timeUtc": "12:58",
+        "datetimeLabel": "2026-08-16 12:58 UTC",
+        "path": "48",
+        "frame": "074 (D)",
+        "polarization": "HH+HV",
+        "pol": "HH+HV",
+        "polarizationCode": "DHDH",
+        "productLevel": "GCOV",
+        "platform": "NISAR L-Band",
+        "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.png",
+        "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001.h5",
+        "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.kml",
+        "granuleBounds": {
+          "west": 84.62017,
+          "south": 27.4357,
+          "east": 87.85933,
+          "north": 30.11524
+        },
+        "source": "NASA Earthdata CMR (NISAR GCOV)",
+        "blueImagePath": "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_before_blue.png",
+        "overlayBounds": {
+          "west": 85.3,
+          "south": 28.14,
+          "east": 85.56,
+          "north": 28.34
+        },
+        "stats": {
+          "overlay_bounds": {
+            "west": 85.3,
+            "south": 28.14,
+            "east": 85.56,
+            "north": 28.34
+          },
+          "image_width_px": 156,
+          "image_height_px": 141,
+          "high_humidity_pct": 0.1,
+          "moderate_humidity_pct": 4.4,
+          "low_humidity_pct": 95.5,
+          "mean_wetness_pct": 13.8,
+          "wet_area_km2": 1.9,
+          "flooded_area_ha": 56,
+          "total_polygon_km2": 564.4
+        }
+      },
+      "after_scene": {
+        "granule": "NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001",
+        "startTime": "2026-08-28T12:58:12",
+        "date": "2026-08-28",
+        "timeUtc": "12:58",
+        "datetimeLabel": "2026-08-28 12:58 UTC",
+        "path": "48",
+        "frame": "074 (D)",
+        "polarization": "HH+HV+VV+VH",
+        "pol": "HH+HV+VV+VH",
+        "polarizationCode": "QPDH",
+        "productLevel": "GCOV",
+        "platform": "NISAR L-Band",
+        "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.png",
+        "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001.h5",
+        "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.kml",
+        "granuleBounds": {
+          "west": 84.639,
+          "south": 27.41348,
+          "east": 87.8719,
+          "north": 30.09112
+        },
+        "source": "NASA Earthdata CMR (NISAR GCOV)",
+        "blueImagePath": "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_after_blue.png",
+        "overlayBounds": {
+          "west": 85.3,
+          "south": 28.14,
+          "east": 85.56,
+          "north": 28.34
+        },
+        "stats": {
+          "overlay_bounds": {
+            "west": 85.3,
+            "south": 28.14,
+            "east": 85.56,
+            "north": 28.34
+          },
+          "image_width_px": 156,
+          "image_height_px": 141,
+          "high_humidity_pct": 11.6,
+          "moderate_humidity_pct": 14.0,
+          "low_humidity_pct": 74.4,
+          "mean_wetness_pct": 27.4,
+          "wet_area_km2": 82.3,
+          "flooded_area_ha": 6547,
+          "total_polygon_km2": 564.4
+        }
+      },
+      "first_2026_scene": {
+        "granule": "NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001",
+        "startTime": "2026-08-16T12:58:12",
+        "date": "2026-08-16",
+        "timeUtc": "12:58",
+        "datetimeLabel": "2026-08-16 12:58 UTC",
+        "path": "48",
+        "frame": "074 (D)",
+        "polarization": "HH+HV",
+        "pol": "HH+HV",
+        "polarizationCode": "DHDH",
+        "productLevel": "GCOV",
+        "platform": "NISAR L-Band",
+        "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.png",
+        "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001.h5",
+        "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.kml",
+        "granuleBounds": {
+          "west": 84.62017,
+          "south": 27.4357,
+          "east": 87.85933,
+          "north": 30.11524
+        },
+        "source": "NASA Earthdata CMR (NISAR GCOV)",
+        "blueImagePath": "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_before_blue.png",
+        "overlayBounds": {
+          "west": 85.3,
+          "south": 28.14,
+          "east": 85.56,
+          "north": 28.34
+        },
+        "stats": {
+          "overlay_bounds": {
+            "west": 85.3,
+            "south": 28.14,
+            "east": 85.56,
+            "north": 28.34
+          },
+          "image_width_px": 156,
+          "image_height_px": 141,
+          "high_humidity_pct": 0.1,
+          "moderate_humidity_pct": 4.4,
+          "low_humidity_pct": 95.5,
+          "mean_wetness_pct": 13.8,
+          "wet_area_km2": 1.9,
+          "flooded_area_ha": 56,
+          "total_polygon_km2": 564.4
+        }
+      },
+      "blue_image_path": "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_after_blue.png",
+      "blue_image_stats": {
+        "overlay_bounds": {
+          "west": 85.3,
+          "south": 28.14,
+          "east": 85.56,
+          "north": 28.34
+        },
+        "image_width_px": 156,
+        "image_height_px": 141,
+        "high_humidity_pct": 11.6,
+        "moderate_humidity_pct": 14.0,
+        "low_humidity_pct": 74.4,
+        "mean_wetness_pct": 27.4,
+        "wet_area_km2": 82.3,
+        "flooded_area_ha": 6547,
+        "total_polygon_km2": 564.4
+      },
+      "scenes": [
+        {
+          "granule": "NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001",
+          "startTime": "2026-08-16T12:58:12",
+          "date": "2026-08-16",
+          "timeUtc": "12:58",
+          "datetimeLabel": "2026-08-16 12:58 UTC",
+          "path": "48",
+          "frame": "074 (D)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001.h5",
+          "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.kml",
+          "granuleBounds": {
+            "west": 84.62017,
+            "south": 27.4357,
+            "east": 87.85933,
+            "north": 30.11524
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001",
+          "startTime": "2026-08-19T23:39:18",
+          "date": "2026-08-19",
+          "timeUtc": "23:39",
+          "datetimeLabel": "2026-08-19 23:39 UTC",
+          "path": "98",
+          "frame": "016 (A)",
+          "polarization": "HH+HV",
+          "pol": "HH+HV",
+          "polarizationCode": "DHDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001.h5",
+          "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001_LATLON.kml",
+          "granuleBounds": {
+            "west": 83.37345,
+            "south": 27.36049,
+            "east": 86.60648,
+            "north": 30.10547
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001",
+          "startTime": "2026-08-23T13:06:31",
+          "date": "2026-08-23",
+          "timeUtc": "13:06",
+          "datetimeLabel": "2026-08-23 13:06 UTC",
+          "path": "149",
+          "frame": "074 (D)",
+          "polarization": "HH+HV+VV+VH",
+          "pol": "HH+HV+VV+VH",
+          "polarizationCode": "QPDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001.h5",
+          "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001_LATLON.kml",
+          "granuleBounds": {
+            "west": 82.56015,
+            "south": 27.39192,
+            "east": 85.81247,
+            "north": 30.1315
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        },
+        {
+          "granule": "NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001",
+          "startTime": "2026-08-28T12:58:12",
+          "date": "2026-08-28",
+          "timeUtc": "12:58",
+          "datetimeLabel": "2026-08-28 12:58 UTC",
+          "path": "48",
+          "frame": "074 (D)",
+          "polarization": "HH+HV+VV+VH",
+          "pol": "HH+HV+VV+VH",
+          "polarizationCode": "QPDH",
+          "productLevel": "GCOV",
+          "platform": "NISAR L-Band",
+          "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.png",
+          "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001.h5",
+          "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.kml",
+          "granuleBounds": {
+            "west": 84.639,
+            "south": 27.41348,
+            "east": 87.8719,
+            "north": 30.09112
+          },
+          "source": "NASA Earthdata CMR (NISAR GCOV)"
+        }
+      ],
+      "tracks": [
+        {
+          "track_id": "track_a_ascending",
+          "track_label": "Track A (Orientación Ascendente • 16 ago vs. 28 ago 2026)",
+          "orientation": "ASCENDING",
+          "wkt_polygon": "POLYGON((85.3 28.14,85.56 28.14,85.56 28.34,85.3 28.34,85.3 28.14))",
+          "bounds": {
+            "west": 85.3,
+            "south": 28.14,
+            "east": 85.56,
+            "north": 28.34,
+            "vertices": [
+              [
+                85.3,
+                28.14
+              ],
+              [
+                85.56,
+                28.14
+              ],
+              [
+                85.56,
+                28.34
+              ],
+              [
+                85.3,
+                28.34
+              ],
+              [
+                85.3,
+                28.14
+              ]
+            ],
+            "wkt": "POLYGON((85.3 28.14,85.56 28.14,85.56 28.34,85.3 28.34,85.3 28.14))"
+          },
+          "configuration": {
+            "polarization": "HH+HV",
+            "polarization_code": "DHDH",
+            "product_level": "GCOV",
+            "target_year": 2026,
+            "start_date": "2026-08-16",
+            "end_date": "2026-08-28",
+            "before_date": "2026-08-16",
+            "after_date": "2026-08-28",
+            "select_first_image_of_year": false,
+            "cmr_collections": [
+              "NISAR_L2_GCOV_V1",
+              "NISAR_L2_GCOV_PROVISIONAL_V1",
+              "NISAR_L2_GCOV_BETA_V1"
+            ],
+            "gamma_correction": 0.82,
+            "minimum_wetness_threshold": 0.04,
+            "output_opacity_alpha": 235
+          },
+          "before_scene": {
+            "granule": "NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001",
+            "startTime": "2026-08-16T12:58:12",
+            "date": "2026-08-16",
+            "timeUtc": "12:58",
+            "datetimeLabel": "2026-08-16 12:58 UTC",
+            "path": "48",
+            "frame": "074 (D)",
+            "polarization": "HH+HV",
+            "pol": "HH+HV",
+            "polarizationCode": "DHDH",
+            "productLevel": "GCOV",
+            "platform": "NISAR L-Band",
+            "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.png",
+            "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001.h5",
+            "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.kml",
+            "granuleBounds": {
+              "west": 84.62017,
+              "south": 27.4357,
+              "east": 87.85933,
+              "north": 30.11524
+            },
+            "source": "NASA Earthdata CMR (NISAR GCOV)",
+            "blueImagePath": "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_before_blue.png",
+            "overlayBounds": {
+              "west": 85.3,
+              "south": 28.14,
+              "east": 85.56,
+              "north": 28.34
+            },
+            "stats": {
+              "overlay_bounds": {
+                "west": 85.3,
+                "south": 28.14,
+                "east": 85.56,
+                "north": 28.34
+              },
+              "image_width_px": 156,
+              "image_height_px": 141,
+              "high_humidity_pct": 0.1,
+              "moderate_humidity_pct": 4.4,
+              "low_humidity_pct": 95.5,
+              "mean_wetness_pct": 13.8,
+              "wet_area_km2": 1.9,
+              "flooded_area_ha": 56,
+              "total_polygon_km2": 564.4
+            }
+          },
+          "after_scene": {
+            "granule": "NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001",
+            "startTime": "2026-08-28T12:58:12",
+            "date": "2026-08-28",
+            "timeUtc": "12:58",
+            "datetimeLabel": "2026-08-28 12:58 UTC",
+            "path": "48",
+            "frame": "074 (D)",
+            "polarization": "HH+HV+VV+VH",
+            "pol": "HH+HV+VV+VH",
+            "polarizationCode": "QPDH",
+            "productLevel": "GCOV",
+            "platform": "NISAR L-Band",
+            "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.png",
+            "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001.h5",
+            "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.kml",
+            "granuleBounds": {
+              "west": 84.639,
+              "south": 27.41348,
+              "east": 87.8719,
+              "north": 30.09112
+            },
+            "source": "NASA Earthdata CMR (NISAR GCOV)",
+            "blueImagePath": "nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_after_blue.png",
+            "overlayBounds": {
+              "west": 85.3,
+              "south": 28.14,
+              "east": 85.56,
+              "north": 28.34
+            },
+            "stats": {
+              "overlay_bounds": {
+                "west": 85.3,
+                "south": 28.14,
+                "east": 85.56,
+                "north": 28.34
+              },
+              "image_width_px": 156,
+              "image_height_px": 141,
+              "high_humidity_pct": 11.6,
+              "moderate_humidity_pct": 14.0,
+              "low_humidity_pct": 74.4,
+              "mean_wetness_pct": 27.4,
+              "wet_area_km2": 82.3,
+              "flooded_area_ha": 6547,
+              "total_polygon_km2": 564.4
+            }
+          },
+          "scenes": [
+            {
+              "granule": "NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001",
+              "startTime": "2026-08-16T12:58:12",
+              "date": "2026-08-16",
+              "timeUtc": "12:58",
+              "datetimeLabel": "2026-08-16 12:58 UTC",
+              "path": "48",
+              "frame": "074 (D)",
+              "polarization": "HH+HV",
+              "pol": "HH+HV",
+              "polarizationCode": "DHDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 84.62017,
+                "south": 27.4357,
+                "east": 87.85933,
+                "north": 30.11524
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001",
+              "startTime": "2026-08-19T23:39:18",
+              "date": "2026-08-19",
+              "timeUtc": "23:39",
+              "datetimeLabel": "2026-08-19 23:39 UTC",
+              "path": "98",
+              "frame": "016 (A)",
+              "polarization": "HH+HV",
+              "pol": "HH+HV",
+              "polarizationCode": "DHDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 83.37345,
+                "south": 27.36049,
+                "east": 86.60648,
+                "north": 30.10547
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001",
+              "startTime": "2026-08-23T13:06:31",
+              "date": "2026-08-23",
+              "timeUtc": "13:06",
+              "datetimeLabel": "2026-08-23 13:06 UTC",
+              "path": "149",
+              "frame": "074 (D)",
+              "polarization": "HH+HV+VV+VH",
+              "pol": "HH+HV+VV+VH",
+              "polarizationCode": "QPDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 82.56015,
+                "south": 27.39192,
+                "east": 85.81247,
+                "north": 30.1315
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001",
+              "startTime": "2026-08-28T12:58:12",
+              "date": "2026-08-28",
+              "timeUtc": "12:58",
+              "datetimeLabel": "2026-08-28 12:58 UTC",
+              "path": "48",
+              "frame": "074 (D)",
+              "polarization": "HH+HV+VV+VH",
+              "pol": "HH+HV+VV+VH",
+              "polarizationCode": "QPDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 84.639,
+                "south": 27.41348,
+                "east": 87.8719,
+                "north": 30.09112
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            }
+          ],
+          "is_dry_run_preview": false
+        },
+        {
+          "track_id": "track_b_descending",
+          "track_label": "Track B (Orientación Descendente • 16 ago vs. 31 ago 2026)",
+          "orientation": "DESCENDING",
+          "wkt_polygon": "POLYGON((85.10 27.85, 85.60 27.85, 85.60 28.38, 85.10 28.38, 85.10 27.85))",
+          "bounds": {
+            "west": 85.1,
+            "south": 27.85,
+            "east": 85.6,
+            "north": 28.38,
+            "vertices": [
+              [
+                85.1,
+                27.85
+              ],
+              [
+                85.6,
+                27.85
+              ],
+              [
+                85.6,
+                28.38
+              ],
+              [
+                85.1,
+                28.38
+              ],
+              [
+                85.1,
+                27.85
+              ]
+            ],
+            "wkt": "POLYGON((85.10 27.85, 85.60 27.85, 85.60 28.38, 85.10 28.38, 85.10 27.85))"
+          },
+          "configuration": {
+            "polarization": "HH+HV",
+            "polarization_code": "DHDH",
+            "product_level": "GCOV",
+            "target_year": 2026,
+            "start_date": "2026-08-16",
+            "end_date": "2026-08-31",
+            "before_date": "2026-08-16",
+            "after_date": "2026-08-31",
+            "select_first_image_of_year": false,
+            "cmr_collections": [
+              "NISAR_L2_GCOV_V1",
+              "NISAR_L2_GCOV_PROVISIONAL_V1",
+              "NISAR_L2_GCOV_BETA_V1"
+            ],
+            "gamma_correction": 0.82,
+            "minimum_wetness_threshold": 0.04,
+            "output_opacity_alpha": 235
+          },
+          "before_scene": {
+            "granule": "NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001",
+            "startTime": "2026-08-16T12:58:12",
+            "date": "2026-08-16",
+            "timeUtc": "12:58",
+            "datetimeLabel": "2026-08-16 12:58 UTC",
+            "path": "48",
+            "frame": "074 (D)",
+            "polarization": "HH+HV",
+            "pol": "HH+HV",
+            "polarizationCode": "DHDH",
+            "productLevel": "GCOV",
+            "platform": "NISAR L-Band",
+            "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.png",
+            "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001.h5",
+            "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.kml",
+            "granuleBounds": {
+              "west": 84.62017,
+              "south": 27.4357,
+              "east": 87.85933,
+              "north": 30.11524
+            },
+            "source": "NASA Earthdata CMR (NISAR GCOV)",
+            "blueImagePath": "nisar_data/nepal_china_gyirong_port_floods_2026_track_b_descending_before_blue.png",
+            "overlayBounds": {
+              "west": 85.1,
+              "south": 27.85,
+              "east": 85.6,
+              "north": 28.38
+            },
+            "stats": {
+              "overlay_bounds": {
+                "west": 85.1,
+                "south": 27.85,
+                "east": 85.6,
+                "north": 28.38
+              },
+              "image_width_px": 299,
+              "image_height_px": 374,
+              "high_humidity_pct": 0.3,
+              "moderate_humidity_pct": 5.8,
+              "low_humidity_pct": 93.9,
+              "mean_wetness_pct": 16.4,
+              "wet_area_km2": 23.1,
+              "flooded_area_ha": 864,
+              "total_polygon_km2": 2879.8
+            }
+          },
+          "after_scene": {
+            "granule": "NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001",
+            "startTime": "2026-08-31T23:39:18",
+            "date": "2026-08-31",
+            "timeUtc": "23:39",
+            "datetimeLabel": "2026-08-31 23:39 UTC",
+            "path": "98",
+            "frame": "016 (A)",
+            "polarization": "HH+HV",
+            "pol": "HH+HV",
+            "polarizationCode": "DHDH",
+            "productLevel": "GCOV",
+            "platform": "NISAR L-Band",
+            "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001_LATLON.png",
+            "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001.h5",
+            "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001_LATLON.kml",
+            "granuleBounds": {
+              "west": 83.38562,
+              "south": 27.37303,
+              "east": 86.60121,
+              "north": 30.05776
+            },
+            "source": "NASA Earthdata CMR (NISAR GCOV)",
+            "blueImagePath": "nisar_data/nepal_china_gyirong_port_floods_2026_track_b_descending_after_blue.png",
+            "overlayBounds": {
+              "west": 85.1,
+              "south": 27.85,
+              "east": 85.6,
+              "north": 28.38
+            },
+            "stats": {
+              "overlay_bounds": {
+                "west": 85.1,
+                "south": 27.85,
+                "east": 85.6,
+                "north": 28.38
+              },
+              "image_width_px": 316,
+              "image_height_px": 395,
+              "high_humidity_pct": 1.5,
+              "moderate_humidity_pct": 12.6,
+              "low_humidity_pct": 86.0,
+              "mean_wetness_pct": 19.4,
+              "wet_area_km2": 127.5,
+              "flooded_area_ha": 4320,
+              "total_polygon_km2": 2879.8
+            }
+          },
+          "scenes": [
+            {
+              "granule": "NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001",
+              "startTime": "2026-08-16T12:58:12",
+              "date": "2026-08-16",
+              "timeUtc": "12:58",
+              "datetimeLabel": "2026-08-16 12:58 UTC",
+              "path": "48",
+              "frame": "074 (D)",
+              "polarization": "HH+HV",
+              "pol": "HH+HV",
+              "polarizationCode": "DHDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_048_D_074_4005_DHDH_A_20260816T125812_20260816T125846_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 84.62017,
+                "south": 27.4357,
+                "east": 87.85933,
+                "north": 30.11524
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_028_098_A_015_4005_DHDH_A_20260819T233844_20260819T233919_P05023_N_F_J_001",
+              "startTime": "2026-08-19T23:38:44",
+              "date": "2026-08-19",
+              "timeUtc": "23:38",
+              "datetimeLabel": "2026-08-19 23:38 UTC",
+              "path": "98",
+              "frame": "015 (A)",
+              "polarization": "HH+HV",
+              "pol": "HH+HV",
+              "polarizationCode": "DHDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_015_4005_DHDH_A_20260819T233844_20260819T233919_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_015_4005_DHDH_A_20260819T233844_20260819T233919_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_015_4005_DHDH_A_20260819T233844_20260819T233919_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_015_4005_DHDH_A_20260819T233844_20260819T233919_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_015_4005_DHDH_A_20260819T233844_20260819T233919_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_015_4005_DHDH_A_20260819T233844_20260819T233919_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 84.08018,
+                "south": 25.36107,
+                "east": 87.27096,
+                "north": 28.09478
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001",
+              "startTime": "2026-08-19T23:39:18",
+              "date": "2026-08-19",
+              "timeUtc": "23:39",
+              "datetimeLabel": "2026-08-19 23:39 UTC",
+              "path": "98",
+              "frame": "016 (A)",
+              "polarization": "HH+HV",
+              "pol": "HH+HV",
+              "polarizationCode": "DHDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_098_A_016_4005_DHDH_A_20260819T233918_20260819T233953_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 83.37345,
+                "south": 27.36049,
+                "east": 86.60648,
+                "north": 30.10547
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001",
+              "startTime": "2026-08-23T13:06:31",
+              "date": "2026-08-23",
+              "timeUtc": "13:06",
+              "datetimeLabel": "2026-08-23 13:06 UTC",
+              "path": "149",
+              "frame": "074 (D)",
+              "polarization": "HH+HV+VV+VH",
+              "pol": "HH+HV+VV+VH",
+              "polarizationCode": "QPDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_149_D_074_2005_QPDH_A_20260823T130631_20260823T130706_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 82.56015,
+                "south": 27.39192,
+                "east": 85.81247,
+                "north": 30.1315
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001",
+              "startTime": "2026-08-28T12:58:12",
+              "date": "2026-08-28",
+              "timeUtc": "12:58",
+              "datetimeLabel": "2026-08-28 12:58 UTC",
+              "path": "48",
+              "frame": "074 (D)",
+              "polarization": "HH+HV+VV+VH",
+              "pol": "HH+HV+VV+VH",
+              "polarizationCode": "QPDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_048_D_074_2005_QPDH_A_20260828T125812_20260828T125846_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 84.639,
+                "south": 27.41348,
+                "east": 87.8719,
+                "north": 30.09112
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_029_098_A_015_4005_DHDH_A_20260831T233844_20260831T233919_P05023_N_F_J_001",
+              "startTime": "2026-08-31T23:38:44",
+              "date": "2026-08-31",
+              "timeUtc": "23:38",
+              "datetimeLabel": "2026-08-31 23:38 UTC",
+              "path": "98",
+              "frame": "015 (A)",
+              "polarization": "HH+HV",
+              "pol": "HH+HV",
+              "polarizationCode": "DHDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_015_4005_DHDH_A_20260831T233844_20260831T233919_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_015_4005_DHDH_A_20260831T233844_20260831T233919_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_015_4005_DHDH_A_20260831T233844_20260831T233919_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_015_4005_DHDH_A_20260831T233844_20260831T233919_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_015_4005_DHDH_A_20260831T233844_20260831T233919_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_015_4005_DHDH_A_20260831T233844_20260831T233919_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 84.07674,
+                "south": 25.37364,
+                "east": 87.26718,
+                "north": 28.10691
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            },
+            {
+              "granule": "NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001",
+              "startTime": "2026-08-31T23:39:18",
+              "date": "2026-08-31",
+              "timeUtc": "23:39",
+              "datetimeLabel": "2026-08-31 23:39 UTC",
+              "path": "98",
+              "frame": "016 (A)",
+              "polarization": "HH+HV",
+              "pol": "HH+HV",
+              "polarizationCode": "DHDH",
+              "productLevel": "GCOV",
+              "platform": "NISAR L-Band",
+              "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001_LATLON.png",
+              "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001.h5",
+              "kmlUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_098_A_016_4005_DHDH_A_20260831T233918_20260831T233952_P05023_N_F_J_001_LATLON.kml",
+              "granuleBounds": {
+                "west": 83.38562,
+                "south": 27.37303,
+                "east": 86.60121,
+                "north": 30.05776
+              },
+              "source": "NASA Earthdata CMR (NISAR GCOV)"
+            }
+          ],
+          "is_dry_run_preview": false
+        }
+      ]
+    }
+  ],
+  "bounds": {
+    "west": -64.4987,
+    "south": -27.9933,
+    "east": -63.8676,
+    "north": -27.5779,
+    "vertices": [
+      [
+        -64.4987,
+        -27.9933
+      ],
+      [
+        -63.8676,
+        -27.9933
+      ],
+      [
+        -63.8676,
+        -27.5779
+      ],
+      [
+        -64.4987,
+        -27.5779
+      ],
+      [
+        -64.4987,
+        -27.9933
+      ]
+    ],
+    "wkt": "POLYGON((-64.4987 -27.9933,-63.8676 -27.9933,-63.8676 -27.5779,-64.4987 -27.5779,-64.4987 -27.9933))"
+  },
+  "wkt": "POLYGON((-64.4987 -27.9933,-63.8676 -27.9933,-63.8676 -27.5779,-64.4987 -27.5779,-64.4987 -27.9933))",
+  "scenes": [
+    {
+      "granule": "NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001",
+      "startTime": "2026-06-23T22:23:15",
+      "date": "2026-06-23",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-06-23 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001/NISAR_L2_PR_GCOV_023_140_D_102_2005_DHDH_A_20260623T222315_20260623T222350_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.49716,
+        "south": -28.333,
+        "east": -62.5548,
+        "north": -25.78862
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)",
+      "blueImagePath": "nisar_data/santiago_del_estero_capital_gcov_blue.png",
+      "overlayBounds": {
+        "west": -64.4987,
+        "south": -27.9933,
+        "east": -63.8676,
+        "north": -27.5779
+      },
+      "isFirst2026Image": true
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001",
+      "startTime": "2026-06-27T10:12:23",
+      "date": "2026-06-27",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-06-27 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001/NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001/NISAR_L2_PR_GCOV_024_017_A_163_2005_DHDH_A_20260627T101223_20260627T101258_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.47358,
+        "south": -30.34784,
+        "east": -62.4515,
+        "north": -27.80505
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001",
+      "startTime": "2026-07-05T22:23:14",
+      "date": "2026-07-05",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-07-05 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001/NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001/NISAR_L2_PR_GCOV_024_140_D_102_2005_DHDH_A_20260705T222314_20260705T222349_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.49383,
+        "south": -28.31212,
+        "east": -62.55161,
+        "north": -25.76774
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001",
+      "startTime": "2026-07-09T10:12:23",
+      "date": "2026-07-09",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-07-09 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001/NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001/NISAR_L2_PR_GCOV_025_017_A_163_2005_DHDH_A_20260709T101223_20260709T101257_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.46945,
+        "south": -30.3185,
+        "east": -62.45809,
+        "north": -27.83502
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001",
+      "startTime": "2026-07-17T22:23:14",
+      "date": "2026-07-17",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-07-17 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001/NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001/NISAR_L2_PR_GCOV_025_140_D_102_2005_DHDH_A_20260717T222314_20260717T222348_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.48987,
+        "south": -28.29901,
+        "east": -62.55984,
+        "north": -25.81393
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001",
+      "startTime": "2026-07-21T10:12:22",
+      "date": "2026-07-21",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-07-21 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001/NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001/NISAR_L2_PR_GCOV_026_017_A_163_2005_DHDH_A_20260721T101222_20260721T101257_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.47358,
+        "south": -30.33338,
+        "east": -62.45453,
+        "north": -27.79054
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001",
+      "startTime": "2026-08-10T22:23:12",
+      "date": "2026-08-10",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-08-10 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001/NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001/NISAR_L2_PR_GCOV_027_140_D_102_2005_DHDH_A_20260810T222312_20260810T222347_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.48892,
+        "south": -28.29713,
+        "east": -62.54715,
+        "north": -25.75272
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001",
+      "startTime": "2026-08-14T10:12:21",
+      "date": "2026-08-14",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-08-14 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_028_017_A_163_2005_DHDH_A_20260814T101221_20260814T101255_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.46902,
+        "south": -30.32195,
+        "east": -62.45676,
+        "north": -27.83844
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001",
+      "startTime": "2026-08-26T10:12:21",
+      "date": "2026-08-26",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-08-26 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_017_A_163_2005_DHDH_A_20260826T101221_20260826T101255_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.4699,
+        "south": -30.30608,
+        "east": -62.46117,
+        "north": -27.82264
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001",
+      "startTime": "2026-09-03T22:23:12",
+      "date": "2026-09-03",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-09-03 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_029_140_D_102_2005_DHDH_A_20260903T222312_20260903T222346_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.48377,
+        "south": -28.26762,
+        "east": -62.55403,
+        "north": -25.78253
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001",
+      "startTime": "2026-09-07T10:12:54",
+      "date": "2026-09-07",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-09-07 10:12 UTC",
+      "path": "17",
+      "frame": "164 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_017_A_164_2005_DHDH_A_20260907T101254_20260907T101332_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.89,
+        "south": -28.34368,
+        "east": -62.90251,
+        "north": -25.6194
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001",
+      "startTime": "2026-09-15T22:23:11",
+      "date": "2026-09-15",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-09-15 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_030_140_D_102_2005_DHDH_A_20260915T222311_20260915T222346_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.48501,
+        "south": -28.27374,
+        "east": -62.54348,
+        "north": -25.72932
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001",
+      "startTime": "2026-09-19T10:12:20",
+      "date": "2026-09-19",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-09-19 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001/NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001/NISAR_L2_PR_GCOV_031_017_A_163_2005_DHDH_A_20260919T101220_20260919T101255_P05023_F_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.46933,
+        "south": -30.3645,
+        "east": -62.44703,
+        "north": -27.82168
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001",
+      "startTime": "2026-09-27T22:23:11",
+      "date": "2026-09-27",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-09-27 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_031_140_D_102_2005_DHDH_A_20260927T222311_20260927T222346_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.48512,
+        "south": -28.27685,
+        "east": -62.54353,
+        "north": -25.73248
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001",
+      "startTime": "2026-10-01T10:12:20",
+      "date": "2026-10-01",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-10-01 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_017_A_163_2005_DHDH_A_20261001T101220_20261001T101255_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.46954,
+        "south": -30.36589,
+        "east": -62.44654,
+        "north": -27.82306
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001",
+      "startTime": "2026-10-09T22:23:12",
+      "date": "2026-10-09",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-10-09 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001/NISAR_L2_PR_GCOV_032_140_D_102_2005_DHDH_A_20261009T222312_20261009T222346_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.48265,
+        "south": -28.26186,
+        "east": -62.55294,
+        "north": -25.77681
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001",
+      "startTime": "2026-10-13T10:12:21",
+      "date": "2026-10-13",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-10-13 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_PROVISIONAL_V1/NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001/NISAR_L2_PR_GCOV_033_017_A_163_2005_DHDH_A_20261013T101221_20261013T101255_P05023_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.4693,
+        "south": -30.3212,
+        "east": -62.45732,
+        "north": -27.83772
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001",
+      "startTime": "2026-10-21T22:23:12",
+      "date": "2026-10-21",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-10-21 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001/NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001/NISAR_L2_PR_GCOV_033_140_D_102_2005_DHDH_A_20261021T222312_20261021T222346_P05036_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.48096,
+        "south": -28.25093,
+        "east": -62.5512,
+        "north": -25.76575
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001",
+      "startTime": "2026-10-25T10:12:21",
+      "date": "2026-10-25",
+      "timeUtc": "10:12",
+      "datetimeLabel": "2026-10-25 10:12 UTC",
+      "path": "17",
+      "frame": "163 (A)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_017_A_163_2005_DHDH_A_20261025T101221_20261025T101256_P05036_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.4743,
+        "south": -30.33844,
+        "east": -62.45364,
+        "north": -27.79559
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    },
+    {
+      "granule": "NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001",
+      "startTime": "2026-11-02T22:23:12",
+      "date": "2026-11-02",
+      "timeUtc": "22:23",
+      "datetimeLabel": "2026-11-02 22:23 UTC",
+      "path": "140",
+      "frame": "102 (D)",
+      "polarization": "HH+HV",
+      "pol": "HH+HV",
+      "polarizationCode": "DHDH",
+      "productLevel": "GCOV",
+      "platform": "NISAR L-Band",
+      "browseUrl": "https://nisar.asf.earthdatacloud.nasa.gov/BROWSE/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001_LATLON.png",
+      "downloadUrl": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR/NISAR_L2_GCOV_V1/NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001/NISAR_L2_PR_GCOV_034_140_D_102_2005_DHDH_A_20261102T222312_20261102T222347_P05036_N_F_J_001.h5",
+      "granuleBounds": {
+        "west": -65.48631,
+        "south": -28.27068,
+        "east": -62.54444,
+        "north": -25.72617
+      },
+      "source": "NASA Earthdata CMR (NISAR GCOV)"
+    }
+  ]
+}
