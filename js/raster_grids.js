@@ -1,6 +1,6 @@
 /**
  * Lossless pre-decoded Red-to-Blue wetness percentage grids derived directly
- * from the bundled NASA NISAR PNG overlays in `nisar_data/`.
+ * from the bundled NISAR PNG overlays in `nisar_data/`.
  * Enables exact native-pixel moisture inspection across file://, HTTP(S), and
  * offline sessions without canvas cross-origin restrictions.
  */

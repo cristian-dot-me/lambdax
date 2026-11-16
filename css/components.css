@@ -1,5 +1,5 @@
 /**
- * λ LambdaX — NASA NISAR Citizen HUD
+ * λ LambdaX — NISAR Citizen HUD
  * UI Components, Cards, Interactive Maps, HUD, Video Container & Sliders
  */
 
@@ -276,6 +276,14 @@
   box-shadow: var(--shadow-card), 0 0 35px rgba(82, 217, 217, 0.15);
   overflow: hidden;
   position: relative;
+}
+
+.demo-video-frame {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #04121b;
 }
 
 .demo-playback-controls-bar {
@@ -1130,7 +1138,7 @@
 
 
 /* ============================================================================
-   UNIFIED CITIZEN HUD, LEAFLET STAGES & REAL NASA APPLICATIONS GALLERY
+   UNIFIED CITIZEN HUD, LEAFLET STAGES & REAL APPLICATIONS GALLERY
    ============================================================================ */
 
 .demo-fallback-poster {

@@ -1,6 +1,6 @@
 /**
- * LambdaX — NASA NISAR Citizen HUD
- * Detailed NASA-ISRO NISAR SAR Satellite in Orbit Illustration & Animation
+ * LambdaX — NISAR Citizen HUD
+ * Detailed ISRO NISAR SAR Satellite in Orbit Illustration & Animation
  * Mission Control & Orbital Geospatial Aesthetic
  */
 
@@ -759,7 +759,7 @@ class HeroRadar {
     ctx.lineTo(-32 * s, 23 * s);
     ctx.stroke();
 
-    // 3. NASA-ISRO Integrated Radar Instrument Tower (Right/Forward Octagonal Payload Module)
+    // 3. Integrated Radar Instrument Tower (Right/Forward Octagonal Payload Module)
     // Side structural panel
     const bodyGrad = ctx.createLinearGradient(-22 * s, 2 * s, 32 * s, 26 * s);
     bodyGrad.addColorStop(0, '#113740');
@@ -917,7 +917,7 @@ class HeroRadar {
     ctx.font = `500 ${Math.max(9, Math.round(10 * s))}px 'JetBrains Mono', Consolas, monospace`;
     ctx.fillStyle = 'rgba(82, 217, 217, 0.78)';
     ctx.textAlign = 'left';
-    ctx.fillText('NASA-ISRO NISAR // SAR OBSERVATORY', 16 * s, 24 * s);
+    ctx.fillText('NISAR // SAR OBSERVATORY', 16 * s, 24 * s);
 
     ctx.textAlign = 'right';
     ctx.fillStyle = 'rgba(4, 217, 196, 0.85)';

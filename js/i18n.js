@@ -11,7 +11,7 @@
   const TRANSLATIONS = {
     en: {
       page: {
-        title: 'LambdaX — NASA NISAR Citizen HUD'
+        title: 'LambdaX — NISAR Citizen HUD'
       },
       nav: {
         hero: 'Overview',
@@ -24,22 +24,22 @@
         openHud: 'Explore Maps'
       },
       hero: {
-        badge: 'NASA NISAR Citizen HUD',
+        badge: 'NISAR Citizen HUD',
         title: 'LambdaX',
         subtitle: "Making Earth's hidden surface changes visible.",
         tagline: 'Seeing the Unseen.',
         description:
-          'We translate NASA NISAR satellite observations into clear Red-to-Blue surface moisture and flood maps anyone can read in seconds—no scientific background required.',
+          'We translate NISAR satellite observations into clear Red-to-Blue surface moisture and flood maps anyone can read in seconds—no scientific background required.',
         ctaPrimary: 'Explore Interactive HUD',
         ctaSecondary: 'How It Works',
         radarTelemetry: 'LIVE SATELLITE VIEW',
-        radarFrequency: 'NASA NISAR (All-Weather, Day & Night)',
+        radarFrequency: 'NISAR (All-Weather, Day & Night)',
         scrollHint: 'Scroll to explore'
       },
       demo: {
         title: 'See LambdaX in Action',
         description:
-          'Watch how communities, farmers, and responders inspect real 2026 NASA NISAR moisture shifts and flood expansion with zero technical barriers.',
+          'Watch how communities, farmers, and responders inspect real 2026 NISAR moisture shifts and flood expansion with zero technical barriers.',
         fallbackBadge: 'Interactive Preview Available Below',
         fallbackTitle: 'Video walkthrough coming soon — explore the live map now',
         fallbackDesc:
@@ -56,16 +56,16 @@
         challengePoint1: 'Dense clouds and nighttime darkness hide sudden river surges from ordinary cameras.',
         challengePoint2: 'Complex scientific charts and coordinate files lock local citizens out of timely insights.',
         solutionTitle: 'OUR SOLUTION',
-        solutionSubtitle: 'Translating NASA Radar Into Citizen Intelligence',
+        solutionSubtitle: 'Translating Radar Into Citizen Intelligence',
         solutionDesc:
-          'NASA NISAR sees cleanly through storms day or night. LambdaX turns those measurements into a single Red-to-Blue Citizen HUD with plain-language explanations at every click.',
+          'NISAR sees cleanly through storms day or night. LambdaX turns those measurements into a single Red-to-Blue Citizen HUD with plain-language explanations at every click.',
         solutionPoint1: 'Dry soil appears red and wet or flooded ground turns deep blue—easy to read at a glance.',
         solutionPoint2: 'Side-by-side Before/After views show real 2026 flood expansion in hectares and percentages.'
       },
       features: {
         title: 'Explore the Planet Through Radar',
         subtitle:
-          'Interactive Citizen HUD powered by real 2026 NASA NISAR imagery across Santiago del Estero, Mozambique, and the Nepal–China border.',
+          'Interactive Citizen HUD powered by real 2026 NISAR imagery across Santiago del Estero, Mozambique, and the Nepal–China border.',
         inspector: {
           title: 'Understand Every Pixel',
           prompt: 'Click anywhere inside the monitored area on the map to read plain-language surface moisture.',
@@ -80,13 +80,13 @@
         },
         galleryHeading: 'Discover NISAR Applications',
         gallerySubheading:
-          'Real NASA NISAR images demonstrating how day-and-night satellite views help protect coasts, forests, and food production worldwide.',
+          'Real NISAR images demonstrating how day-and-night satellite views help protect coasts, forests, and food production worldwide.',
         manifestoHeading: 'Why NISAR matters for the entire planet',
         manifestoText:
           'The importance of the NISAR mission in our daily lives is greater than most people realize. By turning natural physical observations into clear day-and-night views through clouds and thick canopy, communities and specialists can assess flood and drought risks in minutes. LambdaX shows how complex space science can become clear, shared knowledge at the service of our planet. — LambdaX',
         accuracyHeading: 'Note on image accuracy',
         accuracyNote:
-          'Images officially processed by NASA (like the gallery examples below) offer the highest scientific detail. In our interactive map explorer, we recolor preview NASA NISAR scenes with a simplified Red-to-Blue model so anyone can interpret moisture at a glance.'
+          'Images officially processed by (like the gallery examples below) offer the highest scientific detail. In our interactive map explorer, we recolor preview NISAR scenes with a simplified Red-to-Blue model so anyone can interpret moisture at a glance.'
       },
       hud: {
         tab1: 'Santiago del Estero',
@@ -144,12 +144,12 @@
         santiago: {
           title: 'Santiago del Estero',
           subtitle: 'Capital Area & Dulce River Basin',
-          description: 'Explore real 2026 NASA NISAR surface moisture across our home province—click any point to inspect moisture.'
+          description: 'Explore real 2026 NISAR surface moisture across our home province—click any point to inspect moisture.'
         },
         mozambique: {
           title: 'Mozambique (Chokwe / Macia)',
           subtitle: 'Chokwe–Macia Agricultural Corridor (Limpopo River)',
-          description: 'Real NASA NISAR comparison between Jan 5 and Jan 17, 2026 showing widespread river valley flooding.'
+          description: 'Real NISAR comparison between Jan 5 and Jan 17, 2026 showing widespread river valley flooding.'
         },
         nepal: {
           title: 'Nepal–China Border (Gyirong Port)',
@@ -168,26 +168,26 @@
         card1: {
           tag: 'Coastal & Forests',
           title: 'Coastal Landscape View — Maine, United States',
-          desc: 'Official NASA NISAR view over Mount Desert Island and Bar Harbor, clearly separating forests, towns, terrain relief, and coastal water day or night.',
-          alt: 'Official NASA NISAR view of forests, towns, and coastal waters in Maine, United States'
+          desc: 'Official NISAR view over Mount Desert Island and Bar Harbor, clearly separating forests, towns, terrain relief, and coastal water day or night.',
+          alt: 'Official NISAR view of forests, towns, and coastal waters in Maine, United States'
         },
         card2: {
           tag: 'Agriculture & Crops',
           title: 'Crops & Wetlands — North Dakota, United States',
-          desc: 'Official NASA NISAR view along the Forest River showing crop fields, circular irrigation pivots, woodlands, and wetlands for monitoring food production.',
-          alt: 'Official NASA NISAR view of agricultural fields and circular irrigation in North Dakota, United States'
+          desc: 'Official NISAR view along the Forest River showing crop fields, circular irrigation pivots, woodlands, and wetlands for monitoring food production.',
+          alt: 'Official NISAR view of agricultural fields and circular irrigation in North Dakota, United States'
         }
       },
       disclaimer: {
         title: 'Simplified Preview Visualization',
-        text: 'Interactive Red-to-Blue maps use simplified preview visualization of NASA NISAR products for fast citizen exploration. Official NASA science archives provide full terrain-calibrated products for formal engineering use.'
+        text: 'Interactive Red-to-Blue maps use simplified preview visualization of NISAR products for fast citizen exploration. Official science archives provide full terrain-calibrated products for formal engineering use.'
       },
       how: {
-        title: 'From NASA Data to Clear Insights',
+        title: 'From Data to Clear Insights',
         subtitle: 'Four streamlined stages take satellite measurements from space straight to your browser.',
         step1: {
           num: '01',
-          title: 'NASA NISAR',
+          title: 'NISAR',
           sub: 'Cloud-Piercing Satellite Capture',
           desc: 'Captures surface moisture and floodwater dynamics day or night, unaffected by thick storm or monsoon clouds.'
         },
@@ -195,7 +195,7 @@
           num: '02',
           title: 'Python Data Pipeline',
           sub: 'Moisture Color Translation',
-          desc: 'Converts raw NASA observations into lightweight Red-to-Blue image layers and verified area change summaries.'
+          desc: 'Converts raw observations into lightweight Red-to-Blue image layers and verified area change summaries.'
         },
         step3: {
           num: '03',
@@ -215,7 +215,7 @@
         subtitle: 'Lean static-first architecture focused on speed, transparency, and accessibility.',
         cat1: {
           name: 'Satellite Data',
-          items: 'NASA NISAR Mission • Earthdata Search • GeoTIFF Moisture Previews'
+          items: 'NISAR Mission • Earthdata Search • GeoTIFF Moisture Previews'
         },
         cat2: {
           name: 'Data Processing',
@@ -236,17 +236,17 @@
       },
       team: {
         title: 'The People Behind LambdaX',
-        subtitle: 'Built from northern Argentina for NASA Space Apps Challenge 2026.',
+        subtitle: 'Built from northern Argentina for LambdaX 2026.',
         member1: {
-          role: 'Data & Research',
-          desc: 'NASA NISAR data research and satellite scene exploration.'
+          role: 'Backend & Data Processing',
+          desc: 'NISAR data research and satellite scene exploration.'
         },
         member2: {
           role: 'Backend & Data Processing',
           desc: 'Python pipeline and satellite image processing.'
         },
         member3: {
-          role: 'Frontend & Data Visualization',
+          role: 'Data Research & Data Visualization',
           desc: 'Web interface, interactive maps and SAR data visualization.'
         },
         collabStatement: 'One collaborative team. Shared decisions, shared development, one mission.',
@@ -259,20 +259,20 @@
         trackHeading: 'Challenge Information',
         track: 'Dancing With the SARs',
         editionLabel: 'Edition:',
-        challenge: 'NASA Space Apps Challenge 2026',
+        challenge: 'LambdaX 2026',
         locationLabel: 'Location:',
         location: 'Santiago del Estero / Tucumán, Argentina',
         openSourceHeading: 'Open Source',
-        github: 'GitHub Repository (Placeholder)',
+        github: 'GitHub Repository',
         pipelineLink: 'Full Interactive App',
         docsLink: 'Citizen HUD Section',
-        copyright: '© 2026 LambdaX Project — NASA Space Apps Challenge.',
-        dataSource: 'Built with official NASA NISAR imagery and open web mapping libraries.'
+        copyright: '© 2026 LambdaX Project — LambdaX.',
+        dataSource: 'Built with official NISAR imagery and open web mapping libraries.'
       }
     },
     es: {
       page: {
-        title: 'LambdaX — Visor Ciudadano NASA NISAR'
+        title: 'LambdaX — Visor Ciudadano NISAR'
       },
       nav: {
         hero: 'Inicio',
@@ -285,22 +285,22 @@
         openHud: 'Explorar Mapas'
       },
       hero: {
-        badge: 'NASA NISAR Citizen HUD',
+        badge: 'NISAR Citizen HUD',
         title: 'LambdaX',
         subtitle: 'Haciendo visibles los cambios ocultos de la Tierra.',
         tagline: 'Seeing the Unseen.',
         description:
-          'Transformamos observaciones satelitales de NASA NISAR en mapas claros de humedad e inundaciones de Rojo a Azul que cualquier persona puede entender en segundos.',
+          'Transformamos observaciones satelitales de NISAR en mapas claros de humedad e inundaciones de Rojo a Azul que cualquier persona puede entender en segundos.',
         ctaPrimary: 'Explorar Visor Interactivo',
         ctaSecondary: 'Cómo Funciona',
         radarTelemetry: 'VISTA SATELITAL EN VIVO',
-        radarFrequency: 'NASA NISAR (Día y noche, sin bloqueo por nubes)',
+        radarFrequency: 'NISAR (Día y noche, sin bloqueo por nubes)',
         scrollHint: 'Deslizá para explorar'
       },
       demo: {
         title: 'Mirá LambdaX en Acción',
         description:
-          'Descubrí cómo comunidades, productores y equipos locales inspeccionan cambios reales de humedad e inundaciones de NASA NISAR 2026 sin barreras técnicas.',
+          'Descubrí cómo comunidades, productores y equipos locales inspeccionan cambios reales de humedad e inundaciones de NISAR 2026 sin barreras técnicas.',
         fallbackBadge: 'Vista Previa Interactiva Abajo',
         fallbackTitle: 'Video demostrativo en preparación — probá el mapa real ahora',
         fallbackDesc:
@@ -317,16 +317,16 @@
         challengePoint1: 'La nubosidad espesa y la noche ocultan las crecidas repentinas a los satélites comunes.',
         challengePoint2: 'Tablas científicas complejas y archivos difíciles alejan a la ciudadanía de la información útil.',
         solutionTitle: 'OUR SOLUTION',
-        solutionSubtitle: 'Traduciendo Datos NASA en Claridad Ciudadana',
+        solutionSubtitle: 'Traduciendo Datos en Claridad Ciudadana',
         solutionDesc:
-          'NASA NISAR observa a través de tormentas de día o de noche. LambdaX convierte esos datos en un mapa Rojo-a-Azul simple con explicaciones claras en cada punto.',
+          'NISAR observa a través de tormentas de día o de noche. LambdaX convierte esos datos en un mapa Rojo-a-Azul simple con explicaciones claras en cada punto.',
         solutionPoint1: 'El suelo seco se ve rojo y el suelo muy húmedo o inundado se vuelve azul intenso.',
         solutionPoint2: 'Las vistas Antes y Después muestran la expansión real de las crecidas de 2026 en hectáreas y porcentajes.'
       },
       features: {
         title: 'Explorá el Planeta con Claridad Satelital',
         subtitle:
-          'Visor Ciudadano interactivo con imágenes reales 2026 de NASA NISAR en Santiago del Estero, Mozambique y la frontera Nepal–China.',
+          'Visor Ciudadano interactivo con imágenes reales 2026 de NISAR en Santiago del Estero, Mozambique y la frontera Nepal–China.',
         inspector: {
           title: 'Entendé Cada Píxel',
           prompt: 'Hacé clic en cualquier punto dentro del área monitoreada para conocer la humedad en lenguaje simple.',
@@ -341,13 +341,13 @@
         },
         galleryHeading: 'Descubrí Usos Reales de NISAR',
         gallerySubheading:
-          'Imágenes oficiales de NASA NISAR que muestran cómo la observación satelital protege costas, bosques y la producción de alimentos.',
+          'Imágenes oficiales de NISAR que muestran cómo la observación satelital protege costas, bosques y la producción de alimentos.',
         manifestoHeading: 'Por qué NISAR importa para todo el planeta',
         manifestoText:
           'La importancia de la misión NISAR en nuestra vida diaria es más grande de lo que pensamos. Al transformar observaciones espaciales en vistas claras de día y de noche a través de nubes y follaje denso, comunidades y especialistas pueden evaluar riesgos de inundación o sequía en minutos. LambdaX busca convertir ciencia compleja en conocimiento compartido al servicio del planeta. — LambdaX',
         accuracyHeading: 'Nota sobre la precisión de las imágenes',
         accuracyNote:
-          'Las imágenes procesadas oficialmente por la NASA (como las de la galería inferior) ofrecen el máximo detalle científico. En nuestro explorador interactivo recoloreamos vistas previas de NASA NISAR con una escala simple de Rojo a Azul para facilitar su lectura.'
+          'Las imágenes procesadas oficialmente por la (como las de la galería inferior) ofrecen el máximo detalle científico. En nuestro explorador interactivo recoloreamos vistas previas de NISAR con una escala simple de Rojo a Azul para facilitar su lectura.'
       },
       hud: {
         tab1: 'Santiago del Estero',
@@ -405,12 +405,12 @@
         santiago: {
           title: 'Santiago del Estero',
           subtitle: 'Zona Capital y Cuenca del Río Dulce',
-          description: 'Explorá la humedad superficial real 2026 captada por NASA NISAR sobre nuestra provincia—hacé clic para inspeccionar.'
+          description: 'Explorá la humedad superficial real 2026 captada por NISAR sobre nuestra provincia—hacé clic para inspeccionar.'
         },
         mozambique: {
           title: 'Mozambique (Chokwe / Macia)',
           subtitle: 'Corredor Agrícola Chokwe–Macia (Río Limpopo)',
-          description: 'Comparación real de NASA NISAR entre el 5 y el 17 de enero de 2026 mostrando la crecida sobre el valle.'
+          description: 'Comparación real de NISAR entre el 5 y el 17 de enero de 2026 mostrando la crecida sobre el valle.'
         },
         nepal: {
           title: 'Frontera Nepal–China (Puerto Gyirong)',
@@ -429,26 +429,26 @@
         card1: {
           tag: 'Costas y Bosques',
           title: 'Vista Costera — Maine, Estados Unidos',
-          desc: 'Vista oficial de NASA NISAR sobre Mount Desert Island y Bar Harbor, distinguiendo bosques, zonas urbanas, relieve y agua de día o de noche.',
-          alt: 'Vista oficial de NASA NISAR de bosques, zonas urbanas y agua costera en Maine, Estados Unidos'
+          desc: 'Vista oficial de NISAR sobre Mount Desert Island y Bar Harbor, distinguiendo bosques, zonas urbanas, relieve y agua de día o de noche.',
+          alt: 'Vista oficial de NISAR de bosques, zonas urbanas y agua costera en Maine, Estados Unidos'
         },
         card2: {
           tag: 'Agricultura y Cultivos',
           title: 'Cultivos y Humedales — Dakota del Norte, Estados Unidos',
-          desc: 'Vista oficial de NASA NISAR junto al río Forest mostrando cultivos, círculos de riego, bosques y humedales clave para la producción de alimentos.',
-          alt: 'Vista oficial de NASA NISAR de campos agrícolas y círculos de riego en Dakota del Norte, Estados Unidos'
+          desc: 'Vista oficial de NISAR junto al río Forest mostrando cultivos, círculos de riego, bosques y humedales clave para la producción de alimentos.',
+          alt: 'Vista oficial de NISAR de campos agrícolas y círculos de riego en Dakota del Norte, Estados Unidos'
         }
       },
       disclaimer: {
         title: 'Visualización Previa Simplificada',
-        text: 'Los mapas interactivos de Rojo a Azul utilizan una visualización previa simplificada de productos NASA NISAR pensada para lectura ciudadana rápida. Los archivos oficiales de NASA proveen datos calibrados para estudios científicos.'
+        text: 'Los mapas interactivos de Rojo a Azul utilizan una visualización previa simplificada de productos NISAR pensada para lectura ciudadana rápida. Los archivos oficiales de la agencia espacial proveen datos calibrados para estudios científicos.'
       },
       how: {
-        title: 'De Datos NASA a Información Clara',
+        title: 'De Datos a Información Clara',
         subtitle: 'Cuatro pasos simples llevan las observaciones del espacio directamente a tu navegador.',
         step1: {
           num: '01',
-          title: 'NASA NISAR',
+          title: 'NISAR',
           sub: 'Captura en Todo Clima',
           desc: 'Registra humedad superficial e inundaciones de día y de noche, sin verse bloqueado por tormentas ni nubes monzónicas.'
         },
@@ -456,7 +456,7 @@
           num: '02',
           title: 'Pipeline Python',
           sub: 'Traducción a Escala de Humedad',
-          desc: 'Convierte mediciones oficiales de NASA en imágenes livianas de Rojo a Azul y resúmenes de cambio verificados.'
+          desc: 'Convierte mediciones oficiales en imágenes livianas de Rojo a Azul y resúmenes de cambio verificados.'
         },
         step3: {
           num: '03',
@@ -476,7 +476,7 @@
         subtitle: 'Arquitectura estática liviana enfocada en velocidad, transparencia y accesibilidad.',
         cat1: {
           name: 'Datos Satelitales',
-          items: 'Misión NASA NISAR • Earthdata Search • Vistas GeoTIFF de Humedad'
+          items: 'Misión NISAR • Earthdata Search • Vistas GeoTIFF de Humedad'
         },
         cat2: {
           name: 'Procesamiento',
@@ -497,10 +497,10 @@
       },
       team: {
         title: 'Las Personas Detrás de LambdaX',
-        subtitle: 'Desarrollado desde el norte argentino para NASA Space Apps Challenge 2026.',
+        subtitle: 'Desarrollado desde el norte argentino para LambdaX 2026.',
         member1: {
           role: 'Datos e Investigación',
-          desc: 'Investigación de datos NASA NISAR y exploración de escenas satelitales.'
+          desc: 'Investigación de datos NISAR y exploración de escenas satelitales.'
         },
         member2: {
           role: 'Backend y Procesamiento de Datos',
@@ -520,15 +520,15 @@
         trackHeading: 'Información del Desafío',
         track: 'Dancing With the SARs',
         editionLabel: 'Edición:',
-        challenge: 'NASA Space Apps Challenge 2026',
+        challenge: 'LambdaX 2026',
         locationLabel: 'Ubicación:',
         location: 'Santiago del Estero / Tucumán, Argentina',
         openSourceHeading: 'Código Abierto',
-        github: 'Repositorio GitHub (Placeholder)',
+        github: 'Repositorio GitHub',
         pipelineLink: 'Aplicación Completa',
         docsLink: 'Sección Visor Ciudadano',
-        copyright: '© 2026 Proyecto LambdaX — NASA Space Apps Challenge.',
-        dataSource: 'Construido con imágenes oficiales de NASA NISAR y librerías abiertas de mapas web.'
+        copyright: '© 2026 Proyecto LambdaX — LambdaX.',
+        dataSource: 'Construido con imágenes oficiales de NISAR y librerías abiertas de mapas web.'
       }
     }
   };

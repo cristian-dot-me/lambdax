@@ -1,5 +1,5 @@
 /**
- * Real NASA NISAR zone catalog, Red-to-Blue palette stops, and gallery metadata
+ * Real NISAR zone catalog, Red-to-Blue palette stops, and gallery metadata
  * for the LambdaX citizen visualization landing page.
  * Loads verified spatial bounds, capture timestamps, PNG overlays, and statistics
  * from `nisar_live_scenes.json`, falling back seamlessly to built-in defaults
@@ -37,7 +37,7 @@
   ];
 
   /**
-   * Real NASA gallery imagery bundled locally under `PICTURES/`.
+   * Real gallery imagery bundled locally under `PICTURES/`.
    */
   const APPLICATIONS_GALLERY = [
     {
@@ -76,7 +76,7 @@
       startTime: '2026-06-23T22:23:12Z',
       date: '2026-06-23',
       timeUtc: '22:23',
-      platform: 'NASA NISAR',
+      platform: 'NISAR',
       blueImagePath: 'nisar_data/santiago_del_estero_capital_gcov_blue.png',
       isFirst2026Image: true
     },
@@ -85,7 +85,7 @@
         startTime: '2026-06-23T22:23:12Z',
         date: '2026-06-23',
         timeUtc: '22:23',
-        platform: 'NASA NISAR',
+        platform: 'NISAR',
         blueImagePath: 'nisar_data/santiago_del_estero_capital_gcov_blue.png',
         isFirst2026Image: true
       }
@@ -109,7 +109,7 @@
       startTime: '2026-01-05T03:42:00Z',
       date: '2026-01-05',
       timeUtc: '03:42',
-      platform: 'NASA NISAR',
+      platform: 'NISAR',
       blue_image_path: 'nisar_data/mozambique_chokwe_macia_floods_2026_before_blue.png',
       overlay_bounds: { west: 32.80, south: -25.15, east: 33.35, north: -24.40 },
       precomputed_stats: {
@@ -124,7 +124,7 @@
       startTime: '2026-01-17T03:42:00Z',
       date: '2026-01-17',
       timeUtc: '03:42',
-      platform: 'NASA NISAR',
+      platform: 'NISAR',
       blue_image_path: 'nisar_data/mozambique_chokwe_macia_floods_2026_after_blue.png',
       overlay_bounds: { west: 32.80, south: -25.15, east: 33.35, north: -24.40 },
       precomputed_stats: {
@@ -161,7 +161,7 @@
           startTime: '2026-08-16T12:58:00Z',
           date: '2026-08-16',
           timeUtc: '12:58',
-          platform: 'NASA NISAR',
+          platform: 'NISAR',
           blue_image_path: 'nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_before_blue.png',
           overlay_bounds: { west: 85.3, south: 28.14, east: 85.56, north: 28.34 },
           precomputed_stats: {
@@ -176,7 +176,7 @@
           startTime: '2026-08-28T12:58:00Z',
           date: '2026-08-28',
           timeUtc: '12:58',
-          platform: 'NASA NISAR',
+          platform: 'NISAR',
           blue_image_path: 'nisar_data/nepal_china_gyirong_port_floods_2026_track_a_ascending_after_blue.png',
           overlay_bounds: { west: 85.3, south: 28.14, east: 85.56, north: 28.34 },
           precomputed_stats: {
@@ -198,7 +198,7 @@
           startTime: '2026-08-16T12:58:00Z',
           date: '2026-08-16',
           timeUtc: '12:58',
-          platform: 'NASA NISAR',
+          platform: 'NISAR',
           blue_image_path: 'nisar_data/nepal_china_gyirong_port_floods_2026_track_b_descending_before_blue.png',
           overlay_bounds: { west: 85.10, south: 27.85, east: 85.60, north: 28.38 },
           precomputed_stats: {
@@ -213,7 +213,7 @@
           startTime: '2026-08-31T23:39:00Z',
           date: '2026-08-31',
           timeUtc: '23:39',
-          platform: 'NASA NISAR',
+          platform: 'NISAR',
           blue_image_path: 'nisar_data/nepal_china_gyirong_port_floods_2026_track_b_descending_after_blue.png',
           overlay_bounds: { west: 85.10, south: 27.85, east: 85.60, north: 28.38 },
           precomputed_stats: {
@@ -281,7 +281,7 @@
       startTime: scene.startTime || null,
       date: scene.date || (scene.startTime ? String(scene.startTime).slice(0, 10) : ''),
       timeUtc: scene.timeUtc || (scene.startTime ? String(scene.startTime).slice(11, 16) : '00:00'),
-      platform: 'NASA NISAR',
+      platform: 'NISAR',
       blue_image_path: pngPath,
       blueImagePath: pngPath,
       overlay_bounds: cleanBounds,

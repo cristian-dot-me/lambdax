@@ -1,5 +1,5 @@
 /**
- * Interactive Leaflet & Real NASA NISAR Red-to-Blue Map Controller for LambdaX Citizen HUD.
+ * Interactive Leaflet & Real NISAR Red-to-Blue Map Controller for LambdaX Citizen HUD.
  * Powers single-region inspection (Santiago del Estero) and synchronized Before/After flood
  * comparisons (Mozambique & Nepal–China), sharing core math and data structures with root `index.html`.
  */
@@ -64,7 +64,7 @@
         color: '#475569',
         badgeText: 'NO COVERAGE ON THIS DATE',
         surfaceTag: 'Edge outside the satellite pass',
-        citizenDesc: 'This edge fell outside the area captured by NASA NISAR on this specific date.'
+        citizenDesc: 'This edge fell outside the area captured by NISAR on this specific date.'
       }
     },
     es: {
@@ -114,7 +114,7 @@
         color: '#475569',
         badgeText: 'SIN COBERTURA EN ESTA FECHA',
         surfaceTag: 'Borde fuera de la pasada satelital',
-        citizenDesc: 'Este borde quedó fuera de la cobertura capturada por NASA NISAR en esta fecha.'
+        citizenDesc: 'Este borde quedó fuera de la cobertura capturada por NISAR en esta fecha.'
       }
     }
   };
@@ -939,7 +939,7 @@
         el.innerHTML = '';
         img = document.createElement('img');
         img.className = 'hud-fallback-raster';
-        img.alt = 'NASA NISAR surface moisture preview';
+        img.alt = 'NISAR surface moisture preview';
         img.style.opacity = String(this.overlayOpacity);
         el.appendChild(img);
 

@@ -1,7 +1,7 @@
 /**
  * Main Application Entry Point for the LambdaX Landing Page & Citizen HUD.
  * Coordinates bilingual i18n, hero radar animation, demo video fallback,
- * interactive NASA NISAR Citizen HUD maps, and real NASA applications gallery.
+ * interactive NISAR Citizen HUD maps, and  applications gallery.
  */
 (function (globalScope) {
   'use strict';
@@ -9,7 +9,7 @@
   /**
    * Demo video placeholder URL. Set to a YouTube/Vimeo embed or MP4 URL when ready.
    */
-  const PROJECT_DEMO_VIDEO_URL = '';
+  const PROJECT_DEMO_VIDEO_URL = 'video.mp4';
   globalScope.PROJECT_DEMO_VIDEO_URL = PROJECT_DEMO_VIDEO_URL;
 
   function translate(key, fallback) {
@@ -102,13 +102,32 @@
       container.innerHTML = '';
       if (url.endsWith('.mp4') || url.endsWith('.webm')) {
         const video = createEl('video', 'demo-video-frame', {
+          autoplay: 'true',
+          muted: 'true',
+          loop: 'true',
           controls: 'true',
           playsinline: 'true',
-          preload: 'metadata'
+          preload: 'auto'
         });
+        video.autoplay = true;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.loop = true;
+        video.controls = true;
+        video.playsInline = true;
         const source = createEl('source', '', { src: url, type: 'video/mp4' });
         video.appendChild(source);
+        video.addEventListener('ended', () => {
+          if (!video.paused) {
+            video.currentTime = 0;
+            video.play().catch(() => {});
+          }
+        });
         container.appendChild(video);
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {});
+        }
       } else {
         const iframe = createEl('iframe', 'demo-video-frame', {
           src: url,
