@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# lambdax
+>>>>>>> 50057cb53eedda056609f3a286833d204b3c8c76
 # λ LambdaX — NISAR 
 
 LambdaX is an easy to understand web application that translates complex technical an scientific data about the NISAR satellite to a simple and intuitive interface where any person can tell what they are watching and how it could help toasses damages after natural disasters. The current working demo shows two cases of natural disasters and how NISAR was important to visually allow researchersshare the data with the population. 
